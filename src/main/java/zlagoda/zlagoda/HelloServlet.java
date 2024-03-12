@@ -1,25 +1,27 @@
 package zlagoda.zlagoda;
 
 import java.io.*;
+import java.util.Map;
 
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import zlagoda.zlagoda.repositories.DatabaseTest;
 
 @WebServlet(name = "helloServlet", value = "/hello-servlet")
 public class HelloServlet extends HttpServlet {
-    private String message;
-
+    private DatabaseTest databaseTest;
     public void init() {
-        message = "Hello World!";
+        databaseTest = new DatabaseTest();
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
-
-        // Hello
         PrintWriter out = response.getWriter();
         out.println("<html><body>");
-        out.println("<h1>" + message + "</h1>");
+        Map<String, String> map = databaseTest.getConnect();
+        for(String name: map.keySet()) {
+            out.println("<h1>" + "FirstName --> " + name + "   LastName --> " + map.get(name) + "</h1>");
+        }
         out.println("</body></html>");
     }
 
