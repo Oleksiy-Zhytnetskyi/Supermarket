@@ -1,4 +1,4 @@
-package zlagoda.zlagoda.repositories;
+package zlagoda.zlagoda.dao.repositories;
 
 import java.sql.*;
 import java.util.HashMap;
@@ -7,7 +7,7 @@ import java.util.Map;
 public class DatabaseTest {
     final String URL = "jdbc:mysql://localhost:3306/zlagoda";
     final String USER = "root";
-    final String PASSWORD = "MySQL3506";
+    final String PASSWORD = "root";
     final String DRIVER = "com.mysql.cj.jdbc.Driver";
     Connection conn = null;
 
