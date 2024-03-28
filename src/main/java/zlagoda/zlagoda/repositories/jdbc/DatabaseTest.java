@@ -1,4 +1,4 @@
-package zlagoda.zlagoda.dao.repositories;
+package zlagoda.zlagoda.repositories.jdbc;
 
 import java.sql.*;
 import java.util.HashMap;
