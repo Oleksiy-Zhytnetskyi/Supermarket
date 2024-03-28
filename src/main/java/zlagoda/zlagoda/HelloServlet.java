@@ -5,7 +5,7 @@ import java.util.Map;
 
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
-import zlagoda.zlagoda.repositories.jdbc.DatabaseTest;
+import zlagoda.zlagoda.repository.jdbc.DatabaseTest;
 
 @WebServlet(name = "helloServlet", value = "/hello-servlet")
 public class HelloServlet extends HttpServlet {
