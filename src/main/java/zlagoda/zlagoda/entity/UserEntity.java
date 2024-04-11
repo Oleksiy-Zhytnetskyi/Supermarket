@@ -23,4 +23,6 @@ public class UserEntity {
     private String city;
     private String street;
     private String zipCode;
+    private String email;
+    private String password;
 }

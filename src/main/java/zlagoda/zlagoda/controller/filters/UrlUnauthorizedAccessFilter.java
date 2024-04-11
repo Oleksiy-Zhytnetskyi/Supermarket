@@ -60,14 +60,14 @@ public class UrlUnauthorizedAccessFilter implements Filter {
 
 	private boolean isUserAuthorizedForResource(String servletPath, UserEntity user) {
 		return (isManagerPage(servletPath) && user.getRole().equals(UserRole.MANAGER))
-				|| (isWaiterPage(servletPath) && user.getRole().equals(UserRole.CASHIER));
+				|| (isCashierPage(servletPath) && user.getRole().equals(UserRole.CASHIER));
 	}
 
 	private boolean isManagerPage(String requestURI) {
 		return requestURI.contains(UserRole.MANAGER.name());
 	}
 
-	private boolean isWaiterPage(String requestURI) {
+	private boolean isCashierPage(String requestURI) {
 		return requestURI.contains(UserRole.CASHIER.name());
 	}
 
