@@ -7,6 +7,7 @@ import zlagoda.zlagoda.repository.BaseRepositoryConnection;
 import zlagoda.zlagoda.repository.BaseRepositoryFactory;
 import zlagoda.zlagoda.repository.UserRepository;
 
+import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -21,7 +22,7 @@ public class JdbcRepositoryFactory extends BaseRepositoryFactory {
     public JdbcRepositoryFactory() {
         try {
             InitialContext ic = new InitialContext();
-            dataSource = (DataSource) ic.lookup("java:comp/env/jdbc/supermarket");
+            dataSource = (DataSource) ic.lookup("java:comp/env/jdbc/zlagoda");
             // TODO: Add web.xml (WEB-INF) and context.xml (META-INF)
 
         }

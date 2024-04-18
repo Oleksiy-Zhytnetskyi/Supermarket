@@ -2,6 +2,10 @@ package zlagoda.zlagoda.controller;
 
 import zlagoda.zlagoda.controller.command.Command;
 import zlagoda.zlagoda.controller.command.PageNotFoundCommand;
+import zlagoda.zlagoda.controller.command.authorization.GetLoginCommand;
+import zlagoda.zlagoda.controller.command.authorization.LogOutCommand;
+import zlagoda.zlagoda.controller.command.authorization.PostLoginCommand;
+import zlagoda.zlagoda.service.UserService;
 
 public enum CommandEnum {
 
@@ -9,6 +13,24 @@ public enum CommandEnum {
         {
             this.key = "GET:pageNotFound";
             this.command = new PageNotFoundCommand();
+        }
+    },
+    LOGOUT {
+        {
+            this.key = "GET:logout";
+            this.command = new LogOutCommand();
+        }
+    },
+    POST_LOGIN {
+        {
+            this.key = "POST:login";
+            this.command = new PostLoginCommand(UserService.getInstance());
+        }
+    },
+    GET_LOGIN {
+        {
+            this.key = "GET:login";
+            this.command = new GetLoginCommand();
         }
     };
 

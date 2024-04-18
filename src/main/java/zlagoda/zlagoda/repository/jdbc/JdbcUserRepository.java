@@ -19,7 +19,7 @@ public class JdbcUserRepository implements UserRepository {
     private static final Logger LOGGER = LogManager.getLogger(JdbcUserRepository.class);
 
 
-    private static String GET_BY_CREDENTIALS = "SELECT * FROM 'employee' WHERE email=? AND password=?";
+    private static String GET_BY_CREDENTIALS = "SELECT * FROM employee WHERE email=? AND password=?";
 
 
     private static String ID = "id_employee";
@@ -117,7 +117,7 @@ public class JdbcUserRepository implements UserRepository {
                 .surname(resultSet.getString(SURNAME))
                 .patronymic(resultSet.getString(PATRONYMIC))
                 .phone(resultSet.getString(PHONE_NUMBER))
-                .role(resultSet.getObject(ROLE, UserRole.class))
+                .role(UserRole.valueOf(resultSet.getString(ROLE).toUpperCase()))
                 .salary(resultSet.getDouble(SALARY))
                 .dateOfBirth(resultSet.getDate(DATE_OF_BIRTH))
                 .startDate(resultSet.getDate(DATE_OF_START))

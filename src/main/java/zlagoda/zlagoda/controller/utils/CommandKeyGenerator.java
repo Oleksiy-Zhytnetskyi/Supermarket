@@ -3,7 +3,7 @@ package zlagoda.zlagoda.controller.utils;
 import jakarta.servlet.http.HttpServletRequest;
 
 public final class CommandKeyGenerator {
-    private static String CONTROLLER_PATH = ".*/controller/";
+     private static String CONTROLLER_PATH = ".*/controller/";
     private static String REPLACEMENT = "";
     private static String DELIMITER = ":";
 
