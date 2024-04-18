@@ -29,16 +29,16 @@
 </head>
 <body>
 <nav class="bg-gray-800">
-    <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-        <div class="relative flex h-16 items-center">
+    <div class="mx-auto max-w-full px-2 sm:px-6 lg:px-8">
+        <div class="relative flex h-20 items-center justify-end">
             <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div class="flex flex-shrink-0 items-center">
-                    <img class="h-8 w-130" src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pinterest.com%2Fpin%2Fonline-shop-logo--230950287133081039%2F&psig=AOvVaw0w1ZYfP1PFw60j1jM7OnZh&ust=1713510637717000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCMj9wN-ay4UDFQAAAAAdAAAAABAE" alt="Your Company">
+                    <img class="h-16 w-16" src="images/logo.jpg" alt="Your Company">
                 </div>
             </div>
-            <div class="hidden sm:ml-6 sm:block top-5 right-50 w-100">
-                <div class="flex space-x-15">
-                    <a href="${pageContext.request.contextPath}/controller/login" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-large" aria-current="page">Log In</a>
+            <div class="hidden sm:ml-6 sm:block <%--top-5 right-48--%> w-52">
+                <div class="flex justify-center items-center">
+                    <a href="${pageContext.request.contextPath}/controller/login" class="bg-gray-900 text-white rounded-md px-3 py-2 text-lg font-medium w-1/2 text-center" aria-current="page">Log In</a>
                 </div>
             </div>
         </div>
