@@ -24,7 +24,7 @@
 </head>
 <body>
 <nav class="bg-gray-800">
-    <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-full px-2 sm:px-6 lg:px-8">
         <div class="relative flex h-16 items-center justify-between">
             <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
 
@@ -57,8 +57,14 @@
                     <a href="${pageContext.request.contextPath}/controller/logout" class="bg-gray-900 text-white rounded-md px-3 py-2 text-mg font-medium w-4/5 text-center" aria-current="page">Log Out</a>
                 </div>
 
-                <div class="relative ml-3">
-                    <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+
+
+                <div class="flex flex-shrink-0 items-center">
+                    <a href="${pageContext.request.contextPath}/controller/userByEmail">
+                        <div class="relative ml-3">
+                            <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
