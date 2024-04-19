@@ -17,31 +17,36 @@ public class JdbcUserRepository implements UserRepository {
     private static final Logger LOGGER = LogManager.getLogger(JdbcUserRepository.class);
 
 
-    private static String GET_ALL = "SELECT * FROM employee";
-    private static String GET_BY_ID = "SELECT * FROM employee WHERE id_employee=?";
-    private static String CREATE = "INSERT INTO employee (" +
+    private static final String GET_ALL = "SELECT * FROM employee";
+    private static final String GET_BY_ID = "SELECT * FROM employee WHERE id_employee=?";
+    private static final String CREATE = "INSERT INTO employee (" +
             "empl_surname, empl_name, empl_patronymic, empl_role, salary, date_of_birth, " +
             "date_of_start, phone_number, city, street, zip_code, email, password" +
             ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    private static String GET_BY_CREDENTIALS = "SELECT * FROM employee WHERE email=? AND password=?";
-    private static String GET_BY_EMAIL = "SELECT * FROM employee WHERE email=?";
-    private static String GET_BY_ROLE = "SELECT * FROM employee WHERE empl_role=?";
-    private static String GET_BY_SURNAME = "SELECT * FROM employee WHERE empl_surname=?";
+    private static final String UPDATE = "UPDATE employee "
+            + " SET empl_surname=?, empl_name=?, empl_patronymic=?, empl_role=?, salary=?, " +
+            "date_of_birth=?, date_of_start=?, phone_number=?, city=?, street=?, zip_code=?, " +
+            "email=?, password=? WHERE id_employee=?";
+    private static final String DELETE = "DELETE FROM employee WHERE id_employee=?";
+    private static final String GET_BY_CREDENTIALS = "SELECT * FROM employee WHERE email=? AND password=?";
+    private static final String GET_BY_EMAIL = "SELECT * FROM employee WHERE email=?";
+    private static final String GET_BY_ROLE = "SELECT * FROM employee WHERE empl_role=?";
+    private static final String GET_BY_SURNAME = "SELECT * FROM employee WHERE empl_surname=?";
 
-    private static String ID = "id_employee";
-    private static String SURNAME = "empl_surname";
-    private static String NAME = "empl_name";
-    private static String PATRONYMIC = "empl_patronymic";
-    private static String ROLE = "empl_role";
-    private static String SALARY = "salary";
-    private static String DATE_OF_BIRTH = "date_of_birth";
-    private static String DATE_OF_START = "date_of_start";
-    private static String PHONE_NUMBER = "phone_number";
-    private static String CITY = "city";
-    private static String STREET = "street";
-    private static String ZIP_CODE = "zip_code";
-    private static String EMAIL = "email";
-    private static String PASSWORD = "password";
+    private static final String ID = "id_employee";
+    private static final String SURNAME = "empl_surname";
+    private static final String NAME = "empl_name";
+    private static final String PATRONYMIC = "empl_patronymic";
+    private static final String ROLE = "empl_role";
+    private static final String SALARY = "salary";
+    private static final String DATE_OF_BIRTH = "date_of_birth";
+    private static final String DATE_OF_START = "date_of_start";
+    private static final String PHONE_NUMBER = "phone_number";
+    private static final String CITY = "city";
+    private static final String STREET = "street";
+    private static final String ZIP_CODE = "zip_code";
+    private static final String EMAIL = "email";
+    private static final String PASSWORD = "password";
 
 
     private Connection connection;
@@ -93,21 +98,8 @@ public class JdbcUserRepository implements UserRepository {
     @Override
     public void create(UserEntity user) {
         try (PreparedStatement query = connection.prepareStatement(CREATE, Statement.RETURN_GENERATED_KEYS)) {
-            query.setString(1, user.getSurname());
-            query.setString(2, user.getName());
-            query.setString(3, user.getPatronymic());
-            query.setString(4, user.getRole().toString());
-            query.setDouble(5, user.getSalary());
-            query.setDate(6, (Date)user.getDateOfBirth());
-            query.setDate(7, (Date)user.getStartDate());
-            query.setString(8, user.getPhone());
-            query.setString(9, user.getCity());
-            query.setString(10, user.getStreet());
-            query.setString(11, user.getZipCode());
-            query.setString(12, user.getEmail());
-            query.setString(13, user.getPassword());
+            setAllFields(query, user);
             query.executeUpdate();
-
             ResultSet keys = query.getGeneratedKeys();
             if (keys.next()) {
                 user.setId(keys.getString(1));
@@ -119,13 +111,26 @@ public class JdbcUserRepository implements UserRepository {
     }
 
     @Override
-    public void update(UserEntity e) {
-
+    public void update(UserEntity user) {
+        try (PreparedStatement query = connection.prepareStatement(UPDATE)) {
+            final int counterIndex = setAllFields(query, user);
+            query.setString(counterIndex + 1, user.getId());
+            query.executeUpdate();
+        } catch (SQLException e) {
+            LOGGER.error("JdbcUserRepository update SQL exception: " + user.getId(), e);
+            throw new ServerException(e);
+        }
     }
 
     @Override
     public void delete(String id) {
-
+        try (PreparedStatement query = connection.prepareStatement(DELETE)) {
+            query.setString(1, id);
+            query.executeUpdate();
+        } catch (SQLException e) {
+            LOGGER.error("JdbcUserRepository delete SQL exception: " + id, e);
+            throw new ServerException(e);
+        }
     }
 
     @Override
@@ -222,5 +227,23 @@ public class JdbcUserRepository implements UserRepository {
                 .email(resultSet.getString(EMAIL))
                 .password(resultSet.getString(PASSWORD))
                 .build();
+    }
+
+    private static int setAllFields(PreparedStatement query, UserEntity user) throws SQLException {
+        int index = 0;
+        query.setString(++index, user.getSurname());
+        query.setString(++index, user.getName());
+        query.setString(++index, user.getPatronymic());
+        query.setString(++index, user.getRole().toString());
+        query.setDouble(++index, user.getSalary());
+        query.setDate(++index, (Date)user.getDateOfBirth());
+        query.setDate(++index, (Date)user.getStartDate());
+        query.setString(++index, user.getPhone());
+        query.setString(++index, user.getCity());
+        query.setString(++index, user.getStreet());
+        query.setString(++index, user.getZipCode());
+        query.setString(++index, user.getEmail());
+        query.setString(++index, user.getPassword());
+        return index;
     }
 }
