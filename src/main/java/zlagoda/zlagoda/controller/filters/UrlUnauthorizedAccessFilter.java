@@ -11,15 +11,15 @@ import zlagoda.zlagoda.controller.utils.HttpWrapper;
 import zlagoda.zlagoda.controller.utils.RedirectionManager;
 import zlagoda.zlagoda.controller.utils.SessionManager;
 import zlagoda.zlagoda.entity.UserEntity;
-import zlagoda.zlagoda.entity.enums.UserRole;
 import zlagoda.zlagoda.locale.Message;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
-@WebFilter(urlPatterns = { "/controller/manager/*", "/controller/cashier/*" })
+@WebFilter(urlPatterns = { "/controller/*" } )
 public class UrlUnauthorizedAccessFilter implements Filter {
+
+	private static final String ALLOWED_PATH = "/controller/login";
 
 	private final static Logger LOGGER = Logger.getLogger(UrlUnauthorizedAccessFilter.class);
 	private static final String UNAUTHORIZED_ACCESS = "Unauthorized access to the resource: ";
@@ -36,7 +36,10 @@ public class UrlUnauthorizedAccessFilter implements Filter {
 
 		UserEntity user = SessionManager.getInstance().getUserFromSession(httpRequest.getSession());
 
-		if (!isUserRegistered(user) || !isUserAuthorizedForResource(httpRequest.getRequestURI(), user)) {
+		String path = ((HttpServletRequest) servletRequest).getRequestURI();
+		System.out.println(path);
+
+		if (!path.contains(ALLOWED_PATH) && (!isUserRegistered(user) /*|| !isUserAuthorizedForResource(httpRequest.getRequestURI(), user)*/)) {
 			logInfoAboutUnauthorizedAccess(httpRequest.getRequestURI());
 			HttpWrapper httpWrapper = new HttpWrapper(httpRequest, httpResponse);
 			Map<String, String> urlParams = new HashMap<>();
@@ -55,21 +58,20 @@ public class UrlUnauthorizedAccessFilter implements Filter {
 
 	private boolean isUserRegistered(UserEntity user) {
 		return user != null;
-
 	}
 
-	private boolean isUserAuthorizedForResource(String servletPath, UserEntity user) {
-		return (isManagerPage(servletPath) && user.getRole().equals(UserRole.MANAGER))
-				|| (isCashierPage(servletPath) && user.getRole().equals(UserRole.CASHIER));
-	}
+//	private boolean isUserAuthorizedForResource(String servletPath, UserEntity user) {
+//		return (isManagerPage(servletPath) && user.getRole().equals(UserRole.MANAGER))
+//				|| (isCashierPage(servletPath) && user.getRole().equals(UserRole.CASHIER));
+//	}
 
-	private boolean isManagerPage(String requestURI) {
-		return requestURI.contains(UserRole.MANAGER.name());
-	}
-
-	private boolean isCashierPage(String requestURI) {
-		return requestURI.contains(UserRole.CASHIER.name());
-	}
+//	private boolean isManagerPage(String requestURI) {
+//		return requestURI.contains(UserRole.MANAGER.name());
+//	}
+//
+//	private boolean isCashierPage(String requestURI) {
+//		return requestURI.contains(UserRole.CASHIER.name());
+//	}
 
 	private void logInfoAboutUnauthorizedAccess(String uri) {
 		LOGGER.info(UNAUTHORIZED_ACCESS + uri);

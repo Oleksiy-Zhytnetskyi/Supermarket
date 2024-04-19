@@ -1,5 +1,6 @@
 package zlagoda.zlagoda.controller.utils;
 
+import zlagoda.zlagoda.constants.ServletPath;
 import zlagoda.zlagoda.exception.ServerException;
 import jakarta.servlet.http.HttpServletRequest;
 import zlagoda.zlagoda.locale.MessageUtils;
@@ -45,6 +46,7 @@ public class RedirectionManager {
 
 
     private String generateUrlPath(HttpServletRequest request, String path) {
+        if(path.equals(ServletPath.BASE_PAGE)) return "/Zlagoda_war/";
         return new StringBuffer(request.getContextPath()).append(request.getServletPath()).append(path).toString();
     }
 

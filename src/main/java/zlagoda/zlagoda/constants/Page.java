@@ -2,7 +2,7 @@ package zlagoda.zlagoda.constants;
 
 public interface Page {
 
-    public static final String PREFIX = "/WEB-INF/views/";
+    public static final String PREFIX = "/WEB-INF/view/";
     public static final String ERROR_PREFIX = "errors";
     public static final String SUFFIX = ".jsp";
 

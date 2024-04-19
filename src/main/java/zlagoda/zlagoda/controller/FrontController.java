@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet(name = "FrontController", urlPatterns = "/FrontController")
+@WebServlet(name = "FrontController", urlPatterns = "/controller/*")
 public class FrontController extends HttpServlet {
 
     private static final Logger LOGGER = Logger.getLogger(FrontController.class);
