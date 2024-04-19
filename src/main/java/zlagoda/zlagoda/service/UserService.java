@@ -14,6 +14,7 @@ public class UserService {
     private static final Logger LOGGER = LogManager.getLogger(UserService.class);
 
     static final String GET_USER_BY_CREDENTIALS = "Get user by credentials: %s";
+    static final String GET_USER_BY_EMAIL = "Get user by email: %s";
 
     private final BaseRepositoryFactory repositoryFactory;
 
@@ -29,8 +30,15 @@ public class UserService {
 
     public Optional<UserEntity> getUserByCredentials(CredentialsView credentials) {
         LOGGER.info(String.format(GET_USER_BY_CREDENTIALS, credentials.getEmail()));
-        try (UserRepository userDao = repositoryFactory.createUserRepository()) {
-            return userDao.getUserByCredentials(credentials.getEmail(), credentials.getPassword());
+        try (UserRepository repository = repositoryFactory.createUserRepository()) {
+            return repository.getUserByCredentials(credentials.getEmail(), credentials.getPassword());
+        }
+    }
+
+    public Optional<UserEntity> getUserByEmail(String email) {
+        LOGGER.info(String.format(GET_USER_BY_EMAIL, email));
+        try (UserRepository repository = repositoryFactory.createUserRepository()) {
+            return repository.getUserByEmail(email);
         }
     }
 }
