@@ -11,6 +11,6 @@ CREATE TABLE IF NOT EXISTS employee(
     city            VARCHAR(50) NOT NULL,
     street          VARCHAR(50) NOT NULL,
     zip_code        VARCHAR(9) NOT NULL,
-    email           VARCHAR(50) NOT NULL,
+    email           VARCHAR(50) NOT NULL UNIQUE,
     password        VARCHAR(50) NOT NULL
 )

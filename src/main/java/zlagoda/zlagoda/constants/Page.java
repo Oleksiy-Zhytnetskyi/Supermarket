@@ -2,12 +2,13 @@ package zlagoda.zlagoda.constants;
 
 public interface Page {
 
-    public static final String PREFIX = "/WEB-INF/view/";
-    public static final String ERROR_PREFIX = "errors";
-    public static final String SUFFIX = ".jsp";
+    String PREFIX = "/WEB-INF/view/";
+    String ERROR_PREFIX = "errors";
+    String SUFFIX = ".jsp";
 
-    public static final String HOME_VIEW = "/index" + SUFFIX;
-    public static final String LOGIN_VIEW = PREFIX + "login" + SUFFIX;
+    String HOME_VIEW = "/index" + SUFFIX;
+    String LOGIN_VIEW = PREFIX + "login" + SUFFIX;
+    String MY_PROFILE = PREFIX + "myProfile" + SUFFIX;
 
-    public static final String PAGE_NOT_FOUND = PREFIX + ERROR_PREFIX + "pageNotFound" + SUFFIX;
+    String PAGE_NOT_FOUND = PREFIX + ERROR_PREFIX + "pageNotFound" + SUFFIX;
 }

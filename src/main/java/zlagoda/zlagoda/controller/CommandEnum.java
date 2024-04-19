@@ -5,6 +5,7 @@ import zlagoda.zlagoda.controller.command.PageNotFoundCommand;
 import zlagoda.zlagoda.controller.command.authorization.GetLoginCommand;
 import zlagoda.zlagoda.controller.command.authorization.LogOutCommand;
 import zlagoda.zlagoda.controller.command.authorization.PostLoginCommand;
+import zlagoda.zlagoda.controller.command.user.GetUserByEmailCommand;
 import zlagoda.zlagoda.service.UserService;
 
 public enum CommandEnum {
@@ -32,8 +33,13 @@ public enum CommandEnum {
             this.key = "GET:login";
             this.command = new GetLoginCommand();
         }
+    },
+    USER_BY_EMAIL {
+        {
+            this.key = "GET:userByEmail";
+            this.command = new GetUserByEmailCommand(UserService.getInstance());
+        }
     };
-
 
 
     String key;
