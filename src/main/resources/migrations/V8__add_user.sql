@@ -1,2 +1,3 @@
 INSERT INTO employee (id_employee, empl_surname, empl_name, empl_patronymic, empl_role, salary, date_of_birth, date_of_start, phone_number, city, street, zip_code, email, password)
-VALUES (1, 'Tarasenko', 'Misha', 'S', 'manager', '999999', DATE '2005-06-01', DATE '2024-04-01', '1234567', 'gde', 'to', '123456', 'admin@gmail.com', '123456');
+VALUES (1, 'Tarasenko', 'Misha', 'S', 'MANAGER', '999999', DATE '2005-06-01', DATE '2024-04-01', '1234567', 'gde', 'to', '123456', 'admin@gmail.com', '123456'),
+        (2, 'Syniak', 'Sasha', 'S', 'CASHIER', '999999', DATE '2004-10-25', DATE '2024-04-01', '1234567', 'gde', 'to', '123456', 'cashier@gmail.com', '654321');
