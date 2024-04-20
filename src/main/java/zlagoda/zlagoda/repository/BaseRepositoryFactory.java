@@ -17,6 +17,8 @@ public abstract class BaseRepositoryFactory {
     public abstract BaseRepositoryConnection getConnection();
     public abstract UserRepository createUserRepository();
     public abstract UserRepository createUserRepository(BaseRepositoryConnection connection);
+    public abstract CategoryRepository createCategoryRepository();
+    public abstract CategoryRepository createCategoryRepository(BaseRepositoryConnection connection);
 
     public static BaseRepositoryFactory getRepositoryFactory() {
         if(repositoryFactory == null) {

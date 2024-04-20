@@ -16,7 +16,6 @@ public class JdbcUserRepository implements UserRepository {
 
     private static final Logger LOGGER = LogManager.getLogger(JdbcUserRepository.class);
 
-
     private static final String GET_ALL = "SELECT * FROM employee";
     private static final String GET_BY_ID = "SELECT * FROM employee WHERE id_employee=?";
     private static final String CREATE = "INSERT INTO employee (" +
@@ -47,7 +46,6 @@ public class JdbcUserRepository implements UserRepository {
     private static final String ZIP_CODE = "zip_code";
     private static final String EMAIL = "email";
     private static final String PASSWORD = "password";
-
 
     private Connection connection;
     private boolean connectionShouldBeClosed;
