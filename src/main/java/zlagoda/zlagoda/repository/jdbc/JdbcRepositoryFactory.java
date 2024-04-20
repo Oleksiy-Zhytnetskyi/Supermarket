@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import zlagoda.zlagoda.exception.ServerException;
 import zlagoda.zlagoda.repository.BaseRepositoryConnection;
 import zlagoda.zlagoda.repository.BaseRepositoryFactory;
+import zlagoda.zlagoda.repository.CategoryRepository;
 import zlagoda.zlagoda.repository.UserRepository;
 
 import javax.naming.Context;
@@ -48,13 +49,30 @@ public class JdbcRepositoryFactory extends BaseRepositoryFactory {
         try {
             return new JdbcUserRepository(dataSource.getConnection(), true);
         } catch (SQLException e) {
-            LOGGER.error("Can't get DB Connection for JdbcUserDao creation", e);
+            LOGGER.error("Can't get DB Connection for JdbcUserRepository creation", e);
             throw new ServerException(e);
         }
     }
 
     @Override
     public UserRepository createUserRepository(BaseRepositoryConnection connection) {
-        return null;
+        JdbcRepositoryConnection jdbcConnection = (JdbcRepositoryConnection)connection;
+        return new JdbcUserRepository(jdbcConnection.getConnection());
+    }
+
+    @Override
+    public CategoryRepository createCategoryRepository() {
+        try {
+            return new JdbcCategoryRepository(dataSource.getConnection(), true);
+        } catch (SQLException e) {
+            LOGGER.error("Can't get DB Connection for JdbcCategoryRepository creation", e);
+            throw new ServerException(e);
+        }
+    }
+
+    @Override
+    public CategoryRepository createCategoryRepository(BaseRepositoryConnection connection) {
+        JdbcRepositoryConnection jdbcConnection = (JdbcRepositoryConnection)connection;
+        return new JdbcCategoryRepository(jdbcConnection.getConnection());
     }
 }
