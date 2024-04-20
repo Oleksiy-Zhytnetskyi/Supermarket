@@ -1,13 +1,13 @@
-package zlagoda.zlagoda.entity;
+package zlagoda.zlagoda.view;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 @Builder
 @Getter
 @Setter
-@EqualsAndHashCode
-@ToString
-public class CardEntity {
+public class CardView {
     private String id;
     private String customerSurname;
     private String customerName;

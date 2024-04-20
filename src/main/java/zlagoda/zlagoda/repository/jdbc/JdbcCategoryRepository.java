@@ -64,7 +64,7 @@ public class JdbcCategoryRepository implements CategoryRepository {
             }
 
         } catch (SQLException e) {
-            LOGGER.error("JdbcUserRepository getById SQL exception: " + id, e);
+            LOGGER.error("JdbcCategoryRepository getById SQL exception: " + id, e);
             throw new ServerException(e);
         }
         return category;
@@ -88,8 +88,8 @@ public class JdbcCategoryRepository implements CategoryRepository {
     @Override
     public void update(CategoryEntity category) {
         try (PreparedStatement query = connection.prepareStatement(UPDATE)) {
-            query.setInt(1, category.getId());
-            query.setString(2, category.getName());
+            query.setString(1, category.getName());
+            query.setInt(2, category.getId());
             query.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error("JdbcCategoryRepository update SQL exception: " + category.getId(), e);
@@ -114,7 +114,7 @@ public class JdbcCategoryRepository implements CategoryRepository {
             try {
                 connection.close();
             } catch (SQLException e) {
-                LOGGER.error("JdbcUserRepository Connection can't be closed", e);
+                LOGGER.error("JdbcCategoryRepository Connection can't be closed", e);
                 throw new ServerException(e);
             }
         }
