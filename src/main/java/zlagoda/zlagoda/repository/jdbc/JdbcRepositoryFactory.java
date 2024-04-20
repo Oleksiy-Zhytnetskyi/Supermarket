@@ -3,10 +3,7 @@ package zlagoda.zlagoda.repository.jdbc;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import zlagoda.zlagoda.exception.ServerException;
-import zlagoda.zlagoda.repository.BaseRepositoryConnection;
-import zlagoda.zlagoda.repository.BaseRepositoryFactory;
-import zlagoda.zlagoda.repository.CategoryRepository;
-import zlagoda.zlagoda.repository.UserRepository;
+import zlagoda.zlagoda.repository.*;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -74,5 +71,21 @@ public class JdbcRepositoryFactory extends BaseRepositoryFactory {
     public CategoryRepository createCategoryRepository(BaseRepositoryConnection connection) {
         JdbcRepositoryConnection jdbcConnection = (JdbcRepositoryConnection)connection;
         return new JdbcCategoryRepository(jdbcConnection.getConnection());
+    }
+
+    @Override
+    public CardRepository createCardRepository() {
+        try {
+            return new JdbcCardRepository(dataSource.getConnection(), true);
+        } catch (SQLException e) {
+            LOGGER.error("Can't get DB Connection for JdbcCardRepository creation", e);
+            throw new ServerException(e);
+        }
+    }
+
+    @Override
+    public CardRepository createCardRepository(BaseRepositoryConnection connection) {
+        JdbcRepositoryConnection jdbcConnection = (JdbcRepositoryConnection)connection;
+        return new JdbcCardRepository(jdbcConnection.getConnection());
     }
 }

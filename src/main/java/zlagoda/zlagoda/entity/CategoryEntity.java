@@ -8,6 +8,6 @@ import lombok.*;
 @EqualsAndHashCode
 @ToString
 public class CategoryEntity {
-    private int id;
+    private Integer id;
     private String name;
 }

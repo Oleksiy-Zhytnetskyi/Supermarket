@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface CardRepository extends BaseRepository<CardEntity, String> {
     List<CardEntity> searchCardsByPercent(int percent);
-    List<CardEntity> searchByCustomerSurname(String surname);
+    List<CardEntity> searchCardsByCustomerSurname(String surname);
 }

@@ -15,7 +15,7 @@ public class CategoryService {
     private static final Logger LOGGER = LogManager.getLogger(CategoryService.class);
 
     private static final String GET_ALL_CATEGORIES = "Get all categories";
-    private static final String GET_CATEGORY_BY_ID = "Get category by id: %s";
+    private static final String GET_CATEGORY_BY_ID = "Get category by id: %d";
     private static final String CREATE_CATEGORY = "Create category: %s";
     private static final String UPDATE_CATEGORY = "Update category: %s";
     private static final String DELETE_CATEGORY = "Delete category: %s";
