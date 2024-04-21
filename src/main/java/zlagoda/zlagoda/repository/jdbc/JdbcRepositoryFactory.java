@@ -88,4 +88,20 @@ public class JdbcRepositoryFactory extends BaseRepositoryFactory {
         JdbcRepositoryConnection jdbcConnection = (JdbcRepositoryConnection)connection;
         return new JdbcCardRepository(jdbcConnection.getConnection());
     }
+
+    @Override
+    public ProductRepository createProductRepository() {
+        try {
+            return new JdbcProductRepository(dataSource.getConnection(), true);
+        } catch (SQLException e) {
+            LOGGER.error("Can't get DB Connection for JdbcProductRepository creation", e);
+            throw new ServerException(e);
+        }
+    }
+
+    @Override
+    public ProductRepository createProductRepository(BaseRepositoryConnection connection) {
+        JdbcRepositoryConnection jdbcConnection = (JdbcRepositoryConnection)connection;
+        return new JdbcProductRepository(jdbcConnection.getConnection());
+    }
 }
