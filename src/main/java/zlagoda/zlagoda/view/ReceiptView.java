@@ -1,15 +1,15 @@
-package zlagoda.zlagoda.entity;
+package zlagoda.zlagoda.view;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Builder
 @Getter
 @Setter
-@EqualsAndHashCode
-@ToString
-public class ReceiptEntity {
+public class ReceiptView {
     String id;
     LocalDate printDate;
     Double sumTotal;

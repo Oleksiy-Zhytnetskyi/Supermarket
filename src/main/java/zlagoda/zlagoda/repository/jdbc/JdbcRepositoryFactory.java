@@ -5,10 +5,8 @@ import org.apache.log4j.Logger;
 import zlagoda.zlagoda.exception.ServerException;
 import zlagoda.zlagoda.repository.*;
 
-import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
-import java.sql.Connection;
 import java.sql.SQLException;
 
 public class JdbcRepositoryFactory extends BaseRepositoryFactory {
@@ -103,5 +101,21 @@ public class JdbcRepositoryFactory extends BaseRepositoryFactory {
     public ProductRepository createProductRepository(BaseRepositoryConnection connection) {
         JdbcRepositoryConnection jdbcConnection = (JdbcRepositoryConnection)connection;
         return new JdbcProductRepository(jdbcConnection.getConnection());
+    }
+
+    @Override
+    public ReceiptRepository createReceiptRepository() {
+        try {
+            return new JdbcReceiptRepository(dataSource.getConnection(), true);
+        } catch (SQLException e) {
+            LOGGER.error("Can't get DB Connection for JdbcReceiptRepository creation", e);
+            throw new ServerException(e);
+        }
+    }
+
+    @Override
+    public ReceiptRepository createReceiptRepository(BaseRepositoryConnection connection) {
+        JdbcRepositoryConnection jdbcConnection = (JdbcRepositoryConnection)connection;
+        return new JdbcReceiptRepository(jdbcConnection.getConnection());
     }
 }
