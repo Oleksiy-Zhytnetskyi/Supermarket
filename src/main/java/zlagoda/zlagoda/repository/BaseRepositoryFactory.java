@@ -23,6 +23,8 @@ public abstract class BaseRepositoryFactory {
     public abstract CardRepository createCardRepository(BaseRepositoryConnection connection);
     public abstract ProductRepository createProductRepository();
     public abstract ProductRepository createProductRepository(BaseRepositoryConnection connection);
+    public abstract ReceiptRepository createReceiptRepository();
+    public abstract ReceiptRepository createReceiptRepository(BaseRepositoryConnection connection);
 
     public static BaseRepositoryFactory getRepositoryFactory() {
         if(repositoryFactory == null) {
