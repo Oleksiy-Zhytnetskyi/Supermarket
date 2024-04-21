@@ -10,20 +10,21 @@ import zlagoda.zlagoda.entity.UserEntity;
 import zlagoda.zlagoda.service.UserService;
 
 import java.io.IOException;
+import java.util.List;
 
-public class GetUserByEmailCommand implements Command {
+public class GetAllUsersCommand implements Command {
 
     private final UserService userService;
 
-    public GetUserByEmailCommand(UserService userService) {
+    public GetAllUsersCommand(UserService userService) {
         this.userService = userService;
     }
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UserEntity result = (UserEntity)req.getSession().getAttribute(Attribute.USER);
-        System.out.println(result);
-        req.setAttribute(Attribute.USER_DTO, result);
-        return Page.MY_PROFILE;
+        List<UserEntity> users = userService.getAllUsers();
+
+        req.setAttribute(Attribute.USERS, users);
+        return Page.ALL_USERS;
     }
 }

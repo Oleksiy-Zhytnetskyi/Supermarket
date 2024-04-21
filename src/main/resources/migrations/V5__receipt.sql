@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS receipt(
     check_number VARCHAR(10) PRIMARY KEY,
-    id_employee  VARCHAR(10) NOT NULL,
+    id_employee  INTEGER NOT NULL,
     card_number  VARCHAR(10),
     print_date   DATETIME NOT NULL,
     sum_total    DECIMAL(13, 4) NOT NULL,

@@ -23,13 +23,6 @@ public enum AppLocale {
     return DEFAULT_LOCALE;
   }
 
-  /**
-   * Return Locale type for a given language value
-   * 
-   * @param language
-   * @return
-   */
-
   public static Locale forValue(String language) {
     for (final AppLocale locale : AppLocale.values()) {
       if (locale.getLocale().getLanguage().equalsIgnoreCase(language)) {

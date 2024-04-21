@@ -15,6 +15,7 @@ import zlagoda.zlagoda.controller.utils.RedirectionManager;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -56,6 +57,8 @@ public class FrontController extends HttpServlet {
         } catch (ServiceException ex) {
             LOGGER.error("Error has occured while command execution with key: " + commandKey);
             redirectToHomePageWithErrorMessage(httpWrapper, ex);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
         }
     }
 

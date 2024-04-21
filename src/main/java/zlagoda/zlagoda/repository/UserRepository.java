@@ -6,7 +6,7 @@ import zlagoda.zlagoda.entity.enums.UserRole;
 import java.util.List;
 import java.util.Optional;
 
-public interface UserRepository extends BaseRepository<UserEntity, String> {
+public interface UserRepository extends BaseRepository<UserEntity, Integer> {
     Optional<UserEntity> getUserByCredentials(String email, String password);
     Optional<UserEntity> getUserByEmail(String email);
     List<UserEntity> searchUsersByRole(UserRole role);

@@ -8,6 +8,7 @@ import zlagoda.zlagoda.exception.ServerException;
 import zlagoda.zlagoda.repository.UserRepository;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -77,10 +78,10 @@ public class JdbcUserRepository implements UserRepository {
     }
 
     @Override
-    public Optional<UserEntity> getById(String id) {
+    public Optional<UserEntity> getById(Integer id) {
         Optional<UserEntity> user = Optional.empty();
         try (PreparedStatement query = connection.prepareStatement(GET_BY_ID)) {
-            query.setString(1, id);
+            query.setInt(1, id);
             ResultSet resultSet = query.executeQuery();
             while (resultSet.next()) {
                 user = Optional.of(extractUserFromResultSet(resultSet));
@@ -100,7 +101,7 @@ public class JdbcUserRepository implements UserRepository {
             query.executeUpdate();
             ResultSet keys = query.getGeneratedKeys();
             if (keys.next()) {
-                user.setId(keys.getString(1));
+                user.setId(keys.getInt(1));
             }
         } catch (SQLException e) {
             LOGGER.error("JdbcUserRepository create SQL exception", e);
@@ -110,9 +111,10 @@ public class JdbcUserRepository implements UserRepository {
 
     @Override
     public void update(UserEntity user) {
+        System.out.println(user);
         try (PreparedStatement query = connection.prepareStatement(UPDATE)) {
             final int counterIndex = setAllFields(query, user);
-            query.setString(counterIndex + 1, user.getId());
+            query.setInt(counterIndex + 1, user.getId());
             query.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error("JdbcUserRepository update SQL exception: " + user.getId(), e);
@@ -121,9 +123,9 @@ public class JdbcUserRepository implements UserRepository {
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(Integer id) {
         try (PreparedStatement query = connection.prepareStatement(DELETE)) {
-            query.setString(1, id);
+            query.setInt(1, id);
             query.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error("JdbcUserRepository delete SQL exception: " + id, e);
@@ -210,15 +212,15 @@ public class JdbcUserRepository implements UserRepository {
 
     protected static UserEntity extractUserFromResultSet(ResultSet resultSet) throws SQLException {
         return UserEntity.builder()
-                .id(resultSet.getString(ID))
+                .id(Integer.valueOf(resultSet.getString(ID)))
                 .name(resultSet.getString(NAME))
                 .surname(resultSet.getString(SURNAME))
                 .patronymic(resultSet.getString(PATRONYMIC))
                 .phone(resultSet.getString(PHONE_NUMBER))
                 .role(UserRole.valueOf(resultSet.getString(ROLE).toUpperCase()))
                 .salary(resultSet.getDouble(SALARY))
-                .dateOfBirth(resultSet.getDate(DATE_OF_BIRTH))
-                .startDate(resultSet.getDate(DATE_OF_START))
+                .dateOfBirth(resultSet.getDate(DATE_OF_BIRTH).toLocalDate())
+                .startDate(resultSet.getDate(DATE_OF_START).toLocalDate())
                 .city(resultSet.getString(CITY))
                 .street(resultSet.getString(STREET))
                 .zipCode(resultSet.getString(ZIP_CODE))
@@ -234,8 +236,8 @@ public class JdbcUserRepository implements UserRepository {
         query.setString(++index, user.getPatronymic());
         query.setString(++index, user.getRole().toString());
         query.setDouble(++index, user.getSalary());
-        query.setDate(++index, (Date)user.getDateOfBirth());
-        query.setDate(++index, (Date)user.getStartDate());
+        query.setDate(++index, Date.valueOf(user.getDateOfBirth()));
+        query.setDate(++index, Date.valueOf(user.getStartDate()));
         query.setString(++index, user.getPhone());
         query.setString(++index, user.getCity());
         query.setString(++index, user.getStreet());
