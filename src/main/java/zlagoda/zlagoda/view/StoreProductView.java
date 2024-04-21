@@ -1,17 +1,17 @@
-package zlagoda.zlagoda.entity;
+package zlagoda.zlagoda.view;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 @Builder
 @Getter
 @Setter
-@EqualsAndHashCode
-@ToString
-public class StoreProductEntity {
+public class StoreProductView {
     private String id;
     private Double sellingPrice;
     private Integer productQuantity;
     private Boolean isPromotional;
-    private StoreProductEntity promotionalEntity;
+    private StoreProductView promotionalView;
     private Integer productId;
 }
