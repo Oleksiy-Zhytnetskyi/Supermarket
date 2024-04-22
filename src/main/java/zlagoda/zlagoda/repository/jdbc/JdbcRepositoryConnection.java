@@ -1,5 +1,6 @@
 package zlagoda.zlagoda.repository.jdbc;
 
+import lombok.Getter;
 import zlagoda.zlagoda.repository.BaseRepositoryConnection;
 
 import java.sql.Connection;
@@ -8,15 +9,12 @@ import java.sql.SQLException;
 public class JdbcRepositoryConnection implements BaseRepositoryConnection {
     // TODO: Add a logger
 
+    @Getter
     private final Connection connection;
     private boolean inTransaction = false;
 
     public JdbcRepositoryConnection(Connection connection) {
         this.connection = connection;
-    }
-
-    public Connection getConnection() {
-        return connection;
     }
 
     @Override

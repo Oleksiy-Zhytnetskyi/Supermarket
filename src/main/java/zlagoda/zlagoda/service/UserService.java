@@ -45,7 +45,7 @@ public class UserService {
         }
     }
 
-    public Optional<UserEntity> getUserById(String userId) {
+    public Optional<UserEntity> getUserById(Integer userId) {
         LOGGER.info(String.format(GET_USER_BY_ID, userId));
         try (UserRepository repository = repositoryFactory.createUserRepository()) {
             return repository.getById(userId);
@@ -64,11 +64,13 @@ public class UserService {
         LOGGER.info(String.format(UPDATE_USER, userView.getId()));
         UserEntity user = buildUserFromView(userView);
         try (UserRepository repository = repositoryFactory.createUserRepository()) {
+            UserEntity prevUser = repository.getUserByEmail(user.getEmail()).get();
+            user.setId(prevUser.getId());
             repository.update(user);
         }
     }
 
-    public void deleteUser(String userId) {
+    public void deleteUser(Integer userId) {
         LOGGER.info(String.format(DELETE_USER, userId));
         try (UserRepository repository = repositoryFactory.createUserRepository()) {
             repository.delete(userId);

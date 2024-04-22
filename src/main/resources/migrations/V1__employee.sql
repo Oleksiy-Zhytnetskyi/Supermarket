@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS employee(
-    id_employee     VARCHAR(10) PRIMARY KEY,
+    id_employee     INTEGER AUTO_INCREMENT PRIMARY KEY,
     empl_surname    VARCHAR(50) NOT NULL,
     empl_name       VARCHAR(50) NOT NULL,
     empl_patronymic VARCHAR(50),

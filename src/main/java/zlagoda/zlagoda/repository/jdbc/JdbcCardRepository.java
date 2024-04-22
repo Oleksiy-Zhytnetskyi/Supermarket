@@ -1,5 +1,6 @@
 package zlagoda.zlagoda.repository.jdbc;
 
+import lombok.Setter;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import zlagoda.zlagoda.entity.CardEntity;
@@ -37,8 +38,9 @@ public class JdbcCardRepository implements CardRepository {
     private static final String ZIP_CODE = "zip_code";
     private static final String PERCENT = "percent";
 
+    @Setter
     private Connection connection;
-    private boolean connectionShouldBeClosed;
+    private final boolean connectionShouldBeClosed;
 
     public JdbcCardRepository(Connection connection) {
         this.connection = connection;
@@ -49,8 +51,6 @@ public class JdbcCardRepository implements CardRepository {
         this.connection = connection;
         this.connectionShouldBeClosed = connectionShouldBeClosed;
     }
-
-    public void setConnection(Connection connection) { this.connection = connection; }
 
     @Override
     public List<CardEntity> getAll() {
