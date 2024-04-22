@@ -1,5 +1,6 @@
 package zlagoda.zlagoda.service;
 
+import lombok.AllArgsConstructor;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import zlagoda.zlagoda.entity.CardEntity;
@@ -10,6 +11,7 @@ import zlagoda.zlagoda.view.CardView;
 import java.util.List;
 import java.util.Optional;
 
+@AllArgsConstructor
 public class CardService {
 
     private static final Logger LOGGER = LogManager.getLogger(CardService.class);
@@ -23,10 +25,6 @@ public class CardService {
     private static final String SEARCH_CARDS_BY_CUSTOMER_SURNAME = "Search cards by customer surname: %s";
 
     private final BaseRepositoryFactory repositoryFactory;
-
-    CardService(BaseRepositoryFactory repositoryFactory) {
-        this.repositoryFactory = repositoryFactory;
-    }
 
     private static class Holder {
         static final CardService INSTANCE = new CardService(BaseRepositoryFactory.getRepositoryFactory());

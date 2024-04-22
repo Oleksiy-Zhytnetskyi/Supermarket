@@ -1,5 +1,6 @@
 package zlagoda.zlagoda.service;
 
+import lombok.AllArgsConstructor;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import zlagoda.zlagoda.entity.StoreProductEntity;
@@ -10,6 +11,7 @@ import zlagoda.zlagoda.view.StoreProductView;
 import java.util.List;
 import java.util.Optional;
 
+@AllArgsConstructor
 public class StoreProductService {
 
     private static final Logger LOGGER = LogManager.getLogger(StoreProductService.class);
@@ -23,10 +25,6 @@ public class StoreProductService {
     private static final String GET_NON_DISCOUNTED_PRODUCTS = "Get non discounted store products";
 
     private final BaseRepositoryFactory repositoryFactory;
-
-    StoreProductService(BaseRepositoryFactory repositoryFactory) {
-        this.repositoryFactory = repositoryFactory;
-    }
 
     private static class Holder {
         static final StoreProductService INSTANCE = new StoreProductService(BaseRepositoryFactory.getRepositoryFactory());

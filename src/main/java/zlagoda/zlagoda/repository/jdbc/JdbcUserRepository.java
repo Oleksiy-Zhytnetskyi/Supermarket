@@ -1,5 +1,7 @@
 package zlagoda.zlagoda.repository.jdbc;
 
+import lombok.AllArgsConstructor;
+import lombok.Setter;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import zlagoda.zlagoda.entity.UserEntity;
@@ -8,11 +10,11 @@ import zlagoda.zlagoda.exception.ServerException;
 import zlagoda.zlagoda.repository.UserRepository;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@AllArgsConstructor
 public class JdbcUserRepository implements UserRepository {
 
     private static final Logger LOGGER = LogManager.getLogger(JdbcUserRepository.class);
@@ -48,20 +50,14 @@ public class JdbcUserRepository implements UserRepository {
     private static final String EMAIL = "email";
     private static final String PASSWORD = "password";
 
+    @Setter
     private Connection connection;
-    private boolean connectionShouldBeClosed;
+    private final boolean connectionShouldBeClosed;
 
     public JdbcUserRepository(Connection connection) {
         this.connection = connection;
         this.connectionShouldBeClosed = false;
     }
-
-    public JdbcUserRepository(Connection connection, boolean connectionShouldBeClosed) {
-        this.connection = connection;
-        this.connectionShouldBeClosed = connectionShouldBeClosed;
-    }
-
-    public void setConnection(Connection connection) { this.connection = connection; }
 
     @Override
     public List<UserEntity> getAll() {
