@@ -27,6 +27,8 @@ public abstract class BaseRepositoryFactory {
     public abstract ReceiptRepository createReceiptRepository(BaseRepositoryConnection connection);
     public abstract StoreProductRepository createStoreProductRepository();
     public abstract StoreProductRepository createStoreProductRepository(BaseRepositoryConnection connection);
+    public abstract SaleRepository createSaleRepository();
+    public abstract SaleRepository createSaleRepository(BaseRepositoryConnection connection);
 
     public static BaseRepositoryFactory getRepositoryFactory() {
         if(repositoryFactory == null) {

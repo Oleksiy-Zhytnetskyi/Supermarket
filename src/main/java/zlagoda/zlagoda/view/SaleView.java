@@ -1,14 +1,14 @@
-package zlagoda.zlagoda.entity;
+package zlagoda.zlagoda.view;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 import zlagoda.zlagoda.entity.keys.SaleEntityComplexKey;
 
 @Builder
 @Getter
 @Setter
-@EqualsAndHashCode
-@ToString
-public class SaleEntity {
+public class SaleView {
     private SaleEntityComplexKey pk;
     private Integer productQuantity;
     private Double sellingPrice;

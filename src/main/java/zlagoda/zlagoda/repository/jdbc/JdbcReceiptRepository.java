@@ -1,5 +1,7 @@
 package zlagoda.zlagoda.repository.jdbc;
 
+import lombok.AllArgsConstructor;
+import lombok.Setter;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import zlagoda.zlagoda.entity.ReceiptEntity;
@@ -12,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@AllArgsConstructor
 public class JdbcReceiptRepository implements ReceiptRepository {
 
     private static final Logger LOGGER = LogManager.getLogger(JdbcReceiptRepository.class);
@@ -29,9 +32,9 @@ public class JdbcReceiptRepository implements ReceiptRepository {
             "WHERE id_employee=? AND print_date>=? AND print_date<=?";
     private static final String GET_BY_TIME_PERIOD = "SELECT * FROM receipt " +
             "WHERE print_date>=? AND print_date<=?";
-    private static final String GET_SUM_TOTAL_BY_USER_AND_TIME_PERIOD = "SELECT COUNT(sum_total) FROM receipt " +
+    private static final String GET_SUM_TOTAL_BY_USER_AND_TIME_PERIOD = "SELECT SUM(sum_total) FROM receipt " +
             "WHERE id_employee=? AND print_date>=? AND print_date<=?";
-    private static final String GET_SUM_TOTAL_BY_TIME_PERIOD = "SELECT COUNT(sum_total) FROM receipt " +
+    private static final String GET_SUM_TOTAL_BY_TIME_PERIOD = "SELECT SUM(sum_total) FROM receipt " +
             "WHERE print_date>=? AND print_date<=?";
 
     private static final String ID = "check_number";
@@ -41,20 +44,14 @@ public class JdbcReceiptRepository implements ReceiptRepository {
     private static final String USER_ID = "id_employee";
     private static final String CARD_ID = "card_number";
 
+    @Setter
     private Connection connection;
-    private boolean connectionShouldBeClosed;
+    private final boolean connectionShouldBeClosed;
 
     public JdbcReceiptRepository(Connection connection) {
         this.connection = connection;
         this.connectionShouldBeClosed = false;
     }
-
-    public JdbcReceiptRepository(Connection connection, boolean connectionShouldBeClosed) {
-        this.connection = connection;
-        this.connectionShouldBeClosed = connectionShouldBeClosed;
-    }
-
-    public void setConnection(Connection connection) { this.connection = connection; }
 
     @Override
     public List<ReceiptEntity> getAll() {
@@ -181,7 +178,7 @@ public class JdbcReceiptRepository implements ReceiptRepository {
             query.setDate(3, Date.valueOf(timeEnd));
             ResultSet rs = query.executeQuery();
             while (rs.next()) {
-                result = rs.getDouble(SUM_TOTAL); // Does it even work???
+                result = rs.getDouble(1);
             }
         } catch (SQLException e) {
             LOGGER.error("JdbcReceiptRepository.getReceiptsTotalValueByUserAndTimePeriod SQL exception: ", e);
@@ -198,7 +195,7 @@ public class JdbcReceiptRepository implements ReceiptRepository {
             query.setDate(2, Date.valueOf(timeEnd));
             ResultSet rs = query.executeQuery();
             while (rs.next()) {
-                result = rs.getDouble(SUM_TOTAL); // Does it even work???
+                result = rs.getDouble(1);
             }
         } catch (SQLException e) {
             LOGGER.error("JdbcReceiptRepository.getReceiptsTotalValueByTimePeriod SQL exception: ", e);

@@ -13,7 +13,7 @@ public class JdbcRepositoryFactory extends BaseRepositoryFactory {
 
     private static final Logger LOGGER = LogManager.getLogger(JdbcRepositoryFactory.class);
 
-    private DataSource dataSource;
+    private final DataSource dataSource;
 
     public JdbcRepositoryFactory() {
         try {
@@ -133,5 +133,21 @@ public class JdbcRepositoryFactory extends BaseRepositoryFactory {
     public StoreProductRepository createStoreProductRepository(BaseRepositoryConnection connection) {
         JdbcRepositoryConnection jdbcConnection = (JdbcRepositoryConnection)connection;
         return new JdbcStoreProductRepository(jdbcConnection.getConnection());
+    }
+
+    @Override
+    public SaleRepository createSaleRepository() {
+        try {
+            return new JdbcSaleRepository(dataSource.getConnection(), true);
+        } catch (SQLException e) {
+            LOGGER.error("Can't get DB Connection for JdbcSaleRepository creation", e);
+            throw new ServerException(e);
+        }
+    }
+
+    @Override
+    public SaleRepository createSaleRepository(BaseRepositoryConnection connection) {
+        JdbcRepositoryConnection jdbcConnection = (JdbcRepositoryConnection)connection;
+        return new JdbcSaleRepository(jdbcConnection.getConnection());
     }
 }
