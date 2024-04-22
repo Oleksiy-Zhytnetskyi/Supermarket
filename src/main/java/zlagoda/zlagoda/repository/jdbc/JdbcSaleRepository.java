@@ -68,7 +68,7 @@ public class JdbcSaleRepository implements SaleRepository {
         Optional<SaleEntity> sale = Optional.empty();
         try (PreparedStatement query = connection.prepareStatement(GET_BY_ID)) {
             query.setString(1, id.getUPC());
-            query.setString(2, id.getReceiptId());
+            query.setInt(2, id.getReceiptId());
             ResultSet resultSet = query.executeQuery();
             while (resultSet.next()) {
                 sale = Optional.of(extractSaleFromResultSet(resultSet));
@@ -88,7 +88,7 @@ public class JdbcSaleRepository implements SaleRepository {
             query.executeUpdate();
             ResultSet keys = query.getGeneratedKeys();
             if (keys.next()) {
-                sale.setPk(new SaleEntityComplexKey(keys.getString(1), keys.getString(2)));
+                sale.setPk(new SaleEntityComplexKey(keys.getString(1), keys.getInt(2)));
             }
         } catch (SQLException e) {
             LOGGER.error("JdbcSaleRepository create SQL exception", e);
@@ -101,7 +101,7 @@ public class JdbcSaleRepository implements SaleRepository {
         try (PreparedStatement query = connection.prepareStatement(UPDATE)) {
             final int counterIndex = setAllFields(query, sale);
             query.setString(counterIndex + 1, sale.getPk().getUPC());
-            query.setString(counterIndex + 2, sale.getPk().getReceiptId());
+            query.setInt(counterIndex + 2, sale.getPk().getReceiptId());
             query.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error("JdbcSaleRepository update SQL exception: " + sale.getPk(), e);
@@ -113,7 +113,7 @@ public class JdbcSaleRepository implements SaleRepository {
     public void delete(SaleEntityComplexKey id) {
         try (PreparedStatement query = connection.prepareStatement(DELETE)) {
             query.setString(1, id.getUPC());
-            query.setString(2, id.getReceiptId());
+            query.setInt(2, id.getReceiptId());
             query.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error("JdbcSaleRepository delete SQL exception: " + id, e);
@@ -153,7 +153,7 @@ public class JdbcSaleRepository implements SaleRepository {
 
     protected static SaleEntity extractSaleFromResultSet(ResultSet resultSet) throws SQLException {
         return SaleEntity.builder()
-                .pk(new SaleEntityComplexKey(resultSet.getString(ID_UPC), resultSet.getString(ID_RECEIPT_ID)))
+                .pk(new SaleEntityComplexKey(resultSet.getString(ID_UPC), resultSet.getInt(ID_RECEIPT_ID)))
                 .productQuantity(resultSet.getInt(PRODUCT_QUANTITY))
                 .sellingPrice(resultSet.getDouble(SELLING_PRICE))
                 .build();

@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS customer_card(
-    card_number     VARCHAR(13) PRIMARY KEY,
+    card_number     INTEGER AUTO_INCREMENT PRIMARY KEY,
     cust_surname    VARCHAR(50) NOT NULL,
     cust_name       VARCHAR(50) NOT NULL,
     cust_patronymic VARCHAR(50),
@@ -7,5 +7,5 @@ CREATE TABLE IF NOT EXISTS customer_card(
     city            VARCHAR(50),
     street          VARCHAR(50),
     zip_code        VARCHAR(9),
-    percent         INT NOT NULL
+    percent         INTEGER NOT NULL
 )

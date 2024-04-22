@@ -1,5 +1,6 @@
 package zlagoda.zlagoda.repository.jdbc;
 
+import lombok.AllArgsConstructor;
 import lombok.Setter;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@AllArgsConstructor
 public class JdbcCardRepository implements CardRepository {
 
     private static final Logger LOGGER = LogManager.getLogger(JdbcCardRepository.class);
@@ -47,11 +49,6 @@ public class JdbcCardRepository implements CardRepository {
         this.connectionShouldBeClosed = false;
     }
 
-    public JdbcCardRepository(Connection connection, boolean connectionShouldBeClosed) {
-        this.connection = connection;
-        this.connectionShouldBeClosed = connectionShouldBeClosed;
-    }
-
     @Override
     public List<CardEntity> getAll() {
         List<CardEntity> cards = new ArrayList<>();
@@ -67,15 +64,14 @@ public class JdbcCardRepository implements CardRepository {
     }
 
     @Override
-    public Optional<CardEntity> getById(String id) {
+    public Optional<CardEntity> getById(Integer id) {
         Optional<CardEntity> card = Optional.empty();
         try (PreparedStatement query = connection.prepareStatement(GET_BY_ID)) {
-            query.setString(1, id);
+            query.setInt(1, id);
             ResultSet resultSet = query.executeQuery();
             while (resultSet.next()) {
                 card = Optional.of(extractCardFromResultSet(resultSet));
             }
-
         } catch (SQLException e) {
             LOGGER.error("JdbcCardRepository getById SQL exception: " + id, e);
             throw new ServerException(e);
@@ -90,7 +86,7 @@ public class JdbcCardRepository implements CardRepository {
             query.executeUpdate();
             ResultSet keys = query.getGeneratedKeys();
             if (keys.next()) {
-                card.setId(keys.getString(1));
+                card.setId(keys.getInt(1));
             }
         } catch (SQLException e) {
             LOGGER.error("JdbcCardRepository create SQL exception", e);
@@ -102,7 +98,7 @@ public class JdbcCardRepository implements CardRepository {
     public void update(CardEntity card) {
         try (PreparedStatement query = connection.prepareStatement(UPDATE)) {
             final int counterIndex = setAllFields(query, card);
-            query.setString(counterIndex + 1, card.getId());
+            query.setInt(counterIndex + 1, card.getId());
             query.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error("JdbcCardRepository update SQL exception: " + card.getId(), e);
@@ -111,9 +107,9 @@ public class JdbcCardRepository implements CardRepository {
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(Integer id) {
         try (PreparedStatement query = connection.prepareStatement(DELETE)) {
-            query.setString(1, id);
+            query.setInt(1, id);
             query.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error("JdbcCardRepository delete SQL exception: " + id, e);
@@ -167,7 +163,7 @@ public class JdbcCardRepository implements CardRepository {
 
     protected static CardEntity extractCardFromResultSet(ResultSet resultSet) throws SQLException {
         return CardEntity.builder()
-                .id(resultSet.getString(ID))
+                .id(resultSet.getInt(ID))
                 .customerSurname(resultSet.getString(CUSTOMER_SURNAME))
                 .customerName(resultSet.getString(CUSTOMER_NAME))
                 .customerPatronymic(resultSet.getString(CUSTOMER_PATRONYMIC))

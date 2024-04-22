@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class ReceiptView {
-    String id;
+    Integer id;
     LocalDate printDate;
     Double sumTotal;
     Double vat;

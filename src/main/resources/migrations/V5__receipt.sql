@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS receipt(
-    check_number VARCHAR(10) PRIMARY KEY,
+    check_number INTEGER AUTO_INCREMENT PRIMARY KEY,
     id_employee  INTEGER NOT NULL,
-    card_number  VARCHAR(10),
+    card_number  INTEGER,
     print_date   DATETIME NOT NULL,
     sum_total    DECIMAL(13, 4) NOT NULL,
     vat          DECIMAL(13, 4) NOT NULL,

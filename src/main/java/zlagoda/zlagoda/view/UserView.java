@@ -4,7 +4,6 @@ import lombok.*;
 import zlagoda.zlagoda.entity.enums.UserRole;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Builder
 @Getter

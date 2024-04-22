@@ -1,5 +1,6 @@
 package zlagoda.zlagoda.service;
 
+import lombok.AllArgsConstructor;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import zlagoda.zlagoda.entity.UserEntity;
@@ -12,25 +13,22 @@ import zlagoda.zlagoda.view.UserView;
 import java.util.List;
 import java.util.Optional;
 
+@AllArgsConstructor
 public class UserService {
 
     private static final Logger LOGGER = LogManager.getLogger(UserService.class);
 
     private static final String GET_ALL_USERS = "Get all users";
-    private static final String GET_USER_BY_ID = "Get user by id: %s";
+    private static final String GET_USER_BY_ID = "Get user by id: %d";
     private static final String CREATE_USER = "Create user: %s";
     private static final String UPDATE_USER = "Update user: %s";
-    private static final String DELETE_USER = "Delete user: %s";
+    private static final String DELETE_USER = "Delete user: %d";
     private static final String GET_USER_BY_CREDENTIALS = "Get user by credentials: %s";
     private static final String GET_USER_BY_EMAIL = "Get user by email: %s";
     private static final String SEARCH_USERS_BY_ROLE = "Search users by role: %s";
     private static final String SEARCH_USERS_BY_SURNAME = "Search users by surname: %s";
 
     private final BaseRepositoryFactory repositoryFactory;
-
-    UserService(BaseRepositoryFactory repositoryFactory) {
-        this.repositoryFactory = repositoryFactory;
-    }
 
     private static class Holder {
         static final UserService INSTANCE = new UserService(BaseRepositoryFactory.getRepositoryFactory());

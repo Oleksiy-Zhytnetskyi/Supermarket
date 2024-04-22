@@ -1,5 +1,6 @@
 package zlagoda.zlagoda.service;
 
+import lombok.AllArgsConstructor;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import zlagoda.zlagoda.entity.CategoryEntity;
@@ -10,6 +11,7 @@ import zlagoda.zlagoda.view.CategoryView;
 import java.util.List;
 import java.util.Optional;
 
+@AllArgsConstructor
 public class CategoryService {
 
     private static final Logger LOGGER = LogManager.getLogger(CategoryService.class);
@@ -18,13 +20,9 @@ public class CategoryService {
     private static final String GET_CATEGORY_BY_ID = "Get category by id: %d";
     private static final String CREATE_CATEGORY = "Create category: %s";
     private static final String UPDATE_CATEGORY = "Update category: %s";
-    private static final String DELETE_CATEGORY = "Delete category: %s";
+    private static final String DELETE_CATEGORY = "Delete category: %d";
 
     private final BaseRepositoryFactory repositoryFactory;
-
-    CategoryService(BaseRepositoryFactory repositoryFactory) {
-        this.repositoryFactory = repositoryFactory;
-    }
 
     private static class Holder {
         static final CategoryService INSTANCE = new CategoryService(BaseRepositoryFactory.getRepositoryFactory());
