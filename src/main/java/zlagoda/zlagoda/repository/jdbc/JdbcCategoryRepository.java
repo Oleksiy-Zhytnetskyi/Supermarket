@@ -1,5 +1,6 @@
 package zlagoda.zlagoda.repository.jdbc;
 
+import lombok.Setter;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import zlagoda.zlagoda.entity.CategoryEntity;
@@ -24,8 +25,9 @@ public class JdbcCategoryRepository implements CategoryRepository {
     private static final String ID = "category_number";
     private static final String NAME = "category_name";
 
+    @Setter
     private Connection connection;
-    private boolean connectionShouldBeClosed;
+    private final boolean connectionShouldBeClosed;
 
     public JdbcCategoryRepository(Connection connection) {
         this.connection = connection;
@@ -36,8 +38,6 @@ public class JdbcCategoryRepository implements CategoryRepository {
         this.connection = connection;
         this.connectionShouldBeClosed = connectionShouldBeClosed;
     }
-
-    public void setConnection(Connection connection) { this.connection = connection; }
 
     @Override
     public List<CategoryEntity> getAll() {

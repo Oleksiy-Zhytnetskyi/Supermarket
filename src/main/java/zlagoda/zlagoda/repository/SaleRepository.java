@@ -1,9 +1,10 @@
 package zlagoda.zlagoda.repository;
 
 import zlagoda.zlagoda.entity.SaleEntity;
+import zlagoda.zlagoda.entity.keys.SaleEntityComplexKey;
 
-import java.util.Date;
-//                                                                 (UPC)
-public interface SaleRepository extends BaseRepository<SaleEntity, String> {
-    Integer getSalesTotalCountByProductAndTimePeriod(int productId, Date timeStart, Date timeEnd);
+import java.time.LocalDate;
+
+public interface SaleRepository extends BaseRepository<SaleEntity, SaleEntityComplexKey> {
+    Integer getSoldProductQuantityByProductAndTimePeriod(int productId, LocalDate timeStart, LocalDate timeEnd);
 }

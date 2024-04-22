@@ -1,5 +1,6 @@
 package zlagoda.zlagoda.repository.jdbc;
 
+import lombok.Setter;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import zlagoda.zlagoda.entity.StoreProductEntity;
@@ -34,8 +35,9 @@ public class JdbcStoreProductRepository implements StoreProductRepository {
     private static final String PROMOTIONAL_ENTITY = "upc_prom";
     private static final String PRODUCT_ID = "id_product";
 
+    @Setter
     private Connection connection;
-    private boolean connectionShouldBeClosed;
+    private final boolean connectionShouldBeClosed;
 
     public JdbcStoreProductRepository(Connection connection) {
         this.connection = connection;
@@ -46,8 +48,6 @@ public class JdbcStoreProductRepository implements StoreProductRepository {
         this.connection = connection;
         this.connectionShouldBeClosed = connectionShouldBeClosed;
     }
-
-    public void setConnection(Connection connection) { this.connection = connection; }
 
     @Override
     public List<StoreProductEntity> getAll() {

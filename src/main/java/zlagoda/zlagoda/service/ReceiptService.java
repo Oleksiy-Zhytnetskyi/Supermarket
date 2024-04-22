@@ -1,5 +1,6 @@
 package zlagoda.zlagoda.service;
 
+import lombok.AllArgsConstructor;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import zlagoda.zlagoda.entity.ReceiptEntity;
@@ -11,6 +12,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+@AllArgsConstructor
 public class ReceiptService {
 
     private static final Logger LOGGER = LogManager.getLogger(ReceiptService.class);
@@ -21,19 +23,15 @@ public class ReceiptService {
     private static final String UPDATE_RECEIPT = "Update receipt: %s";
     private static final String DELETE_RECEIPT = "Delete receipt: %s";
     private static final String SEARCH_RECEIPTS_BY_USER_AND_TIME_PERIOD = "Search receipts by " +
-            "userId: %d, timeStart: %s, timeEnd: %s";
+            "userId: %d and time period (timeStart: %s, timeEnd: %s)";
     private static final String SEARCH_RECEIPTS_BY_TIME_PERIOD = "Search receipts by " +
-            "timeStart: %s, timeEnd: %s";
+            "time period (timeStart: %s, timeEnd: %s)";
     private static final String GET_RECEIPTS_TOTAL_VALUE_BY_USER_AND_TIME_PERIOD = "Get sum total of receipts by " +
-            "userId: %d, timeStart: %s, timeEnd: %s";
+            "userId: %d and time period (timeStart: %s, timeEnd: %s)";
     private static final String GET_RECEIPTS_TOTAL_VALUE_BY_TIME_PERIOD = "Get sum total of receipts by " +
-            "timeStart: %s, timeEnd: %s";
+            "time period (timeStart: %s, timeEnd: %s)";
 
     private final BaseRepositoryFactory repositoryFactory;
-
-    ReceiptService(BaseRepositoryFactory repositoryFactory) {
-        this.repositoryFactory = repositoryFactory;
-    }
 
     private static class Holder {
         static final ReceiptService INSTANCE = new ReceiptService(BaseRepositoryFactory.getRepositoryFactory());

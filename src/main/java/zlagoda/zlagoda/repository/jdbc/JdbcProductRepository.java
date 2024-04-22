@@ -1,5 +1,6 @@
 package zlagoda.zlagoda.repository.jdbc;
 
+import lombok.Setter;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import zlagoda.zlagoda.entity.ProductEntity;
@@ -32,8 +33,9 @@ public class JdbcProductRepository implements ProductRepository {
     private static final String CHARACTERISTICS = "characteristics";
     private static final String CATEGORY_ID = "category_number";
 
+    @Setter
     private Connection connection;
-    private boolean connectionShouldBeClosed;
+    private final boolean connectionShouldBeClosed;
 
     public JdbcProductRepository(Connection connection) {
         this.connection = connection;
@@ -44,8 +46,6 @@ public class JdbcProductRepository implements ProductRepository {
         this.connection = connection;
         this.connectionShouldBeClosed = connectionShouldBeClosed;
     }
-
-    public void setConnection(Connection connection) { this.connection = connection; }
 
     @Override
     public List<ProductEntity> getAll() {
