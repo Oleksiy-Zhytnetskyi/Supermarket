@@ -20,7 +20,7 @@ public class ProductService {
     private static final String GET_PRODUCT_BY_ID = "Get product by id: %d";
     private static final String CREATE_PRODUCT = "Create product: %s";
     private static final String UPDATE_PRODUCT = "Update product: %s";
-    private static final String DELETE_PRODUCT = "Delete product: %s";
+    private static final String DELETE_PRODUCT = "Delete product: %d";
     private static final String SEARCH_PRODUCTS_BY_CATEGORY = "Search products by categoryId: %d";
     private static final String SEARCH_PRODUCTS_BY_NAME = "Search products by name: %s";
 

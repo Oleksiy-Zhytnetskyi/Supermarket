@@ -19,10 +19,10 @@ public class UserService {
     private static final Logger LOGGER = LogManager.getLogger(UserService.class);
 
     private static final String GET_ALL_USERS = "Get all users";
-    private static final String GET_USER_BY_ID = "Get user by id: %s";
+    private static final String GET_USER_BY_ID = "Get user by id: %d";
     private static final String CREATE_USER = "Create user: %s";
     private static final String UPDATE_USER = "Update user: %s";
-    private static final String DELETE_USER = "Delete user: %s";
+    private static final String DELETE_USER = "Delete user: %d";
     private static final String GET_USER_BY_CREDENTIALS = "Get user by credentials: %s";
     private static final String GET_USER_BY_EMAIL = "Get user by email: %s";
     private static final String SEARCH_USERS_BY_ROLE = "Search users by role: %s";

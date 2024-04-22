@@ -17,10 +17,10 @@ public class CardService {
     private static final Logger LOGGER = LogManager.getLogger(CardService.class);
 
     private static final String GET_ALL_CARDS = "Get all cards";
-    private static final String GET_CARD_BY_ID = "Get card by id: %s";
+    private static final String GET_CARD_BY_ID = "Get card by id: %d";
     private static final String CREATE_CARD = "Create card: %s";
     private static final String UPDATE_CARD = "Update card: %s";
-    private static final String DELETE_CARD = "Delete card: %s";
+    private static final String DELETE_CARD = "Delete card: %d";
     private static final String SEARCH_CARDS_BY_PERCENT = "Search cards by percent: %d";
     private static final String SEARCH_CARDS_BY_CUSTOMER_SURNAME = "Search cards by customer surname: %s";
 
@@ -39,7 +39,7 @@ public class CardService {
         }
     }
 
-    public Optional<CardEntity> getCardById(String id) {
+    public Optional<CardEntity> getCardById(Integer id) {
         LOGGER.info(String.format(GET_CARD_BY_ID, id));
         try (CardRepository repository = repositoryFactory.createCardRepository()) {
             return repository.getById(id);
@@ -62,7 +62,7 @@ public class CardService {
         }
     }
 
-    public void deleteCard(String id) {
+    public void deleteCard(Integer id) {
         LOGGER.info(String.format(DELETE_CARD, id));
         try (CardRepository repository = repositoryFactory.createCardRepository()) {
             repository.delete(id);

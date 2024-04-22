@@ -20,7 +20,7 @@ public class CategoryService {
     private static final String GET_CATEGORY_BY_ID = "Get category by id: %d";
     private static final String CREATE_CATEGORY = "Create category: %s";
     private static final String UPDATE_CATEGORY = "Update category: %s";
-    private static final String DELETE_CATEGORY = "Delete category: %s";
+    private static final String DELETE_CATEGORY = "Delete category: %d";
 
     private final BaseRepositoryFactory repositoryFactory;
 

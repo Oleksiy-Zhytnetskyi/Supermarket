@@ -68,10 +68,10 @@ public class JdbcReceiptRepository implements ReceiptRepository {
     }
 
     @Override
-    public Optional<ReceiptEntity> getById(String id) {
+    public Optional<ReceiptEntity> getById(Integer id) {
         Optional<ReceiptEntity> receipt = Optional.empty();
         try (PreparedStatement query = connection.prepareStatement(GET_BY_ID)) {
-            query.setString(1, id);
+            query.setInt(1, id);
             ResultSet resultSet = query.executeQuery();
             while (resultSet.next()) {
                 receipt = Optional.of(extractReceiptFromResultSet(resultSet));
@@ -91,7 +91,7 @@ public class JdbcReceiptRepository implements ReceiptRepository {
             query.executeUpdate();
             ResultSet keys = query.getGeneratedKeys();
             if (keys.next()) {
-                receipt.setId(keys.getString(1));
+                receipt.setId(keys.getInt(1));
             }
         } catch (SQLException e) {
             LOGGER.error("JdbcReceiptRepository create SQL exception", e);
@@ -103,7 +103,7 @@ public class JdbcReceiptRepository implements ReceiptRepository {
     public void update(ReceiptEntity receipt) {
         try (PreparedStatement query = connection.prepareStatement(UPDATE)) {
             final int counterIndex = setAllFields(query, receipt);
-            query.setString(counterIndex + 1, receipt.getId());
+            query.setInt(counterIndex + 1, receipt.getId());
             query.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error("JdbcReceiptRepository update SQL exception: " + receipt.getId(), e);
@@ -112,9 +112,9 @@ public class JdbcReceiptRepository implements ReceiptRepository {
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(Integer id) {
         try (PreparedStatement query = connection.prepareStatement(DELETE)) {
-            query.setString(1, id);
+            query.setInt(1, id);
             query.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error("JdbcReceiptRepository delete SQL exception: " + id, e);
@@ -206,7 +206,7 @@ public class JdbcReceiptRepository implements ReceiptRepository {
 
     protected static ReceiptEntity extractReceiptFromResultSet(ResultSet resultSet) throws SQLException {
         return ReceiptEntity.builder()
-                .id(resultSet.getString(ID))
+                .id(resultSet.getInt(ID))
                 .printDate(resultSet.getDate(PRINT_DATE).toLocalDate())
                 .sumTotal(resultSet.getDouble(SUM_TOTAL))
                 .vat(resultSet.getDouble(VAT))

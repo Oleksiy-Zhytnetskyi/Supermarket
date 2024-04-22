@@ -9,5 +9,5 @@ import lombok.*;
 @AllArgsConstructor
 public class SaleEntityComplexKey {
     private String UPC;
-    private String receiptId;
+    private Integer receiptId;
 }

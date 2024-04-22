@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @EqualsAndHashCode
 @ToString
 public class ReceiptEntity {
-    String id;
+    Integer id;
     LocalDate printDate;
     Double sumTotal;
     Double vat;

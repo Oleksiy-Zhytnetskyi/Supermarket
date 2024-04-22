@@ -8,7 +8,7 @@ import lombok.*;
 @EqualsAndHashCode
 @ToString
 public class CardEntity {
-    private String id;
+    private Integer id;
     private String customerSurname;
     private String customerName;
     private String customerPatronymic;

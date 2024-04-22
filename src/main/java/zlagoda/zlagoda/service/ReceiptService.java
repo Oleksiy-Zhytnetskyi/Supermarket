@@ -18,10 +18,10 @@ public class ReceiptService {
     private static final Logger LOGGER = LogManager.getLogger(ReceiptService.class);
 
     private static final String GET_ALL_RECEIPTS = "Get all receipts";
-    private static final String GET_RECEIPT_BY_ID = "Get receipt by id: %s";
+    private static final String GET_RECEIPT_BY_ID = "Get receipt by id: %d";
     private static final String CREATE_RECEIPT = "Create receipt: %s";
     private static final String UPDATE_RECEIPT = "Update receipt: %s";
-    private static final String DELETE_RECEIPT = "Delete receipt: %s";
+    private static final String DELETE_RECEIPT = "Delete receipt: %d";
     private static final String SEARCH_RECEIPTS_BY_USER_AND_TIME_PERIOD = "Search receipts by " +
             "userId: %d and time period (timeStart: %s, timeEnd: %s)";
     private static final String SEARCH_RECEIPTS_BY_TIME_PERIOD = "Search receipts by " +
@@ -46,7 +46,7 @@ public class ReceiptService {
         }
     }
 
-    public Optional<ReceiptEntity> getReceiptById(String id) {
+    public Optional<ReceiptEntity> getReceiptById(Integer id) {
         LOGGER.info(String.format(GET_RECEIPT_BY_ID, id));
         try (ReceiptRepository repository = repositoryFactory.createReceiptRepository()) {
             return repository.getById(id);
@@ -69,7 +69,7 @@ public class ReceiptService {
         }
     }
 
-    public void deleteReceipt(String id) {
+    public void deleteReceipt(Integer id) {
         LOGGER.info(String.format(DELETE_RECEIPT, id));
         try (ReceiptRepository repository = repositoryFactory.createReceiptRepository()) {
             repository.delete(id);
