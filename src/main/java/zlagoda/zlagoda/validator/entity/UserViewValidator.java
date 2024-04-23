@@ -1,5 +1,6 @@
 package zlagoda.zlagoda.validator.entity;
 
+import lombok.NoArgsConstructor;
 import zlagoda.zlagoda.locale.Message;
 import zlagoda.zlagoda.validator.field.AbstractFieldValidatorHandler;
 import zlagoda.zlagoda.validator.field.FieldValidatorKey;
@@ -10,13 +11,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@NoArgsConstructor
 public class UserViewValidator implements Validator<UserView> {
-    private static String PASSWORD_REGEX = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,14}$";
+    private static final String PASSWORD_REGEX = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,14}$";
 
-    private AbstractFieldValidatorHandler fieldValidator = FieldValidatorsChainGenerator.getFieldValidatorChain();
-
-    UserViewValidator() {
-    }
+    private final AbstractFieldValidatorHandler fieldValidator = FieldValidatorsChainGenerator.getFieldValidatorChain();
 
     private static class Holder {
         static final UserViewValidator INSTANCE = new UserViewValidator();
@@ -27,13 +26,14 @@ public class UserViewValidator implements Validator<UserView> {
     }
 
     @Override
-    public List<String>  validate(UserView view) {
+    public List<String> validate(UserView view) {
         List<String> errors = new ArrayList<>();
 
         fieldValidator.validateField(FieldValidatorKey.NAME, view.getName(), errors);
         fieldValidator.validateField(FieldValidatorKey.SURNAME, view.getSurname(), errors);
         fieldValidator.validateField(FieldValidatorKey.PATRONYMIC, view.getPatronymic(), errors);
         fieldValidator.validateField(FieldValidatorKey.PHONE, view.getPhone(), errors);
+        fieldValidator.validateField(FieldValidatorKey.SALARY, String.valueOf(view.getSalary()), errors);
         fieldValidator.validateField(FieldValidatorKey.CITY, view.getCity(), errors);
         fieldValidator.validateField(FieldValidatorKey.STREET, view.getStreet(), errors);
         fieldValidator.validateField(FieldValidatorKey.ZIP_CODE, view.getZipCode(), errors);
