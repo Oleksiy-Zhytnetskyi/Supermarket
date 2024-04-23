@@ -1,5 +1,10 @@
 package zlagoda.zlagoda.validator.field;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
 public enum FieldValidatorKey {
 
     EMAIL("email"),
@@ -17,9 +22,5 @@ public enum FieldValidatorKey {
     STREET("street"),
     ZIP_CODE("zipCode");
 
-    private String value;
-
-    FieldValidatorKey(String value) {}
-
-    public String getValue() { return value; }
+    private final String value;
 }
