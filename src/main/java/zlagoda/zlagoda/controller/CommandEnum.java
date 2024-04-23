@@ -5,8 +5,10 @@ import zlagoda.zlagoda.controller.command.PageNotFoundCommand;
 import zlagoda.zlagoda.controller.command.authorization.GetLoginCommand;
 import zlagoda.zlagoda.controller.command.authorization.LogOutCommand;
 import zlagoda.zlagoda.controller.command.authorization.PostLoginCommand;
+import zlagoda.zlagoda.controller.command.category.*;
 import zlagoda.zlagoda.controller.command.i18n.ChangeLocaleCommand;
 import zlagoda.zlagoda.controller.command.user.*;
+import zlagoda.zlagoda.service.CategoryService;
 import zlagoda.zlagoda.service.UserService;
 
 public enum CommandEnum {
@@ -93,6 +95,42 @@ public enum CommandEnum {
         {
             this.key = "GET:sortUsers";
             this.command = new GetSortUserCommand(UserService.getInstance());
+        }
+    },
+    ALL_CATEGORIES {
+        {
+            this.key = "GET:allCategories";
+            this.command = new GetAllCategoryCommand(CategoryService.getInstance());
+        }
+    },
+    GET_UPATE_CATEGORY {
+        {
+            this.key = "GET:updateCategory";
+            this.command = new GetUpdateCategoryCommand(CategoryService.getInstance());
+        }
+    },
+    GET_CREATE_CATEGORY {
+        {
+            this.key = "GET:createCategory";
+            this.command = new GetCreateCategoryCommand(CategoryService.getInstance());
+        }
+    },
+    POST_UPDATE_CATEGORY {
+        {
+            this.key = "POST:updateCategory";
+            this.command = new PostUpdateCategoryCommand(CategoryService.getInstance());
+        }
+    },
+    POST_CREATE_CATEGORY {
+        {
+            this.key = "POST:createCategory";
+            this.command = new PostCreateCategoryCommand(CategoryService.getInstance());
+        }
+    },
+    DELETE_CATEGORY {
+        {
+            this.key = "GET:deleteCategory";
+            this.command = new DeleteCategoryCommand(CategoryService.getInstance());
         }
     };
 

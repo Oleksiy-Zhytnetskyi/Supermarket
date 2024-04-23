@@ -60,7 +60,7 @@ public class CategoryService {
         }
     }
 
-    public void setDeleteCategory(Integer id) {
+    public void deleteCategory(Integer id) {
         LOGGER.info(String.format(DELETE_CATEGORY, id));
         try (CategoryRepository repository = repositoryFactory.createCategoryRepository()) {
             repository.delete(id);

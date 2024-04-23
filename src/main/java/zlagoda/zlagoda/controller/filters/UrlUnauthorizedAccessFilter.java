@@ -37,7 +37,6 @@ public class UrlUnauthorizedAccessFilter implements Filter {
 		UserEntity user = SessionManager.getInstance().getUserFromSession(httpRequest.getSession());
 
 		String path = ((HttpServletRequest) servletRequest).getRequestURI();
-		System.out.println(path);
 
 		if (!path.contains(ALLOWED_PATH) && (!isUserRegistered(user) /*|| !isUserAuthorizedForResource(httpRequest.getRequestURI(), user)*/)) {
 			logInfoAboutUnauthorizedAccess(httpRequest.getRequestURI());

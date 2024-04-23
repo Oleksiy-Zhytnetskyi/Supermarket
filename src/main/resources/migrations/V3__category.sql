@@ -1,4 +1,4 @@
 CREATE TABLE IF NOT EXISTS category(
     category_number INTEGER AUTO_INCREMENT PRIMARY KEY,
-    category_name   VARCHAR(50) NOT NULL
+    category_name   VARCHAR(50) NOT NULL UNIQUE
 )

@@ -22,7 +22,6 @@ public class GetUpdateUserCommand implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UserEntity result = userService.getUserByEmail(req.getParameter(Attribute.EMAIL)).get();
-        System.out.println(result);
         req.setAttribute(Attribute.USER_VIEW, result);
         req.setAttribute("update", true);
         return Page.VIEW_USER;

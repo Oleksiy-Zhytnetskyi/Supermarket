@@ -72,7 +72,7 @@ public class UserViewValidator implements Validator<UserView> {
         System.out.println("Birth-->" + view.getDateOfBirth().getYear());
         if(view.getStartDate() == null) errors.add(Message.USER_START_DATE_NULL_ERROR);
         else if (view.getStartDate().getYear() - view.getDateOfBirth().getYear() < 18) {
-            errors.add(Message.USER_DATE_OF_BIRTH_INVALID_ERROR);
+            errors.add(Message.USER_START_DATE_INVALID_ERROR);
         }
     }
 }
