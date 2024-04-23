@@ -1,7 +1,7 @@
 package zlagoda.zlagoda.locale;
 
 public interface Message {
-    
+
     String LOGGED_IN_AS = "supermarket.loggedIn";
     String DIRECT_VIEW_ACCESS_ERROR = "supermarket.error.directViewAccessError";
     String UNAUTHORIZED_ACCESS_ERROR = "supermarket.error.authorizedAccessError";
@@ -45,4 +45,8 @@ public interface Message {
     String SUCCESS_CATEGORY_ADDITION = "supermarket.success.categorySuccessfullyAdded";
     String SUCCESS_CATEGORY_UPDATE = "supermarket.success.categorySuccessfullyUpdated";
     String SUCCESS_CATEGORY_DELETE = "supermarket.success.categorySuccessfullyDeleted";
+
+    public static final String SUCCESS_PRODUCT_ADDITION = "supermarket.success.productSuccessfullyAdded";
+    public static final String SUCCESS_PRODUCT_UPDATE = "supermarket.success.productSuccessfullyUpdated";
+    public static final String SUCCESS_PRODUCT_DELETE = "supermarket.success.productSuccessfullyDeleted";
 }
