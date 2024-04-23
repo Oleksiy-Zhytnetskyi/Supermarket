@@ -25,6 +25,8 @@ public interface Message {
     String STREET_NULL_ERROR = "supermarket.error.streetNullError";
     String ZIP_CODE_NULL_ERROR = "supermarket.error.zipCodeNullError";
     String PASSWORD_NULL_ERROR = "supermarket.error.passwordNullError";
+    String CATEGORY_NULL_ERROR = "supermarket.error.categoryNullError";
+    String CHARACTERISTICS_NULL_ERROR = "supermarket.error.characteristicsNullError";
 
     String NAME_INVALID_ERROR = "supermarket.error.nameInvalidError";
     String SURNAME_INVALID_ERROR = "supermarket.error.surnameInvalidError";
@@ -39,6 +41,7 @@ public interface Message {
     String ZIP_CODE_INVALID_ERROR = "supermarket.error.zipCodeInvalidError";
     String EMAIL_INVALID_ERROR = "supermarket.error.emailInvalidError";
     String PASSWORD_INVALID_ERROR = "supermarket.error.passwordInvalidError";
+    String CHARACTERISTICS_INVALID_ERROR = "supermarket.error.characteristicsInvalidError";
 
     String EMAIL_TAKEN_ERROR = "supermarket.error.emailTakenError";
 
@@ -46,7 +49,7 @@ public interface Message {
     String SUCCESS_CATEGORY_UPDATE = "supermarket.success.categorySuccessfullyUpdated";
     String SUCCESS_CATEGORY_DELETE = "supermarket.success.categorySuccessfullyDeleted";
 
-    public static final String SUCCESS_PRODUCT_ADDITION = "supermarket.success.productSuccessfullyAdded";
-    public static final String SUCCESS_PRODUCT_UPDATE = "supermarket.success.productSuccessfullyUpdated";
-    public static final String SUCCESS_PRODUCT_DELETE = "supermarket.success.productSuccessfullyDeleted";
+    String SUCCESS_PRODUCT_ADDITION = "supermarket.success.productSuccessfullyAdded";
+    String SUCCESS_PRODUCT_UPDATE = "supermarket.success.productSuccessfullyUpdated";
+    String SUCCESS_PRODUCT_DELETE = "supermarket.success.productSuccessfullyDeleted";
 }

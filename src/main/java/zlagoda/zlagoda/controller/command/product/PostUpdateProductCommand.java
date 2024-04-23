@@ -3,6 +3,7 @@ package zlagoda.zlagoda.controller.command.product;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.AllArgsConstructor;
 import zlagoda.zlagoda.constants.Attribute;
 import zlagoda.zlagoda.constants.Page;
 import zlagoda.zlagoda.constants.ServletPath;
@@ -13,6 +14,7 @@ import zlagoda.zlagoda.locale.Message;
 import zlagoda.zlagoda.service.CategoryService;
 import zlagoda.zlagoda.service.ProductService;
 import zlagoda.zlagoda.validator.entity.CategoryViewValidator;
+import zlagoda.zlagoda.validator.entity.ProductViewValidator;
 import zlagoda.zlagoda.view.CategoryView;
 import zlagoda.zlagoda.view.ProductView;
 
@@ -23,15 +25,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@AllArgsConstructor
 public class PostUpdateProductCommand implements Command {
 
     private final ProductService productService;
     private final CategoryService categoryService;
-
-    public PostUpdateProductCommand(ProductService productService, CategoryService categoryService) {
-        this.productService = productService;
-        this.categoryService = categoryService;
-    }
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, ParseException {
@@ -40,29 +38,32 @@ public class PostUpdateProductCommand implements Command {
 
         if (errors.isEmpty()) {
             productService.updateProduct(productView);
-            redirectToAllCategoryPageWithSuccessMessage(req, resp);
+            redirectToAllProductsPageWithSuccessMessage(req, resp);
             return RedirectionManager.REDIRECTION;
         }
 
         addRequestAttributes(req, productView, errors);
-        return Page.VIEW_CATEGORY;
+        return Page.VIEW_PRODUCT;
     }
 
     private ProductView getUserInput(HttpServletRequest req) throws ParseException {
-        return ProductView.builder()
-                .id(Integer.valueOf(req.getParameter(Attribute.ID)))
+        ProductView.ProductViewBuilder result = ProductView.builder()
                 .name(req.getParameter(Attribute.NAME))
-                .characteristics(req.getParameter(Attribute.CHARACTERISTICS))
-                .categoryId(Integer.parseInt(req.getParameter(Attribute.CATEGORY)))
-                .build();
+                .characteristics(req.getParameter(Attribute.CHARACTERISTICS));
+        if (!req.getParameter(Attribute.CATEGORY).equals("Choose a category")) {
+            result.categoryId(Integer.parseInt(req.getParameter(Attribute.CATEGORY)));
+        }
+        else {
+            result.categoryId(-1);
+        }
+        return result.build();
     }
 
     private List<String> validateUserInput(ProductView productView) {
-//        return CategoryViewValidator.getInstance().validate(productView);
-        return  new ArrayList<>();
+        return ProductViewValidator.getInstance().validate(productView);
     }
 
-    private void redirectToAllCategoryPageWithSuccessMessage(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void redirectToAllProductsPageWithSuccessMessage(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpWrapper httpWrapper = new HttpWrapper(request, response);
         Map<String, String> urlParams = new HashMap<>();
         urlParams.put(Attribute.SUCCESS, Message.SUCCESS_PRODUCT_UPDATE);
