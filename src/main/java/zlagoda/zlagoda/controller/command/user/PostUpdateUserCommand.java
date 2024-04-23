@@ -34,6 +34,7 @@ public class PostUpdateUserCommand implements Command {
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, ParseException {
         UserView userView = getUserInput(req);
         List<String> errors = validateUserInput(userView);
+        checkEmailTaken(userView, errors);
 
         if (errors.isEmpty()) {
             userService.updateUser(userView);
@@ -45,8 +46,15 @@ public class PostUpdateUserCommand implements Command {
         return Page.VIEW_USER;
     }
 
+    private void checkEmailTaken(UserView view, List<String> errors) {
+        if (UserService.getInstance().getUserByEmail(view.getEmail()).isPresent()) {
+            errors.add(Message.EMAIL_TAKEN_ERROR);
+        }
+    }
+
     private UserView getUserInput(HttpServletRequest req) throws ParseException {
         UserView.UserViewBuilder userViewBuilder = UserView.builder()
+                .id(Integer.valueOf(req.getParameter(Attribute.ID)))
                 .name(req.getParameter(Attribute.NAME))
                 .surname(req.getParameter(Attribute.SURNAME))
                 .patronymic(req.getParameter(Attribute.PATRONYMIC))

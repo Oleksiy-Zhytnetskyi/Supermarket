@@ -28,7 +28,7 @@
 
     <form class="w-4/5"
             <c:if test="${requestScope.create}"> action="./createUser" method="POST" role="form"</c:if>
-            <c:if test="${requestScope.update}"> action="./updateUser" method="POST" role="form"</c:if>>
+            <c:if test="${requestScope.update}"> action="./updateUser?id=${requestScope.userView.getId()}" method="POST" role="form"</c:if>>
         <div class="space-y-12">
             <div class=" pb-12">
                 <h2 class="text-3xl font-semibold leading-7 text-gray-900">Profile</h2>
