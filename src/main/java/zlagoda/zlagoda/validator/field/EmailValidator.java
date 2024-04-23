@@ -1,6 +1,7 @@
 package zlagoda.zlagoda.validator.field;
 
 import zlagoda.zlagoda.locale.Message;
+import zlagoda.zlagoda.service.UserService;
 
 import java.util.List;
 
@@ -20,7 +21,11 @@ public class EmailValidator extends AbstractFieldValidatorHandler {
 
     @Override
     void validateField(String fieldValue, List<String> errors) {
-        if(fieldValue.isEmpty() || !fieldValue.matches(EMAIL_REGEX))
-            errors.add(Message.INVALID_EMAIL);
+        if (fieldValue.isBlank()) {
+            errors.add(Message.EMAIL_NULL_ERROR);
+        }
+        else if (!fieldValue.matches(EMAIL_REGEX)) {
+            errors.add(Message.EMAIL_INVALID_ERROR);
+        }
     }
 }

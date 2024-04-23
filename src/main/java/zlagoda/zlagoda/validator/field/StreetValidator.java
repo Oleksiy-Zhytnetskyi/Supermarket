@@ -22,9 +22,9 @@ public class StreetValidator extends AbstractFieldValidatorHandler {
 
     @Override
     public void validateField(String fieldValue, List<String> errors) {
-        if(fieldValue.isBlank()) { errors.add(Message.USER_STREET_NULL_ERROR); }
+        if(fieldValue.isBlank()) { errors.add(Message.STREET_NULL_ERROR); }
         else if (!fieldValue.matches(STREET_REGEX)) {
-            errors.add(Message.USER_STREET_INVALID_ERROR);
+            errors.add(Message.STREET_INVALID_ERROR);
         }
     }
 }

@@ -33,6 +33,7 @@ public class PostCreateUserCommand implements Command {
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UserView userView = getUserInput(req);
         List<String> errors = validateUserInput(userView);
+        checkEmailTaken(userView, errors);
 
         if (errors.isEmpty()) {
             userService.createUser(userView);
@@ -42,6 +43,12 @@ public class PostCreateUserCommand implements Command {
 
         addRequestAttributes(req, userView, errors);
         return Page.VIEW_USER;
+    }
+
+    private void checkEmailTaken(UserView view, List<String> errors) {
+        if (UserService.getInstance().getUserByEmail(view.getEmail()).isPresent()) {
+            errors.add(Message.EMAIL_TAKEN_ERROR);
+        }
     }
 
     private UserView getUserInput(HttpServletRequest req) {
@@ -55,23 +62,18 @@ public class PostCreateUserCommand implements Command {
                 .zipCode(req.getParameter(Attribute.ZIP_CODE))
                 .email(req.getParameter(Attribute.EMAIL))
                 .password(req.getParameter(Attribute.PASSWORD));
-        if(!req.getParameter(Attribute.ROLE).equals("Choose a role")) {
-            userViewBuilder
-                    .role(UserRole.valueOf(req.getParameter(Attribute.ROLE)));
+        if (!req.getParameter(Attribute.ROLE).equals("Choose a role")) {
+            userViewBuilder.role(UserRole.valueOf(req.getParameter(Attribute.ROLE)));
         }
-        if(!req.getParameter(Attribute.SALARY).isBlank()) {
-            userViewBuilder
-                    .salary(Double.valueOf(req.getParameter(Attribute.SALARY)));
+        if (!req.getParameter(Attribute.SALARY).isBlank()) {
+            userViewBuilder.salary(req.getParameter(Attribute.SALARY));
         }
-        if(!req.getParameter(Attribute.DATE_OF_BIRTH).isBlank()) {
-            userViewBuilder
-                    .dateOfBirth(LocalDate.parse(req.getParameter(Attribute.DATE_OF_BIRTH)));
+        if (!req.getParameter(Attribute.DATE_OF_BIRTH).isBlank()) {
+            userViewBuilder.dateOfBirth(LocalDate.parse(req.getParameter(Attribute.DATE_OF_BIRTH)));
         }
-        if(!req.getParameter(Attribute.START_DATE).isBlank()) {
-            userViewBuilder
-                    .startDate(LocalDate.parse(req.getParameter(Attribute.START_DATE)));
+        if (!req.getParameter(Attribute.START_DATE).isBlank()) {
+            userViewBuilder.startDate(LocalDate.parse(req.getParameter(Attribute.START_DATE)));
         }
-
         return userViewBuilder.build();
     }
 

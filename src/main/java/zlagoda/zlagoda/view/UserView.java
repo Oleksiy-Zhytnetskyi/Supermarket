@@ -17,7 +17,7 @@ public class UserView {
     private String patronymic;
     private String phone;
     private UserRole role;
-    private Double salary;
+    private String salary;
     private LocalDate dateOfBirth;
     private LocalDate startDate;
     private String city;

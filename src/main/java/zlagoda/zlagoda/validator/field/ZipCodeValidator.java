@@ -22,9 +22,9 @@ public class ZipCodeValidator extends AbstractFieldValidatorHandler {
 
     @Override
     public void validateField(String fieldValue, List<String> errors) {
-        if(fieldValue.isBlank()) { errors.add(Message.USER_ZIP_CODE_NULL_ERROR); }
+        if(fieldValue.isBlank()) { errors.add(Message.ZIP_CODE_NULL_ERROR); }
         else if (!fieldValue.matches(ZIP_CODE_REGEX)) {
-            errors.add(Message.USER_ZIP_CODE_INVALID_ERROR);
+            errors.add(Message.ZIP_CODE_INVALID_ERROR);
         }
     }
 }

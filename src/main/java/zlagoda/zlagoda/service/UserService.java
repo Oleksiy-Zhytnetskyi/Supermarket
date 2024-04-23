@@ -111,7 +111,7 @@ public class UserService {
                 .patronymic(view.getPatronymic())
                 .phone(view.getPhone())
                 .role(view.getRole())
-                .salary(view.getSalary())
+                .salary(Double.valueOf(view.getSalary()))
                 .dateOfBirth(view.getDateOfBirth())
                 .startDate(view.getStartDate())
                 .city(view.getCity())

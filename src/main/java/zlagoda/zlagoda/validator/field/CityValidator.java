@@ -22,9 +22,9 @@ public class CityValidator extends AbstractFieldValidatorHandler {
 
     @Override
     public void validateField(String fieldValue, List<String> errors) {
-        if(fieldValue.isBlank()) { errors.add(Message.USER_CITY_NULL_ERROR); }
+        if(fieldValue.isBlank()) { errors.add(Message.CITY_NULL_ERROR); }
         else if (!fieldValue.matches(CITY_REGEX)) {
-            errors.add(Message.USER_CITY_INVALID_ERROR);
+            errors.add(Message.CITY_INVALID_ERROR);
         }
     }
 }
