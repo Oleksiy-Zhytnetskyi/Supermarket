@@ -46,4 +46,8 @@ public class Message {
     public static final String SUCCESS_CATEGORY_ADDITION = "magazine.success.categorySuccessfullyAdded";
     public static final String SUCCESS_CATEGORY_UPDATE = "magazine.success.categorySuccessfullyUpdated";
     public static final String SUCCESS_CATEGORY_DELETE = "magazine.success.categorySuccessfullyDeleted";
+
+    public static final String SUCCESS_PRODUCT_ADDITION = "magazine.success.productSuccessfullyAdded";
+    public static final String SUCCESS_PRODUCT_UPDATE = "magazine.success.productSuccessfullyUpdated";
+    public static final String SUCCESS_PRODUCT_DELETE = "magazine.success.productSuccessfullyDeleted";
 }
