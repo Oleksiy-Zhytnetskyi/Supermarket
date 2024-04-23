@@ -48,31 +48,31 @@ public class UserViewValidator implements Validator<UserView> {
     }
 
     private void checkPassword(UserView view, List<String> errors) {
-        if(view.getPassword().isBlank()) errors.add(Message.USER_PASSWORD_NULL_ERROR);
+        if(view.getPassword().isBlank()) errors.add(Message.PASSWORD_NULL_ERROR);
         else if (!view.getPassword().matches(PASSWORD_REGEX)) {
-            errors.add(Message.USER_PASSWORD_INVALID_ERROR);
+            errors.add(Message.PASSWORD_INVALID_ERROR);
         }
     }
 
     private void checkRole(UserView view, List<String> errors) {
-        if(view.getRole() == null) errors.add(Message.USER_ROLE_NULL_ERROR);
+        if(view.getRole() == null) errors.add(Message.ROLE_NULL_ERROR);
     }
 
     private void checkDateOfBirth(UserView view, List<String> errors) {
         System.out.println("today--> " +LocalDate.now().getYear());
         System.out.println("Birth-->" + view.getDateOfBirth().getYear());
-        if(view.getDateOfBirth() == null) errors.add(Message.USER_DATE_OF_BIRTH_NULL_ERROR);
+        if(view.getDateOfBirth() == null) errors.add(Message.DATE_OF_BIRTH_NULL_ERROR);
         else if (LocalDate.now().getYear() - view.getDateOfBirth().getYear() < 18) {
-            errors.add(Message.USER_DATE_OF_BIRTH_INVALID_ERROR);
+            errors.add(Message.DATE_OF_BIRTH_INVALID_ERROR);
         }
     }
 
     private void checkStartDate(UserView view, List<String> errors) {
         System.out.println("Start-->" + view.getStartDate().getYear());
         System.out.println("Birth-->" + view.getDateOfBirth().getYear());
-        if(view.getStartDate() == null) errors.add(Message.USER_START_DATE_NULL_ERROR);
+        if(view.getStartDate() == null) errors.add(Message.START_DATE_NULL_ERROR);
         else if (view.getStartDate().getYear() - view.getDateOfBirth().getYear() < 18) {
-            errors.add(Message.USER_START_DATE_INVALID_ERROR);
+            errors.add(Message.START_DATE_INVALID_ERROR);
         }
     }
 }
