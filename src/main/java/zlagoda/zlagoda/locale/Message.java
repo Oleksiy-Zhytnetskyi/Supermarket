@@ -29,7 +29,7 @@ public class Message {
     public static final String USER_EMAIL_NULL_ERROR = "magazine.error.userEmailNullError";
     public static final String USER_PASSWORD_NULL_ERROR = "magazine.error.userPasswordNullError";
 
-    public static final String USER_NAME_INVALID_ERROR = "magazine.error.userNameInvalidError";
+    public static final String NAME_INVALID_ERROR = "magazine.error.userNameInvalidError";
     public static final String USER_SURNAME_INVALID_ERROR = "magazine.error.userSurnameInvalidError";
     public static final String USER_PATRONYMIC_INVALID_ERROR = "magazine.error.userPatronymicInvalidError";
     public static final String USER_PHONE_INVALID_ERROR = "magazine.error.userPhoneInvalidError";
@@ -42,4 +42,8 @@ public class Message {
     public static final String USER_ZIP_CODE_INVALID_ERROR = "magazine.error.userZipCodeInvalidError";
     public static final String USER_EMAIL_INVALID_ERROR = "magazine.error.userEmailInvalidError";
     public static final String USER_PASSWORD_INVALID_ERROR = "magazine.error.userPasswordInvalidError";
+
+    public static final String SUCCESS_CATEGORY_ADDITION = "magazine.success.categorySuccessfullyAdded";
+    public static final String SUCCESS_CATEGORY_UPDATE = "magazine.success.categorySuccessfullyUpdated";
+    public static final String SUCCESS_CATEGORY_DELETE = "magazine.success.categorySuccessfullyDeleted";
 }

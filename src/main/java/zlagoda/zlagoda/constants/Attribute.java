@@ -8,12 +8,14 @@ public interface Attribute {
     String LOCALES = "locales";
     String LOCALE = "locale";
     String LANG = "lang";
-    String USER = "user";
-    String USER_VIEW = "userView";
 
     String LOGIN_USER = "loginUser";
     String EMAIL = "email";
     String PASSWORD = "password";
+
+    String USER = "user";
+    String USERS = "users";
+    String USER_VIEW = "userView";
 
     String ID = "id";
     String NAME = "name";
@@ -30,6 +32,6 @@ public interface Attribute {
     String USERS_SURNAME = "usersSurname";
     String USERS_ROLE = "usersRole";
 
-    String USERS = "users";
-    String ROLES = "roles";
+    String CATEGORIES = "categories";
+    String CATEGORY_VIEW = "categoryView";
 }

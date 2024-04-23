@@ -24,7 +24,7 @@ public class NameValidator extends AbstractFieldValidatorHandler {
     public void validateField(String fieldValue, List<String> errors) {
         if(fieldValue.isBlank()) { errors.add(Message.USER_NAME_NULL_ERROR); }
         else if (!fieldValue.matches(NAME_REGEX)) {
-            errors.add(Message.USER_NAME_INVALID_ERROR);
+            errors.add(Message.NAME_INVALID_ERROR);
         }
     }
 }
