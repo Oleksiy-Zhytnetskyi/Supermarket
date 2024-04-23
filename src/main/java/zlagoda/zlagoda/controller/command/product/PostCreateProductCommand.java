@@ -62,7 +62,7 @@ public class PostCreateProductCommand implements Command {
     private void redirectToAllCategoryPageWithSuccessMessage(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpWrapper httpWrapper = new HttpWrapper(request, response);
         Map<String, String> urlParams = new HashMap<>();
-        urlParams.put(Attribute.SUCCESS, Message.SUCCESS_PRODUCT_UPDATE);
+        urlParams.put(Attribute.SUCCESS, Message.SUCCESS_PRODUCT_ADDITION);
         RedirectionManager.getInstance().redirectWithParams(httpWrapper, ServletPath.ALL_PRODUCTS, urlParams);
     }
 
