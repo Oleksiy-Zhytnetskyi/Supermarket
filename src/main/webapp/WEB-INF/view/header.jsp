@@ -44,7 +44,7 @@
                         <c:if test="${user.getRole().toString() eq 'MANAGER'}">
                             <a href="${pageContext.request.contextPath}/controller/allUsers" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-xl font-medium">User</a>
                         </c:if>
-                        <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-xl font-medium">Products</a>
+                        <a href="${pageContext.request.contextPath}/controller/allProducts" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-xl font-medium">Products</a>
                         <a href="${pageContext.request.contextPath}/controller/allCategories" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-xl font-medium">Product Category</a>
                         <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-xl font-medium">Receipts</a>
                         <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-xl font-medium">Client card</a>

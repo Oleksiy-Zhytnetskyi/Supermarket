@@ -6,5 +6,5 @@ public interface ServletPath {
     String BASE_PAGE = "";
     String ALL_USERS = "/allUsers";
     String ALL_CATEGORIES = "/allCategories";
-
+    String ALL_PRODUCTS = "/allProducts";
 }

@@ -76,7 +76,8 @@
                             <button type="button" class="w-full relative rounded-lg bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" id="view-button" aria-expanded="false" aria-haspopup="true">
                                 <span>View</span>
                             </button>
-                        </a><a href="${pageContext.request.contextPath}/controller/updateUser?email=${user.getEmail()}" class="w-1/3 m-1.5">
+                        </a>
+                        <a href="${pageContext.request.contextPath}/controller/updateUser?email=${user.getEmail()}" class="w-1/3 m-1.5">
                             <button type="button" class="w-full relative rounded-lg bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" id="update-button" aria-expanded="false" aria-haspopup="true">
                                 <span>Edit</span>
                             </button>

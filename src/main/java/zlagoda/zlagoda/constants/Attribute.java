@@ -32,6 +32,13 @@ public interface Attribute {
     String USERS_SURNAME = "usersSurname";
     String USERS_ROLE = "usersRole";
 
+    String CATEGORY = "category";
     String CATEGORIES = "categories";
     String CATEGORY_VIEW = "categoryView";
+
+    String PRODUCT_VIEW = "productView";
+    String PRODUCTS = "products";
+    String CHARACTERISTICS = "characteristics";
+    String PRODUCTS_CATEGORY = "productsCategory";
+    String PRODUCTS_NAME = "productsName";
 }

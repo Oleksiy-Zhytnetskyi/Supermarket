@@ -22,7 +22,7 @@ public class JdbcProductRepository implements ProductRepository {
             "(product_name, characteristics, category_number) " +
             "VALUES (?, ?, ?)";
     private static final String UPDATE = "UPDATE product SET " +
-            "product_name=?, characteristics=?, category_number=?" +
+            "product_name=?, characteristics=?, category_number=? " +
             "WHERE id_product=?";
     private static final String DELETE = "DELETE FROM product WHERE id_product=?";
     private static final String GET_BY_CATEGORY_ID = "SELECT * FROM product where category_number=?";

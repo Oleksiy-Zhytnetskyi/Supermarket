@@ -7,8 +7,10 @@ import zlagoda.zlagoda.controller.command.authorization.LogOutCommand;
 import zlagoda.zlagoda.controller.command.authorization.PostLoginCommand;
 import zlagoda.zlagoda.controller.command.category.*;
 import zlagoda.zlagoda.controller.command.i18n.ChangeLocaleCommand;
+import zlagoda.zlagoda.controller.command.product.*;
 import zlagoda.zlagoda.controller.command.user.*;
 import zlagoda.zlagoda.service.CategoryService;
+import zlagoda.zlagoda.service.ProductService;
 import zlagoda.zlagoda.service.UserService;
 
 public enum CommandEnum {
@@ -131,6 +133,54 @@ public enum CommandEnum {
         {
             this.key = "GET:deleteCategory";
             this.command = new DeleteCategoryCommand(CategoryService.getInstance());
+        }
+    },
+    GET_ALL_PRODUCTS {
+        {
+            this.key = "GET:allProducts";
+            this.command = new GetAllProductsCommand(ProductService.getInstance(), CategoryService.getInstance());
+        }
+    },
+    GET_VIEW_PRODUCT {
+        {
+            this.key = "GET:viewProduct";
+            this.command = new GetViewProductCommand(ProductService.getInstance(), CategoryService.getInstance());
+        }
+    },
+    GET_UPDATE_PRODUCT {
+        {
+            this.key = "GET:updateProduct";
+            this.command = new GetUpdateProductCommand(ProductService.getInstance(), CategoryService.getInstance());
+        }
+    },
+    GET_CREATE_PRODUCT {
+        {
+            this.key = "GET:createProduct";
+            this.command = new GetCreateProductCommand(ProductService.getInstance(), CategoryService.getInstance());
+        }
+    },
+    POST_UPDATE_PRODUCT {
+        {
+            this.key = "POST:updateProduct";
+            this.command = new PostUpdateProductCommand(ProductService.getInstance(), CategoryService.getInstance());
+        }
+    },
+    POST_CREATE_PRODUCT {
+        {
+            this.key = "POST:createProduct";
+            this.command = new PostCreateProductCommand(ProductService.getInstance(), CategoryService.getInstance());
+        }
+    },
+    DELETE_PRODUCT {
+        {
+            this.key = "GET:deleteProduct";
+            this.command = new DeleteProductCommand(ProductService.getInstance());
+        }
+    },
+    GET_SORT_PRODUCTS {
+        {
+            this.key = "GET:sortProducts";
+            this.command = new GetSortProductCommand(ProductService.getInstance(), CategoryService.getInstance());
         }
     };
 
