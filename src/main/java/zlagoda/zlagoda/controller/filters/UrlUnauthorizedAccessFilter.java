@@ -44,7 +44,7 @@ public class UrlUnauthorizedAccessFilter implements Filter {
 			HttpWrapper httpWrapper = new HttpWrapper(httpRequest, httpResponse);
 			Map<String, String> urlParams = new HashMap<>();
 			urlParams.put(Attribute.ERROR, Message.UNAUTHORIZED_ACCESS_ERROR);
-			RedirectionManager.getInstance().redirectWithParams(httpWrapper, ServletPath.HOME, urlParams);
+			RedirectionManager.getInstance().redirectWithParams(httpWrapper, ServletPath.BASE_PAGE, urlParams);
 			return;
 		}
 
