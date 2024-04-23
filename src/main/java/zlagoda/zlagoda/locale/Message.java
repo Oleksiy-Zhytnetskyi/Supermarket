@@ -40,6 +40,8 @@ public interface Message {
     String EMAIL_INVALID_ERROR = "supermarket.error.emailInvalidError";
     String PASSWORD_INVALID_ERROR = "supermarket.error.passwordInvalidError";
 
+    String EMAIL_TAKEN_ERROR = "supermarket.error.emailTakenError";
+
     String SUCCESS_CATEGORY_ADDITION = "supermarket.success.categorySuccessfullyAdded";
     String SUCCESS_CATEGORY_UPDATE = "supermarket.success.categorySuccessfullyUpdated";
     String SUCCESS_CATEGORY_DELETE = "supermarket.success.categorySuccessfullyDeleted";

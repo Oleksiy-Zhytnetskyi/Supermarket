@@ -33,6 +33,7 @@ public class PostCreateUserCommand implements Command {
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UserView userView = getUserInput(req);
         List<String> errors = validateUserInput(userView);
+        checkEmailTaken(userView, errors);
 
         if (errors.isEmpty()) {
             userService.createUser(userView);
@@ -42,6 +43,12 @@ public class PostCreateUserCommand implements Command {
 
         addRequestAttributes(req, userView, errors);
         return Page.VIEW_USER;
+    }
+
+    private void checkEmailTaken(UserView view, List<String> errors) {
+        if (UserService.getInstance().getUserByEmail(view.getEmail()).isPresent()) {
+            errors.add(Message.EMAIL_TAKEN_ERROR);
+        }
     }
 
     private UserView getUserInput(HttpServletRequest req) {

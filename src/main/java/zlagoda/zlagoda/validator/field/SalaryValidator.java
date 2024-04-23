@@ -6,7 +6,6 @@ import java.util.List;
 
 public class SalaryValidator extends AbstractFieldValidatorHandler {
 
-    //private static final String SALARY_REGEX = "^\\d{1,10}.\\d{1,10}$";
     private static final String SALARY_REGEX = "\\b\\d{1,13}(\\.\\d{1,10})?\\b";
 
     SalaryValidator(FieldValidatorKey fieldValidatorKey) {
