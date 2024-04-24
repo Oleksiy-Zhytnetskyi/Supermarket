@@ -15,7 +15,6 @@ public final class FieldValidatorsChainGenerator {
         AbstractFieldValidatorHandler cityFieldValidator = CityValidator.getInstance();
         AbstractFieldValidatorHandler streetFieldValidator = StreetValidator.getInstance();
         AbstractFieldValidatorHandler zipCodeFieldValidator = ZipCodeValidator.getInstance();
-        AbstractFieldValidatorHandler characteristicsFieldValidator = CharacteristicsValidator.getInstance();
 
         emailFieldValidator.setNextFieldValidator(passwordFieldValidator);
         passwordFieldValidator.setNextFieldValidator(nameFieldValidator);
@@ -26,7 +25,6 @@ public final class FieldValidatorsChainGenerator {
         salaryFieldValidator.setNextFieldValidator(cityFieldValidator);
         cityFieldValidator.setNextFieldValidator(streetFieldValidator);
         streetFieldValidator.setNextFieldValidator(zipCodeFieldValidator);
-        zipCodeFieldValidator.setNextFieldValidator(characteristicsFieldValidator);
 
         return emailFieldValidator;
     }

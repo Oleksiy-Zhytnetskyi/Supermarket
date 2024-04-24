@@ -10,6 +10,7 @@ import zlagoda.zlagoda.constants.ServletPath;
 import zlagoda.zlagoda.controller.command.Command;
 import zlagoda.zlagoda.controller.utils.HttpWrapper;
 import zlagoda.zlagoda.controller.utils.RedirectionManager;
+import zlagoda.zlagoda.entity.CategoryEntity;
 import zlagoda.zlagoda.locale.Message;
 import zlagoda.zlagoda.service.CategoryService;
 import zlagoda.zlagoda.service.ProductService;
@@ -69,6 +70,8 @@ public class PostCreateProductCommand implements Command {
     }
 
     private void addRequestAttributes(HttpServletRequest request, ProductView productView, List<String> errors) {
+        List<CategoryEntity> categories = categoryService.getAllCategories();
+        request.setAttribute(Attribute.CATEGORIES, categories);
         request.setAttribute(Attribute.PRODUCT_VIEW, productView);
         request.setAttribute(Attribute.ERRORS, errors);
         request.setAttribute("create", true);

@@ -10,6 +10,7 @@ import zlagoda.zlagoda.constants.ServletPath;
 import zlagoda.zlagoda.controller.command.Command;
 import zlagoda.zlagoda.controller.utils.HttpWrapper;
 import zlagoda.zlagoda.controller.utils.RedirectionManager;
+import zlagoda.zlagoda.entity.CategoryEntity;
 import zlagoda.zlagoda.locale.Message;
 import zlagoda.zlagoda.service.CategoryService;
 import zlagoda.zlagoda.service.ProductService;
@@ -48,6 +49,7 @@ public class PostUpdateProductCommand implements Command {
 
     private ProductView getUserInput(HttpServletRequest req) throws ParseException {
         ProductView.ProductViewBuilder result = ProductView.builder()
+                .id(Integer.valueOf(req.getParameter(Attribute.ID)))
                 .name(req.getParameter(Attribute.NAME))
                 .characteristics(req.getParameter(Attribute.CHARACTERISTICS));
         if (!req.getParameter(Attribute.CATEGORY).equals("Choose a category")) {
@@ -71,6 +73,8 @@ public class PostUpdateProductCommand implements Command {
     }
 
     private void addRequestAttributes(HttpServletRequest request, ProductView productView, List<String> errors) {
+        List<CategoryEntity> categories = categoryService.getAllCategories();
+        request.setAttribute(Attribute.CATEGORIES, categories);
         request.setAttribute(Attribute.PRODUCT_VIEW, productView);
         request.setAttribute(Attribute.ERRORS, errors);
         request.setAttribute("update", true);
