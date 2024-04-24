@@ -20,5 +20,8 @@ public interface Page {
     String ALL_PRODUCTS = PREFIX + "allProducts" + SUFFIX;
     String VIEW_PRODUCT = PREFIX + "addUpdateProduct" + SUFFIX;
 
+    String ALL_CUSTOMER_CARDS = PREFIX + "allCustomerCards" + SUFFIX;
+    String VIEW_CUSTOMER_CARD = PREFIX + "addUpdateCustomerCard" + SUFFIX;
+
     String PAGE_NOT_FOUND = PREFIX + ERROR_PREFIX + "pageNotFound" + SUFFIX;
 }

@@ -52,4 +52,8 @@ public interface Message {
     String SUCCESS_PRODUCT_ADDITION = "supermarket.success.productSuccessfullyAdded";
     String SUCCESS_PRODUCT_UPDATE = "supermarket.success.productSuccessfullyUpdated";
     String SUCCESS_PRODUCT_DELETE = "supermarket.success.productSuccessfullyDeleted";
+
+    String SUCCESS_CARD_ADDITION = "supermarket.success.cardSuccessfullyAdded";
+    String SUCCESS_CARD_UPDATE = "supermarket.success.cardSuccessfullyUpdated";
+    String SUCCESS_CARD_DELETE = "supermarket.success.cardSuccessfullyDeleted";
 }

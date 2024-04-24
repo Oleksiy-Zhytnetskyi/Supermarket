@@ -7,4 +7,5 @@ public interface ServletPath {
     String ALL_USERS = "/allUsers";
     String ALL_CATEGORIES = "/allCategories";
     String ALL_PRODUCTS = "/allProducts";
+    String ALL_CARDS = "/allCustomerCards";
 }
