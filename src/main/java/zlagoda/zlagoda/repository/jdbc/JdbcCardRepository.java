@@ -24,7 +24,7 @@ public class JdbcCardRepository implements CardRepository {
             "(cust_surname, cust_name, cust_patronymic, phone_number, city, street, zip_code, percent) " +
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String UPDATE = "UPDATE customer_card SET " +
-            "cust_surname=?, cust_name=?, cust_patronymic=?, phone_number=?, city=?, street=?, zip_code=?, percent=?" +
+            "cust_surname=?, cust_name=?, cust_patronymic=?, phone_number=?, city=?, street=?, zip_code=?, percent=? " +
             "WHERE card_number=?";
     private static final String DELETE = "DELETE FROM customer_card WHERE card_number=?";
     private static final String GET_BY_PERCENT = "SELECT * FROM customer_card WHERE percent=?";

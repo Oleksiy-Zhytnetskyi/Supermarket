@@ -6,9 +6,11 @@ import zlagoda.zlagoda.controller.command.authorization.GetLoginCommand;
 import zlagoda.zlagoda.controller.command.authorization.LogOutCommand;
 import zlagoda.zlagoda.controller.command.authorization.PostLoginCommand;
 import zlagoda.zlagoda.controller.command.category.*;
+import zlagoda.zlagoda.controller.command.customer.card.*;
 import zlagoda.zlagoda.controller.command.i18n.ChangeLocaleCommand;
 import zlagoda.zlagoda.controller.command.product.*;
 import zlagoda.zlagoda.controller.command.user.*;
+import zlagoda.zlagoda.service.CardService;
 import zlagoda.zlagoda.service.CategoryService;
 import zlagoda.zlagoda.service.ProductService;
 import zlagoda.zlagoda.service.UserService;
@@ -181,6 +183,54 @@ public enum CommandEnum {
         {
             this.key = "GET:sortProducts";
             this.command = new GetSortProductCommand(ProductService.getInstance(), CategoryService.getInstance());
+        }
+    },
+    GET_ALL_CUSTOMER_CARDS {
+        {
+            this.key = "GET:allCustomerCards";
+            this.command = new GetAllCustomerCardCommand(CardService.getInstance());
+        }
+    },
+    GET_CUSTOMER_CARD_VIEW {
+        {
+            this.key = "GET:viewCustomerCard";
+            this.command = new GetViewCustomerCardCommand(CardService.getInstance());
+        }
+    },
+    GET_UPDATE_CUSTOMER_CARD {
+        {
+            this.key = "GET:updateCustomerCard";
+            this.command = new GetUpdateCustomerCardCommand(CardService.getInstance());
+        }
+    },
+    GET_CREATE_CUSTOMER_CARD {
+        {
+            this.key = "GET:createCustomerCard";
+            this.command = new GetCreateCustomerCardCommand(CardService.getInstance());
+        }
+    },
+    POST_UPDATE_CUSTOMER_CARD {
+        {
+            this.key = "POST:updateCustomerCard";
+            this.command = new PostUpdateCustomerCardCommand(CardService.getInstance());
+        }
+    },
+    POST_CREATE_CUSTOMER_CARD {
+        {
+            this.key = "POST:createCustomerCard";
+            this.command = new PostCreateCustomerCardCommand(CardService.getInstance());
+        }
+    },
+    DELETE_CUSTOMER_CARD {
+        {
+            this.key = "GET:deleteCustomerCard";
+            this.command = new DeleteCustomerCardCommand(CardService.getInstance());
+        }
+    },
+    GET_SORT_CUSTOMER_CARDS {
+        {
+            this.key = "GET:sortCustomerCards";
+            this.command = new GetSortCustomerCardCommand(CardService.getInstance());
         }
     };
 
