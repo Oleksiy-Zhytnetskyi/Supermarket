@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS store_product(
-    upc        VARCHAR(12) PRIMARY KEY,
-    upc_prom   VARCHAR(12),
+    upc        INTEGER AUTO_INCREMENT PRIMARY KEY,
+    upc_prom   INTEGER,
     id_product INTEGER NOT NULL,
     selling_price DECIMAL(13, 4) NOT NULL,
     products_number INTEGER NOT NULL,

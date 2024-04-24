@@ -8,6 +8,6 @@ import lombok.*;
 @ToString
 @AllArgsConstructor
 public class SaleEntityComplexKey {
-    private String UPC;
+    private Integer UPC;
     private Integer receiptId;
 }
