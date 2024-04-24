@@ -41,4 +41,10 @@ public interface Attribute {
     String CHARACTERISTICS = "characteristics";
     String PRODUCTS_CATEGORY = "productsCategory";
     String PRODUCTS_NAME = "productsName";
+
+    String CARDS = "customerCards";
+    String CARD_VIEW = "customerCardView";
+    String PERCENT = "percent";
+    String CARDS_SURNAME = "customersCardSurname";
+    String CARDS_PERCENT = "customersCardPercent";
 }
