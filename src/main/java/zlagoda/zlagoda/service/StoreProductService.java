@@ -17,10 +17,10 @@ public class StoreProductService {
     private static final Logger LOGGER = LogManager.getLogger(StoreProductService.class);
 
     private static final String GET_ALL_STORE_PRODUCTS = "Get all store products";
-    private static final String GET_STORE_PRODUCT_BY_ID = "Get store product by id: %s";
+    private static final String GET_STORE_PRODUCT_BY_ID = "Get store product by id: %d";
     private static final String CREATE_STORE_PRODUCT = "Create store product: %s";
     private static final String UPDATE_STORE_PRODUCT = "Update store product: %s";
-    private static final String DELETE_STORE_PRODUCT = "Delete store product: %s";
+    private static final String DELETE_STORE_PRODUCT = "Delete store product: %d";
     private static final String GET_DISCOUNTED_PRODUCTS = "Get discounted store products";
     private static final String GET_NON_DISCOUNTED_PRODUCTS = "Get non discounted store products";
 
@@ -39,7 +39,7 @@ public class StoreProductService {
         }
     }
 
-    public Optional<StoreProductEntity> getStoreProductById(String id) {
+    public Optional<StoreProductEntity> getStoreProductById(Integer id) {
         LOGGER.info(String.format(GET_STORE_PRODUCT_BY_ID, id));
         try (StoreProductRepository repository = repositoryFactory.createStoreProductRepository()) {
             return repository.getById(id);
@@ -62,7 +62,7 @@ public class StoreProductService {
         }
     }
 
-    public void deleteStoreProduct(String id) {
+    public void deleteStoreProduct(Integer id) {
         LOGGER.info(String.format(DELETE_STORE_PRODUCT, id));
         try (StoreProductRepository repository = repositoryFactory.createStoreProductRepository()) {
             repository.delete(id);
@@ -84,23 +84,13 @@ public class StoreProductService {
     }
 
     private static StoreProductEntity buildStoreProductFromView(StoreProductView view) {
-        StoreProductEntity.StoreProductEntityBuilder result = StoreProductEntity.builder()
+        return StoreProductEntity.builder()
                 .id(view.getId())
                 .sellingPrice(view.getSellingPrice())
                 .productQuantity(view.getProductQuantity())
                 .isPromotional(view.getIsPromotional())
-                .productId(view.getProductId());
-        if (!view.getIsPromotional()) {
-            result.promotionalEntity(StoreProductEntity.builder()
-                    .id(view.getPromotionalView().getId())
-                    .sellingPrice(view.getPromotionalView().getSellingPrice())
-                    .productQuantity(view.getPromotionalView().getProductQuantity())
-                    .isPromotional(true)
-                    .promotionalEntity(null)
-                    .productId(view.getPromotionalView().getProductId())
-                    .build()
-            );
-        }
-        return result.build();
+                .productId(view.getProductId())
+                .promotionalId(view.getPromotionalId())
+                .build();
     }
 }

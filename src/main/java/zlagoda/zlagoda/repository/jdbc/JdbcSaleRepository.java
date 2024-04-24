@@ -67,7 +67,7 @@ public class JdbcSaleRepository implements SaleRepository {
     public Optional<SaleEntity> getById(SaleEntityComplexKey id) {
         Optional<SaleEntity> sale = Optional.empty();
         try (PreparedStatement query = connection.prepareStatement(GET_BY_ID)) {
-            query.setString(1, id.getUPC());
+            query.setInt(1, id.getUPC());
             query.setInt(2, id.getReceiptId());
             ResultSet resultSet = query.executeQuery();
             while (resultSet.next()) {
@@ -88,7 +88,7 @@ public class JdbcSaleRepository implements SaleRepository {
             query.executeUpdate();
             ResultSet keys = query.getGeneratedKeys();
             if (keys.next()) {
-                sale.setPk(new SaleEntityComplexKey(keys.getString(1), keys.getInt(2)));
+                sale.setPk(new SaleEntityComplexKey(keys.getInt(1), keys.getInt(2)));
             }
         } catch (SQLException e) {
             LOGGER.error("JdbcSaleRepository create SQL exception", e);
@@ -100,7 +100,7 @@ public class JdbcSaleRepository implements SaleRepository {
     public void update(SaleEntity sale) {
         try (PreparedStatement query = connection.prepareStatement(UPDATE)) {
             final int counterIndex = setAllFields(query, sale);
-            query.setString(counterIndex + 1, sale.getPk().getUPC());
+            query.setInt(counterIndex + 1, sale.getPk().getUPC());
             query.setInt(counterIndex + 2, sale.getPk().getReceiptId());
             query.executeUpdate();
         } catch (SQLException e) {
@@ -112,7 +112,7 @@ public class JdbcSaleRepository implements SaleRepository {
     @Override
     public void delete(SaleEntityComplexKey id) {
         try (PreparedStatement query = connection.prepareStatement(DELETE)) {
-            query.setString(1, id.getUPC());
+            query.setInt(1, id.getUPC());
             query.setInt(2, id.getReceiptId());
             query.executeUpdate();
         } catch (SQLException e) {
@@ -153,7 +153,7 @@ public class JdbcSaleRepository implements SaleRepository {
 
     protected static SaleEntity extractSaleFromResultSet(ResultSet resultSet) throws SQLException {
         return SaleEntity.builder()
-                .pk(new SaleEntityComplexKey(resultSet.getString(ID_UPC), resultSet.getInt(ID_RECEIPT_ID)))
+                .pk(new SaleEntityComplexKey(resultSet.getInt(ID_UPC), resultSet.getInt(ID_RECEIPT_ID)))
                 .productQuantity(resultSet.getInt(PRODUCT_QUANTITY))
                 .sellingPrice(resultSet.getDouble(SELLING_PRICE))
                 .build();

@@ -8,10 +8,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class StoreProductView {
-    private String id;
+    private Integer id;
     private Double sellingPrice;
     private Integer productQuantity;
     private Boolean isPromotional;
-    private StoreProductView promotionalView;
+    private Integer promotionalId;
     private Integer productId;
 }
