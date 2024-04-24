@@ -67,7 +67,7 @@
                             <label class="block text-xl font-medium leading-6 text-gray-900">Characteristics</label>
                             <div class="mt-2">
                                 <textarea name="characteristics" class="h-48 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6" <c:if test="${requestScope.view}">readonly</c:if> maxlength="500">
-                                     <c:if test="${ not empty requestScope.productView}">${requestScope.productView.getCharacteristics()}"</c:if>
+                                     <c:if test="${ not empty requestScope.productView}">${requestScope.productView.getCharacteristics()}</c:if>
                                 </textarea>
                             </div>
                         </div>
@@ -81,6 +81,5 @@
 
                 </div>
             </div>
-        </div>
     </form>
 </div>

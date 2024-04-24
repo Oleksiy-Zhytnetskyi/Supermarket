@@ -1,18 +1,17 @@
 package zlagoda.zlagoda.validator.field;
 
+import lombok.Setter;
+
 import java.util.List;
 
 public abstract class AbstractFieldValidatorHandler {
 
-    private FieldValidatorKey fieldValidatorKey;
+    private final FieldValidatorKey fieldValidatorKey;
+    @Setter
     private AbstractFieldValidatorHandler nextFieldValidator;
 
     public AbstractFieldValidatorHandler(FieldValidatorKey fieldValidatorKey) {
         this.fieldValidatorKey = fieldValidatorKey;
-    }
-
-    public void setNextFieldValidator(AbstractFieldValidatorHandler nextFieldValidator) {
-        this.nextFieldValidator = nextFieldValidator;
     }
 
     public void validateField(FieldValidatorKey fieldValidatorKey, String fieldValue, List<String> errors) {
