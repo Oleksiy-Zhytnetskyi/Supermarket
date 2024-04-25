@@ -9,11 +9,11 @@ import zlagoda.zlagoda.controller.command.category.*;
 import zlagoda.zlagoda.controller.command.customer.card.*;
 import zlagoda.zlagoda.controller.command.i18n.ChangeLocaleCommand;
 import zlagoda.zlagoda.controller.command.product.*;
+import zlagoda.zlagoda.controller.command.store.product.GetAllStoreProductCommand;
+import zlagoda.zlagoda.controller.command.store.product.GetUpdateStoreProductCommand;
+import zlagoda.zlagoda.controller.command.store.product.GetViewStoreProductCommand;
 import zlagoda.zlagoda.controller.command.user.*;
-import zlagoda.zlagoda.service.CardService;
-import zlagoda.zlagoda.service.CategoryService;
-import zlagoda.zlagoda.service.ProductService;
-import zlagoda.zlagoda.service.UserService;
+import zlagoda.zlagoda.service.*;
 
 public enum CommandEnum {
 
@@ -231,6 +231,24 @@ public enum CommandEnum {
         {
             this.key = "GET:sortCustomerCards";
             this.command = new GetSortCustomerCardCommand(CardService.getInstance());
+        }
+    },
+    GET_ALL_STORE_PRODUCTS {
+        {
+            this.key = "GET:allStoreProducts";
+            this.command = new GetAllStoreProductCommand(ProductService.getInstance(), StoreProductService.getInstance());
+        }
+    },
+    GET_STORE_PRODUCT_VIEW {
+        {
+            this.key = "GET:viewStoreProduct";
+            this.command = new GetViewStoreProductCommand(StoreProductService.getInstance(), ProductService.getInstance(), CategoryService.getInstance());
+        }
+    },
+    GET_UPDATE_STORE_PRODUCT {
+        {
+            this.key = "GET:updateStoreProduct";
+            this.command = new GetUpdateStoreProductCommand(StoreProductService.getInstance(), ProductService.getInstance(), CategoryService.getInstance());
         }
     };
 
