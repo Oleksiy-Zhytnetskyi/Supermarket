@@ -27,6 +27,7 @@ public interface Message {
     String PASSWORD_NULL_ERROR = "supermarket.error.passwordNullError";
     String CATEGORY_NULL_ERROR = "supermarket.error.categoryNullError";
     String CHARACTERISTICS_NULL_ERROR = "supermarket.error.characteristicsNullError";
+    String PERCENT_NULL_ERROR = "supermarket.error.percentNullError";
 
     String NAME_INVALID_ERROR = "supermarket.error.nameInvalidError";
     String SURNAME_INVALID_ERROR = "supermarket.error.surnameInvalidError";
@@ -42,6 +43,7 @@ public interface Message {
     String EMAIL_INVALID_ERROR = "supermarket.error.emailInvalidError";
     String PASSWORD_INVALID_ERROR = "supermarket.error.passwordInvalidError";
     String CHARACTERISTICS_INVALID_ERROR = "supermarket.error.characteristicsInvalidError";
+    String PERCENT_INVALID_ERROR = "supermarket.error.percentInvalidError";
 
     String EMAIL_TAKEN_ERROR = "supermarket.error.emailTakenError";
 
