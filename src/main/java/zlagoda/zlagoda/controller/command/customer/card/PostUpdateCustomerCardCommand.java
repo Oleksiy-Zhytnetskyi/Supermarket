@@ -13,6 +13,7 @@ import zlagoda.zlagoda.locale.Message;
 import zlagoda.zlagoda.service.CardService;
 import zlagoda.zlagoda.service.CategoryService;
 import zlagoda.zlagoda.service.ProductService;
+import zlagoda.zlagoda.validator.entity.CardViewValidator;
 import zlagoda.zlagoda.view.CardView;
 import zlagoda.zlagoda.view.ProductView;
 
@@ -43,26 +44,30 @@ public class PostUpdateCustomerCardCommand implements Command {
         }
 
         addRequestAttributes(req, cardView, errors);
-        return Page.VIEW_CATEGORY;
+        return Page.VIEW_CUSTOMER_CARD;
     }
 
     private CardView getUserInput(HttpServletRequest req) throws ParseException {
-        return CardView.builder()
-                .id(Integer.valueOf(req.getParameter(Attribute.ID)))
+        CardView.CardViewBuilder result = CardView.builder()
+                .id(Integer.parseInt(req.getParameter(Attribute.ID)))
                 .customerName(req.getParameter(Attribute.NAME))
                 .customerSurname(req.getParameter(Attribute.SURNAME))
                 .customerPatronymic(req.getParameter(Attribute.PATRONYMIC))
                 .phoneNumber(req.getParameter(Attribute.PHONE))
                 .city(req.getParameter(Attribute.CITY))
                 .street(req.getParameter(Attribute.STREET))
-                .zipCode(req.getParameter(Attribute.ZIP_CODE))
-                .percent(Integer.valueOf(req.getParameter(Attribute.PERCENT)))
-                .build();
+                .zipCode(req.getParameter(Attribute.ZIP_CODE));
+        try {
+            result.percent(Integer.valueOf(req.getParameter(Attribute.PERCENT)));
+        }
+        catch (NumberFormatException e) {
+            result.percent(0);
+        }
+        return result.build();
     }
 
     private List<String> validateUserInput(CardView cardView) {
-//        return CardViewValidator ...;
-        return  new ArrayList<>();
+        return CardViewValidator.getInstance().validate(cardView);
     }
 
     private void redirectToAllCategoryPageWithSuccessMessage(HttpServletRequest request, HttpServletResponse response) throws IOException {
