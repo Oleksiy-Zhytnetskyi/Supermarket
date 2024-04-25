@@ -14,17 +14,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class StoreProductValidator implements Validator<StoreProductView> {
+public class StoreProductViewValidator implements Validator<StoreProductView> {
 
     private final AbstractFieldValidatorHandler fieldValidator = FieldValidatorsChainGenerator.getFieldValidatorChain();
     private final StoreProductService storeProductService = StoreProductService.getInstance();
     private final ProductService productService = ProductService.getInstance();
 
     private static class Holder {
-        static final StoreProductValidator INSTANCE = new StoreProductValidator();
+        static final StoreProductViewValidator INSTANCE = new StoreProductViewValidator();
     }
 
-    public static StoreProductValidator getInstance() {
+    public static StoreProductViewValidator getInstance() {
         return Holder.INSTANCE;
     }
 
