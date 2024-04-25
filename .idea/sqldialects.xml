@@ -2,6 +2,7 @@
 <project version="4">
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/src/main/resources/migrations/V11__add_customer_card.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/migrations/V13__add_receipt.sql" dialect="MySQL" />
     <file url="PROJECT" dialect="MySQL" />
   </component>
 </project>

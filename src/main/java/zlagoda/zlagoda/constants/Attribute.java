@@ -43,6 +43,7 @@ public interface Attribute {
     String PRODUCTS_NAME = "productsName";
 
     String CARDS = "customerCards";
+    String CARD = "card";
     String CARD_VIEW = "customerCardView";
     String PERCENT = "percent";
     String CARDS_SURNAME = "customersCardSurname";
@@ -58,4 +59,9 @@ public interface Attribute {
     String SALE_STORE_PRODUCT_ID = "saleStoreProductId";
     String STORE_PRODUCTS_TYPE = "storeProductsType";
     String SORT_STORE_PRODUCTS_BY = "sortStoreProductsBy";
+
+    String RECEIPTS = "receipts";
+    String RECEIPT_VIEW = "receiptView";
+
+    String SALES = "sales";
 }

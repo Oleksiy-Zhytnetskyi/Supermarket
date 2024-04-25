@@ -42,6 +42,6 @@ public class GetCreateStoreProductCommand implements Command {
         req.setAttribute(Attribute.SALE_STORE_PRODUCTS, saleStoreProducts);
         req.setAttribute(Attribute.PRODUCTS, products);
         req.setAttribute("create", true);
-        return Page.ADD_STRORE_PRODUCT;
+        return Page.ADD_STORE_PRODUCT;
     }
 }

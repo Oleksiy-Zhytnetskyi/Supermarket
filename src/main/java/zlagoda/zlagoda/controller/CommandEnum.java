@@ -9,6 +9,11 @@ import zlagoda.zlagoda.controller.command.category.*;
 import zlagoda.zlagoda.controller.command.customer.card.*;
 import zlagoda.zlagoda.controller.command.i18n.ChangeLocaleCommand;
 import zlagoda.zlagoda.controller.command.product.*;
+import zlagoda.zlagoda.controller.command.receipt.DeleteReceiptCommand;
+import zlagoda.zlagoda.controller.command.receipt.GetAllReceiptsCommand;
+import zlagoda.zlagoda.controller.command.receipt.GetCreateReceiptCommand;
+import zlagoda.zlagoda.controller.command.receipt.PostCreateReceiptCommand;
+import zlagoda.zlagoda.controller.command.sale.GetAllSalesCommand;
 import zlagoda.zlagoda.controller.command.store.product.*;
 import zlagoda.zlagoda.controller.command.user.*;
 import zlagoda.zlagoda.service.*;
@@ -277,6 +282,36 @@ public enum CommandEnum {
         {
             this.key = "GET:sortStoreProducts";
             this.command = new GetSortStoreProductsCommand(StoreProductService.getInstance(), ProductService.getInstance());
+        }
+    },
+    GET_ALL_RECEIPTS {
+        {
+            this.key = "GET:allReceipts";
+            this.command = new GetAllReceiptsCommand(ReceiptService.getInstance(), UserService.getInstance(), CardService.getInstance());
+        }
+    },
+    GET_CREATE_RECEIPT {
+        {
+            this.key = "GET:createReceipt";
+            this.command = new GetCreateReceiptCommand(ReceiptService.getInstance(), CardService.getInstance());
+        }
+    },
+    POST_CREATE_RECEIPT {
+        {
+            this.key = "POST:createReceipt";
+            this.command = new PostCreateReceiptCommand(ReceiptService.getInstance(), CardService.getInstance());
+        }
+    },
+    DELETE_RECEIPT {
+        {
+            this.key = "GET:deleteReceipt";
+            this.command = new DeleteReceiptCommand(ReceiptService.getInstance());
+        }
+    },
+    GET_ALL_SALES {
+        {
+            this.key = "GET:allSales";
+            this.command = new GetAllSalesCommand(SaleService.getInstance(), ReceiptService.getInstance(), StoreProductService.getInstance(), ProductService.getInstance());
         }
     };
 
