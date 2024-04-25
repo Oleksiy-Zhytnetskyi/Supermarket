@@ -8,10 +8,10 @@ import lombok.*;
 @EqualsAndHashCode
 @ToString
 public class StoreProductEntity {
-    private String id;
+    private Integer id;
     private Double sellingPrice;
     private Integer productQuantity;
     private Boolean isPromotional;
-    private StoreProductEntity promotionalEntity;
+    private Integer promotionalId;
     private Integer productId;
 }

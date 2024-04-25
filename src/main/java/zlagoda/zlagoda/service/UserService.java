@@ -62,7 +62,7 @@ public class UserService {
         LOGGER.info(String.format(UPDATE_USER, userView.getId()));
         UserEntity user = buildUserFromView(userView);
         try (UserRepository repository = repositoryFactory.createUserRepository()) {
-            UserEntity prevUser = repository.getUserByEmail(user.getEmail()).get();
+            UserEntity prevUser = repository.getById(user.getId()).get();
             user.setId(prevUser.getId());
             repository.update(user);
         }

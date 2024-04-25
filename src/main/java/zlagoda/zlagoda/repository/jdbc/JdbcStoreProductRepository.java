@@ -32,7 +32,7 @@ public class JdbcStoreProductRepository implements StoreProductRepository {
     private static final String SELLING_PRICE = "selling_price";
     private static final String PRODUCT_QUANTITY = "products_number";
     private static final String IS_PROMOTIONAL = "promotional_product";
-    private static final String PROMOTIONAL_ENTITY = "upc_prom";
+    private static final String PROMOTIONAL_ID = "upc_prom";
     private static final String PRODUCT_ID = "id_product";
 
     @Setter
@@ -64,10 +64,10 @@ public class JdbcStoreProductRepository implements StoreProductRepository {
     }
 
     @Override
-    public Optional<StoreProductEntity> getById(String id) {
+    public Optional<StoreProductEntity> getById(Integer id) {
         Optional<StoreProductEntity> storeProduct = Optional.empty();
         try (PreparedStatement query = connection.prepareStatement(GET_BY_ID)) {
-            query.setString(1, id);
+            query.setInt(1, id);
             ResultSet resultSet = query.executeQuery();
             while (resultSet.next()) {
                 storeProduct = Optional.of(extractStoreProductFromResultSet(resultSet));
@@ -87,7 +87,7 @@ public class JdbcStoreProductRepository implements StoreProductRepository {
             query.executeUpdate();
             ResultSet keys = query.getGeneratedKeys();
             if (keys.next()) {
-                storeProduct.setId(keys.getString(1));
+                storeProduct.setId(keys.getInt(1));
             }
         } catch (SQLException e) {
             LOGGER.error("JdbcStoreProductRepository create SQL exception", e);
@@ -99,7 +99,7 @@ public class JdbcStoreProductRepository implements StoreProductRepository {
     public void update(StoreProductEntity storeProduct) {
         try (PreparedStatement query = connection.prepareStatement(UPDATE)) {
             final int counterIndex = setAllFields(query, storeProduct);
-            query.setString(counterIndex + 1, storeProduct.getId());
+            query.setInt(counterIndex + 1, storeProduct.getId());
             query.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error("JdbcStoreProductRepository update SQL exception: " + storeProduct.getId(), e);
@@ -108,9 +108,9 @@ public class JdbcStoreProductRepository implements StoreProductRepository {
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(Integer id) {
         try (PreparedStatement query = connection.prepareStatement(DELETE)) {
-            query.setString(1, id);
+            query.setInt(1, id);
             query.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error("JdbcStoreProductRepository delete SQL exception: " + id, e);
@@ -161,15 +161,14 @@ public class JdbcStoreProductRepository implements StoreProductRepository {
     }
 
     protected StoreProductEntity extractStoreProductFromResultSet(ResultSet resultSet) throws SQLException {
-        StoreProductEntity.StoreProductEntityBuilder result = StoreProductEntity.builder()
-                .id(resultSet.getString(ID))
+        return StoreProductEntity.builder()
+                .id(resultSet.getInt(ID))
                 .sellingPrice(resultSet.getDouble(SELLING_PRICE))
                 .productQuantity(resultSet.getInt(PRODUCT_QUANTITY))
                 .isPromotional(resultSet.getBoolean(IS_PROMOTIONAL))
-                .productId(resultSet.getInt(PRODUCT_ID));
-        final Optional<StoreProductEntity> promEntity = getById(resultSet.getString(PROMOTIONAL_ENTITY));
-        result.promotionalEntity(promEntity.orElse(null));
-        return result.build();
+                .productId(resultSet.getInt(PRODUCT_ID))
+                .promotionalId(resultSet.getInt(PROMOTIONAL_ID))
+                .build();
     }
 
     private static int setAllFields(PreparedStatement query, StoreProductEntity storeProduct) throws SQLException {
@@ -177,7 +176,7 @@ public class JdbcStoreProductRepository implements StoreProductRepository {
         query.setDouble(++index, storeProduct.getSellingPrice());
         query.setInt(++index, storeProduct.getProductQuantity());
         query.setBoolean(++index, storeProduct.getIsPromotional());
-        query.setString(++index, storeProduct.getPromotionalEntity().getId());
+        query.setInt(++index, storeProduct.getPromotionalId());
         query.setInt(++index, storeProduct.getProductId());
         return index;
     }

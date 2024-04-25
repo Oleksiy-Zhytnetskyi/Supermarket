@@ -20,7 +20,8 @@ public enum FieldValidatorKey {
     START_DATE("startDate"),
     CITY("city"),
     STREET("street"),
-    ZIP_CODE("zipCode");
+    ZIP_CODE("zipCode"),
+    CHARACTERISTICS("characteristics");
 
     private final String value;
 }
