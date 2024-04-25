@@ -19,7 +19,7 @@ public class JdbcUserRepository implements UserRepository {
 
     private static final Logger LOGGER = LogManager.getLogger(JdbcUserRepository.class);
 
-    private static final String GET_ALL = "SELECT * FROM employee";
+    private static final String GET_ALL = "SELECT * FROM employee ORDER BY empl_surname";
     private static final String GET_BY_ID = "SELECT * FROM employee WHERE id_employee=?";
     private static final String CREATE = "INSERT INTO employee (" +
             "empl_surname, empl_name, empl_patronymic, empl_role, salary, date_of_birth, " +
