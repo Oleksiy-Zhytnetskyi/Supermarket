@@ -31,7 +31,7 @@ public class GetUpdateStoreProductCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        StoreProductEntity storeProductEntity = storeProductService.getStoreProductById(req.getParameter(Attribute.ID)).get();
+        StoreProductEntity storeProductEntity = storeProductService.getStoreProductById(Integer.valueOf(req.getParameter(Attribute.ID))).get();
         List<ProductEntity> products = productService.getAllProducts();
         List<CategoryEntity> categories = categoryService.getAllCategories();
         List<StoreProductEntity> saleStoreProducts = new ArrayList<>();

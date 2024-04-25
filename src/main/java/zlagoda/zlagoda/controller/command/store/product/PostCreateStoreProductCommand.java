@@ -10,10 +10,7 @@ import zlagoda.zlagoda.controller.command.Command;
 import zlagoda.zlagoda.controller.utils.HttpWrapper;
 import zlagoda.zlagoda.controller.utils.RedirectionManager;
 import zlagoda.zlagoda.locale.Message;
-import zlagoda.zlagoda.service.CategoryService;
-import zlagoda.zlagoda.service.ProductService;
 import zlagoda.zlagoda.service.StoreProductService;
-import zlagoda.zlagoda.view.ProductView;
 import zlagoda.zlagoda.view.StoreProductView;
 
 import java.io.IOException;
@@ -23,11 +20,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class PostUpdateStoreProductCommand implements Command {
+public class PostCreateStoreProductCommand implements Command {
 
     private final StoreProductService storeProductService;
 
-    public PostUpdateStoreProductCommand(StoreProductService storeProductService) {
+    public PostCreateStoreProductCommand(StoreProductService storeProductService) {
         this.storeProductService = storeProductService;
     }
 
@@ -37,7 +34,7 @@ public class PostUpdateStoreProductCommand implements Command {
         List<String> errors = validateUserInput(storeProductView);
 
         if (errors.isEmpty()) {
-            storeProductService.updateStoreProduct(storeProductView);
+            storeProductService.createStoreProduct(storeProductView);
             redirectToAllCategoryPageWithSuccessMessage(req, resp);
             return RedirectionManager.REDIRECTION;
         }
@@ -50,7 +47,6 @@ public class PostUpdateStoreProductCommand implements Command {
         System.out.println(req.getParameter(Attribute.IS_PROMOTIONAL));
         System.out.println(Boolean.parseBoolean(req.getParameter(Attribute.IS_PROMOTIONAL)));
         StoreProductView.StoreProductViewBuilder builder = StoreProductView.builder()
-                .id(Integer.valueOf(req.getParameter(Attribute.ID)))
                 .sellingPrice(Double.valueOf(req.getParameter(Attribute.SELLING_PRICE)))
                 .productQuantity(Integer.valueOf(req.getParameter(Attribute.PRODUCT_QUANTITY)))
                 .isPromotional(Boolean.valueOf(req.getParameter(Attribute.IS_PROMOTIONAL)))
@@ -70,7 +66,7 @@ public class PostUpdateStoreProductCommand implements Command {
     private void redirectToAllCategoryPageWithSuccessMessage(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpWrapper httpWrapper = new HttpWrapper(request, response);
         Map<String, String> urlParams = new HashMap<>();
-        urlParams.put(Attribute.SUCCESS, Message.SUCCESS_STORE_PRODUCT_UPDATE);
+        urlParams.put(Attribute.SUCCESS, Message.SUCCESS_STORE_PRODUCT_ADDITION);
         RedirectionManager.getInstance().redirectWithParams(httpWrapper, ServletPath.ALL_STORE_PRODUCTS, urlParams);
     }
 
@@ -80,3 +76,4 @@ public class PostUpdateStoreProductCommand implements Command {
         request.setAttribute("update", true);
     }
 }
+

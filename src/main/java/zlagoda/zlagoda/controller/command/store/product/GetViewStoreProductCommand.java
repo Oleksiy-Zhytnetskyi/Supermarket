@@ -30,7 +30,7 @@ public class GetViewStoreProductCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        StoreProductEntity storeProductEntity = storeProductService.getStoreProductById(req.getParameter(Attribute.ID)).get();
+        StoreProductEntity storeProductEntity = storeProductService.getStoreProductById(Integer.valueOf(req.getParameter(Attribute.ID))).get();
         ProductEntity productEntity = productService.getProductById(storeProductEntity.getProductId()).get();
         List<CategoryEntity> categories = categoryService.getAllCategories();
         req.setAttribute(Attribute.STORE_PRODUCT_VIEW, storeProductEntity);

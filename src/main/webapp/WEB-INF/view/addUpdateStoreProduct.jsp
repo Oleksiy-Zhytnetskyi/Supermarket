@@ -41,12 +41,19 @@
                             <label for="productId" class="block text-xl font-medium leading-6 text-gray-900">Product</label>
                             <div class="mt-2">
                                 <select id="productId" name="productId" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option <c:if test="${empty requestScope.storeProductView}">selected</c:if>>Choose a product</option>
+                                    <option <c:if test="${empty requestScope.storeProductView}">selected</c:if> value="null">Choose a product</option>
 
-                                <c:forEach items="${requestScope.products}" var="product" varStatus="status">
-                                    <option <c:if test="${requestScope.storeProductView.getProductId() eq product.getId()}">selected</c:if> value="${product.getId()}">${product.getName()}</option>
-                                </c:forEach>
-                            </select>
+                                    <c:forEach items="${requestScope.products}" var="product" varStatus="status">
+                                        <option <c:if test="${requestScope.storeProductView.getProductId() eq product.getId()}">selected</c:if> value="${product.getId()}">${product.getName()}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="sm:col-span-3">
+                            <div class="w-full h-full flex justify-center items-center">
+                                <input <c:if test="${requestScope.storeProductView.getIsPromotional() eq 'true'}">checked</c:if> id="isPromotional" name="isPromotional" type="checkbox" value="true" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                <label for="isPromotional" class="block ms-2 text-xl font-medium text-gray-900">Is promotional</label>
                             </div>
                         </div>
 
@@ -54,10 +61,10 @@
                             <label for="saleStoreProductId" class="block text-xl font-medium leading-6 text-gray-900">Sale store product</label>
                             <div class="mt-2">
                                 <select id="saleStoreProductId" name="saleStoreProductId" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option <c:if test="${empty requestScope.storeProductView.getPromotionalEntity()}">selected</c:if> value="null">Choose a sale store product</option>
+                                <option <c:if test="${empty requestScope.storeProductView.getPromotionalId()}">selected</c:if> value="null">Choose a sale store product</option>
 
                                 <c:forEach items="${requestScope.saleStoreProducts}" var="saleStoreProduct" varStatus="status">
-                                    <option <c:if test="${requestScope.storeProductView.getPromotionalEntity().getId() eq saleStoreProduct.getId()}">selected</c:if> value="${saleStoreProduct.getId()}">
+                                    <option <c:if test="${requestScope.storeProductView.getPromotionalId() eq saleStoreProduct.getId()}">selected</c:if> value="${saleStoreProduct.getId()}">
                                         <c:forEach items="${requestScope.products}" var="product" varStatus="status">
                                             <c:if test="${saleStoreProduct.getProductId() eq product.getId()}">${product.getName()} Price:${saleStoreProduct.getSellingPrice()} Quantity:${saleStoreProduct.getProductQuantity()}</c:if>
                                         </c:forEach>
@@ -89,6 +96,7 @@
                         </div>
                     </c:if>
             </div>
+        </div>
         </div>
     </form>
 </div>
