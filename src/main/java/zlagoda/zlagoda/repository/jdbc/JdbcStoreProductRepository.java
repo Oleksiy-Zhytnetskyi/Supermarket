@@ -22,7 +22,7 @@ public class JdbcStoreProductRepository implements StoreProductRepository {
             "(upc_prom, id_product, selling_price, products_number, promotional_product) " +
             "VALUES (?, ?, ?, ?, ?)";
     private static final String UPDATE = "UPDATE store_product SET " +
-            "upc_prom=?, id_product=?, selling_price=?, products_number=?, promotional_product=?" +
+            "upc_prom=?, id_product=?, selling_price=?, products_number=?, promotional_product=? " +
             "WHERE upc=?";
     private static final String DELETE = "DELETE FROM store_product WHERE upc=?";
     private static final String GET_DISCOUNTED = "SELECT * FROM store_product WHERE promotional_product=true";
@@ -173,11 +173,14 @@ public class JdbcStoreProductRepository implements StoreProductRepository {
 
     private static int setAllFields(PreparedStatement query, StoreProductEntity storeProduct) throws SQLException {
         int index = 0;
+        if(storeProduct.getPromotionalId() != null)
+            query.setInt(++index, storeProduct.getPromotionalId());
+        else
+            query.setNull(++index, Types.INTEGER);
+        query.setInt(++index, storeProduct.getProductId());
         query.setDouble(++index, storeProduct.getSellingPrice());
         query.setInt(++index, storeProduct.getProductQuantity());
         query.setBoolean(++index, storeProduct.getIsPromotional());
-        query.setInt(++index, storeProduct.getPromotionalId());
-        query.setInt(++index, storeProduct.getProductId());
         return index;
     }
 }

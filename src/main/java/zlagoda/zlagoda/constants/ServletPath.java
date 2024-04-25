@@ -8,4 +8,5 @@ public interface ServletPath {
     String ALL_CATEGORIES = "/allCategories";
     String ALL_PRODUCTS = "/allProducts";
     String ALL_CARDS = "/allCustomerCards";
+    String ALL_STORE_PRODUCTS = "/allStoreProducts";
 }
