@@ -15,11 +15,7 @@ import java.util.List;
 
 public class GetSortCustomerCardCommand implements Command {
 
-    private final CardService cardService;
-
-    public GetSortCustomerCardCommand(CardService cardService) {
-        this.cardService = cardService;
-    }
+    private final CardService cardService = CardService.getInstance();
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

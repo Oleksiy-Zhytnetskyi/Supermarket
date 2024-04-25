@@ -13,11 +13,7 @@ import java.io.IOException;
 
 public class GetMyProfileCommand implements Command {
 
-    private final UserService userService;
-
-    public GetMyProfileCommand(UserService userService) {
-        this.userService = userService;
-    }
+    private final UserService userService = UserService.getInstance();
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

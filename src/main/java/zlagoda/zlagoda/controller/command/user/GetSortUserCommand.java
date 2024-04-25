@@ -16,11 +16,7 @@ import java.util.List;
 
 public class GetSortUserCommand implements Command {
 
-    private final UserService userService;
-
-    public GetSortUserCommand(UserService userService) {
-        this.userService = userService;
-    }
+    private final UserService userService = UserService.getInstance();
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -17,11 +17,7 @@ import java.util.Map;
 
 public class DeleteStoreProductCommand implements Command {
 
-    private final StoreProductService storeProductService;
-
-    public DeleteStoreProductCommand(StoreProductService storeProductService) {
-        this.storeProductService = storeProductService;
-    }
+    private final StoreProductService storeProductService = StoreProductService.getInstance();
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

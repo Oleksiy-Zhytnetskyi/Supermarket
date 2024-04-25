@@ -14,11 +14,7 @@ import java.util.List;
 
 public class GetAllCustomerCardCommand implements Command {
 
-    private final CardService cardService;
-
-    public GetAllCustomerCardCommand(CardService cardService) {
-        this.cardService = cardService;
-    }
+    private final CardService cardService = CardService.getInstance();
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

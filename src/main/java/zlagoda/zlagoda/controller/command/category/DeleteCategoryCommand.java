@@ -18,11 +18,7 @@ import java.util.Map;
 
 public class DeleteCategoryCommand implements Command {
 
-    private final CategoryService categoryService;
-
-    public DeleteCategoryCommand(CategoryService categoryService) {
-        this.categoryService = categoryService;
-    }
+    private final CategoryService categoryService = CategoryService.getInstance();
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
