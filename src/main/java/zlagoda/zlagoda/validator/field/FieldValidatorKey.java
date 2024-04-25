@@ -21,7 +21,8 @@ public enum FieldValidatorKey {
     CITY("city"),
     STREET("street"),
     ZIP_CODE("zipCode"),
-    CHARACTERISTICS("characteristics");
+    CHARACTERISTICS("characteristics"),
+    PRICE("price");
 
     private final String value;
 }

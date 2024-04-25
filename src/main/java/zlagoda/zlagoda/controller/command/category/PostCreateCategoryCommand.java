@@ -22,11 +22,7 @@ import java.util.Map;
 
 public class PostCreateCategoryCommand implements Command {
 
-    private final CategoryService categoryService;
-
-    public PostCreateCategoryCommand(CategoryService categoryService) {
-        this.categoryService = categoryService;
-    }
+    private final CategoryService categoryService = CategoryService.getInstance();
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, ParseException {

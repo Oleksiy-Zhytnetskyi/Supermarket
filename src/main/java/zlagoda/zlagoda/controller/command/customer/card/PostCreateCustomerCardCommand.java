@@ -3,6 +3,7 @@ package zlagoda.zlagoda.controller.command.customer.card;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.AllArgsConstructor;
 import zlagoda.zlagoda.constants.Attribute;
 import zlagoda.zlagoda.constants.Page;
 import zlagoda.zlagoda.constants.ServletPath;
@@ -23,11 +24,7 @@ import java.util.Map;
 
 public class PostCreateCustomerCardCommand implements Command {
 
-    private final CardService cardService;
-
-    public PostCreateCustomerCardCommand(CardService cardService) {
-        this.cardService = cardService;
-    }
+    private final CardService cardService = CardService.getInstance();
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, ParseException {

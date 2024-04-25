@@ -13,11 +13,7 @@ import java.io.IOException;
 
 public class GetCreateCategoryCommand implements Command {
 
-    private final CategoryService categoryService;
-
-    public GetCreateCategoryCommand(CategoryService categoryService) {
-        this.categoryService = categoryService;
-    }
+    private final CategoryService categoryService = CategoryService.getInstance();
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

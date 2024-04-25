@@ -16,13 +16,8 @@ import java.util.List;
 
 public class GetAllProductsCommand implements Command {
 
-    private final ProductService productService;
-    private final CategoryService categoryService;
-
-    public GetAllProductsCommand(ProductService service, CategoryService categoryService) {
-        this.productService = service;
-        this.categoryService = categoryService;
-    }
+    private final ProductService productService = ProductService.getInstance();
+    private final CategoryService categoryService = CategoryService.getInstance();
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

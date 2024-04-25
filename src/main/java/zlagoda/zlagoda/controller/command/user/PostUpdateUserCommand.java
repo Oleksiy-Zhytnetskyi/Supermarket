@@ -24,11 +24,7 @@ import java.util.Map;
 
 public class PostUpdateUserCommand implements Command {
 
-    private final UserService userService;
-
-    public PostUpdateUserCommand(UserService userService) {
-        this.userService = userService;
-    }
+    private final UserService userService = UserService.getInstance();
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, ParseException {

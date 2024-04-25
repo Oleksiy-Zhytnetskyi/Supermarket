@@ -3,6 +3,7 @@ package zlagoda.zlagoda.controller.command.user;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.AllArgsConstructor;
 import zlagoda.zlagoda.constants.Attribute;
 import zlagoda.zlagoda.constants.Page;
 import zlagoda.zlagoda.constants.ServletPath;
@@ -23,11 +24,7 @@ import java.util.Map;
 
 public class PostCreateUserCommand implements Command {
 
-    private final UserService userService;
-
-    public PostCreateUserCommand(UserService userService) {
-        this.userService = userService;
-    }
+    private final UserService userService = UserService.getInstance();
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -26,11 +26,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@AllArgsConstructor
 public class PostUpdateProductCommand implements Command {
 
-    private final ProductService productService;
-    private final CategoryService categoryService;
+    private final ProductService productService = ProductService.getInstance();
+    private final CategoryService categoryService = CategoryService.getInstance();
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, ParseException {

@@ -18,13 +18,8 @@ import java.util.List;
 
 public class GetAllStoreProductCommand implements Command {
 
-    private final ProductService productService;
-    private final StoreProductService storeProductService;
-
-    public GetAllStoreProductCommand(ProductService service, StoreProductService storeProductService) {
-        this.productService = service;
-        this.storeProductService = storeProductService;
-    }
+    private final ProductService productService = ProductService.getInstance();
+    private final StoreProductService storeProductService = StoreProductService.getInstance();
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
