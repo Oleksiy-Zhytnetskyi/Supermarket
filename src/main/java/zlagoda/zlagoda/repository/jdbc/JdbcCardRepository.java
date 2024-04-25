@@ -18,7 +18,7 @@ public class JdbcCardRepository implements CardRepository {
 
     private static final Logger LOGGER = LogManager.getLogger(JdbcCardRepository.class);
 
-    private static final String GET_ALL = "SELECT * FROM customer_card";
+    private static final String GET_ALL = "SELECT * FROM customer_card ORDER BY cust_surname";
     private static final String GET_BY_ID = "SELECT * FROM customer_card WHERE card_number=?";
     private static final String CREATE = "INSERT INTO customer_card " +
             "(cust_surname, cust_name, cust_patronymic, phone_number, city, street, zip_code, percent) " +

@@ -16,7 +16,7 @@ public class JdbcStoreProductRepository implements StoreProductRepository {
 
     private static final Logger LOGGER = LogManager.getLogger(JdbcStoreProductRepository.class);
 
-    private static final String GET_ALL = "SELECT * FROM store_product";
+    private static final String GET_ALL = "SELECT * FROM store_product ORDER BY products_number";
     private static final String GET_BY_ID = "SELECT * FROM store_product WHERE upc=?";
     private static final String CREATE = "INSERT INTO store_product " +
             "(upc_prom, id_product, selling_price, products_number, promotional_product) " +
