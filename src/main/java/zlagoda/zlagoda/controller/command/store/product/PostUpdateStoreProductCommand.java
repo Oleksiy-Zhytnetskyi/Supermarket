@@ -3,7 +3,6 @@ package zlagoda.zlagoda.controller.command.store.product;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.AllArgsConstructor;
 import zlagoda.zlagoda.constants.Attribute;
 import zlagoda.zlagoda.constants.Page;
 import zlagoda.zlagoda.constants.ServletPath;
@@ -12,11 +11,9 @@ import zlagoda.zlagoda.controller.utils.HttpWrapper;
 import zlagoda.zlagoda.controller.utils.RedirectionManager;
 import zlagoda.zlagoda.entity.StoreProductEntity;
 import zlagoda.zlagoda.locale.Message;
-import zlagoda.zlagoda.service.CategoryService;
 import zlagoda.zlagoda.service.ProductService;
 import zlagoda.zlagoda.service.StoreProductService;
-import zlagoda.zlagoda.validator.entity.StoreProductValidator;
-import zlagoda.zlagoda.view.ProductView;
+import zlagoda.zlagoda.validator.entity.StoreProductViewValidator;
 import zlagoda.zlagoda.view.StoreProductView;
 
 import java.io.IOException;
@@ -84,7 +81,7 @@ public class PostUpdateStoreProductCommand implements Command {
     }
 
     private List<String> validateUserInput(StoreProductView storeProductView) {
-        return StoreProductValidator.getInstance().validate(storeProductView);
+        return StoreProductViewValidator.getInstance().validate(storeProductView);
     }
 
     private void redirectToAllCategoryPageWithSuccessMessage(HttpServletRequest request, HttpServletResponse response) throws IOException {
