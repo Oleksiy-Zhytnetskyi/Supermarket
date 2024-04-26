@@ -13,12 +13,6 @@ import java.io.IOException;
 
 public class GetCreateCustomerCardCommand implements Command {
 
-    private CardService cardService;
-
-    public GetCreateCustomerCardCommand(CardService cardService) {
-        this.cardService = cardService;
-    }
-
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("create", true);

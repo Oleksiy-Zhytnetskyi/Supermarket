@@ -11,12 +11,6 @@ import java.io.IOException;
 
 public class GetCreateUserCommand implements Command {
 
-    private final UserService userService;
-
-    public GetCreateUserCommand(UserService userService) {
-        this.userService = userService;
-    }
-
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("create", true);

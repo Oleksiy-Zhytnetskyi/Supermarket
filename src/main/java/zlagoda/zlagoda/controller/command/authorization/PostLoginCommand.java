@@ -23,11 +23,7 @@ import java.util.Optional;
 
 public class PostLoginCommand implements Command {
 
-    private final UserService userService;
-
-    public PostLoginCommand(UserService userService) {
-        this.userService = userService;
-    }
+    private final UserService userService = UserService.getInstance();
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

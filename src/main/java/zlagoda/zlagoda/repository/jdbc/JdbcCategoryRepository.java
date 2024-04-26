@@ -16,7 +16,7 @@ public class JdbcCategoryRepository implements CategoryRepository {
 
     private static final Logger LOGGER = LogManager.getLogger(JdbcCategoryRepository.class);
 
-    private static final String GET_ALL = "SELECT * FROM category";
+    private static final String GET_ALL = "SELECT * FROM category ORDER BY category_name";
     private static final String GET_BY_ID = "SELECT * FROM category WHERE category_number=?";
     private static final String CREATE = "INSERT INTO category (category_name) VALUES (?)";
     private static final String UPDATE = "UPDATE category SET category_name=? WHERE category_number=?";
