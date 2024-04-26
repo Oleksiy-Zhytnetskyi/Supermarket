@@ -10,7 +10,6 @@ import zlagoda.zlagoda.controller.utils.HttpWrapper;
 import zlagoda.zlagoda.controller.utils.RedirectionManager;
 import zlagoda.zlagoda.locale.Message;
 import zlagoda.zlagoda.service.CategoryService;
-import zlagoda.zlagoda.service.UserService;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -18,7 +17,7 @@ import java.util.Map;
 
 public class DeleteCategoryCommand implements Command {
 
-    private final CategoryService categoryService = CategoryService.getInstance();
+    private static final CategoryService categoryService = CategoryService.getInstance();
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class GetUpdateCustomerCardCommand implements Command {
 
-    private final CardService cardService = CardService.getInstance();
+    private static final CardService cardService = CardService.getInstance();
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

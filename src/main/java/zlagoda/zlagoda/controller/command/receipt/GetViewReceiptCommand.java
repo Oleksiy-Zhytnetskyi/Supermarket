@@ -35,7 +35,7 @@ public class GetViewReceiptCommand implements Command {
                     }
                 });
 
-        if (entity.getCardId() != null) {
+        if (entity.getCardId() != null && entity.getCardId() != 0) {
             CardEntity card = cardService.getCardById(entity.getCardId()).get();
             req.setAttribute(Attribute.CARD_VIEW, card);
         }

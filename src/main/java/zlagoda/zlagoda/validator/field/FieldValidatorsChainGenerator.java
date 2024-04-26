@@ -1,8 +1,9 @@
 package zlagoda.zlagoda.validator.field;
 
-public final class FieldValidatorsChainGenerator {
+import lombok.NoArgsConstructor;
 
-    private FieldValidatorsChainGenerator() {}
+@NoArgsConstructor
+public final class FieldValidatorsChainGenerator {
 
     public static AbstractFieldValidatorHandler getFieldValidatorChain() {
         AbstractFieldValidatorHandler emailFieldValidator = EmailValidator.getInstance();

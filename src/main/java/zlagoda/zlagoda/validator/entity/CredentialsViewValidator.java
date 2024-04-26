@@ -10,7 +10,7 @@ import java.util.List;
 
 public class CredentialsViewValidator implements Validator<CredentialsView>{
 
-    private final AbstractFieldValidatorHandler fieldValidator = FieldValidatorsChainGenerator.getFieldValidatorChain();
+    private static final AbstractFieldValidatorHandler fieldValidator = FieldValidatorsChainGenerator.getFieldValidatorChain();
 
     private static class Holder {
         static final CredentialsViewValidator INSTANCE = new CredentialsViewValidator();

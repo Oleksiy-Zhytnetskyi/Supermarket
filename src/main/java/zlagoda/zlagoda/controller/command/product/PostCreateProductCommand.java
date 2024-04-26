@@ -3,14 +3,12 @@ package zlagoda.zlagoda.controller.command.product;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.AllArgsConstructor;
 import zlagoda.zlagoda.constants.Attribute;
 import zlagoda.zlagoda.constants.Page;
 import zlagoda.zlagoda.constants.ServletPath;
 import zlagoda.zlagoda.controller.command.Command;
 import zlagoda.zlagoda.controller.utils.HttpWrapper;
 import zlagoda.zlagoda.controller.utils.RedirectionManager;
-import zlagoda.zlagoda.entity.CategoryEntity;
 import zlagoda.zlagoda.locale.Message;
 import zlagoda.zlagoda.service.CategoryService;
 import zlagoda.zlagoda.service.ProductService;
@@ -19,15 +17,14 @@ import zlagoda.zlagoda.view.ProductView;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class PostCreateProductCommand implements Command {
 
-    private final ProductService productService = ProductService.getInstance();
-    private final CategoryService categoryService = CategoryService.getInstance();
+    private static final ProductService productService = ProductService.getInstance();
+    private static final CategoryService categoryService = CategoryService.getInstance();
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, ParseException {

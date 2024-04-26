@@ -9,7 +9,6 @@ import zlagoda.zlagoda.controller.command.Command;
 import zlagoda.zlagoda.controller.utils.HttpWrapper;
 import zlagoda.zlagoda.controller.utils.RedirectionManager;
 import zlagoda.zlagoda.locale.Message;
-import zlagoda.zlagoda.service.CategoryService;
 import zlagoda.zlagoda.service.ProductService;
 
 import java.io.IOException;
@@ -18,7 +17,7 @@ import java.util.Map;
 
 public class DeleteProductCommand implements Command {
 
-    private final ProductService productService = ProductService.getInstance();
+    private static final ProductService productService = ProductService.getInstance();
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

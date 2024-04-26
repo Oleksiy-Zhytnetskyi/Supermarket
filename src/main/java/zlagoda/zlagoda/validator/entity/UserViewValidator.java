@@ -15,7 +15,7 @@ import java.util.List;
 public class UserViewValidator implements Validator<UserView> {
     private static final String PASSWORD_REGEX = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,14}$";
 
-    private final AbstractFieldValidatorHandler fieldValidator = FieldValidatorsChainGenerator.getFieldValidatorChain();
+    private static final AbstractFieldValidatorHandler fieldValidator = FieldValidatorsChainGenerator.getFieldValidatorChain();
 
     private static class Holder {
         static final UserViewValidator INSTANCE = new UserViewValidator();

@@ -1,7 +1,6 @@
 package zlagoda.zlagoda.validator.field;
 
 import zlagoda.zlagoda.locale.Message;
-import zlagoda.zlagoda.service.UserService;
 
 import java.util.List;
 

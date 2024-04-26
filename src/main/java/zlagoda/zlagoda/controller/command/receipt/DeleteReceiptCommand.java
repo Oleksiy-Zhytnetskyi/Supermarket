@@ -17,11 +17,7 @@ import java.util.Map;
 
 public class DeleteReceiptCommand implements Command {
 
-    private final ReceiptService receiptService;
-
-    public DeleteReceiptCommand(ReceiptService receiptService) {
-        this.receiptService = receiptService;
-    }
+    private static final ReceiptService receiptService = ReceiptService.getInstance();
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

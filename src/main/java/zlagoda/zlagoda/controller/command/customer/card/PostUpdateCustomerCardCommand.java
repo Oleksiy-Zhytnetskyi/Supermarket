@@ -11,22 +11,18 @@ import zlagoda.zlagoda.controller.utils.HttpWrapper;
 import zlagoda.zlagoda.controller.utils.RedirectionManager;
 import zlagoda.zlagoda.locale.Message;
 import zlagoda.zlagoda.service.CardService;
-import zlagoda.zlagoda.service.CategoryService;
-import zlagoda.zlagoda.service.ProductService;
 import zlagoda.zlagoda.validator.entity.CardViewValidator;
 import zlagoda.zlagoda.view.CardView;
-import zlagoda.zlagoda.view.ProductView;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class PostUpdateCustomerCardCommand implements Command {
 
-    private final CardService cardService = CardService.getInstance();
+    private static final CardService cardService = CardService.getInstance();
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, ParseException {

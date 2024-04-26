@@ -221,7 +221,12 @@ public class JdbcReceiptRepository implements ReceiptRepository {
         query.setDouble(++index, receipt.getSumTotal());
         query.setDouble(++index, receipt.getVat());
         query.setInt(++index, receipt.getUserId());
-        query.setInt(++index, receipt.getCardId());
+        if (receipt.getCardId() != null && receipt.getCardId() != 0) {
+            query.setInt(++index, receipt.getCardId());
+        }
+        else {
+            query.setNull(++index, Types.INTEGER);
+        }
         return index;
     }
 }

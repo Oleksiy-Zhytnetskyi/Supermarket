@@ -27,13 +27,8 @@ import java.util.Map;
 
 public class PostCreateReceiptCommand implements Command {
 
-    private final ReceiptService receiptService;
-    private final CardService cardService;
-
-    public PostCreateReceiptCommand(ReceiptService receiptService, CardService cardService) {
-        this.receiptService = receiptService;
-        this.cardService = cardService;
-    }
+    private static final ReceiptService receiptService = ReceiptService.getInstance();
+    private static final CardService cardService = CardService.getInstance();
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, ParseException {

@@ -14,12 +14,11 @@ import zlagoda.zlagoda.service.StoreProductService;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class GetUpdateStoreProductCommand implements Command {
 
-    private final StoreProductService storeProductService = StoreProductService.getInstance();
-    private final ProductService productService = ProductService.getInstance();
+    private static final StoreProductService storeProductService = StoreProductService.getInstance();
+    private static final ProductService productService = ProductService.getInstance();
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

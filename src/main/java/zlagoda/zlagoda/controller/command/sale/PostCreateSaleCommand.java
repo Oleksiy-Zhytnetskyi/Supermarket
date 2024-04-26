@@ -11,7 +11,6 @@ import zlagoda.zlagoda.controller.utils.HttpWrapper;
 import zlagoda.zlagoda.controller.utils.RedirectionManager;
 import zlagoda.zlagoda.entity.ProductEntity;
 import zlagoda.zlagoda.entity.ReceiptEntity;
-import zlagoda.zlagoda.entity.SaleEntity;
 import zlagoda.zlagoda.entity.StoreProductEntity;
 import zlagoda.zlagoda.entity.keys.SaleEntityComplexKey;
 import zlagoda.zlagoda.locale.Message;
@@ -19,26 +18,22 @@ import zlagoda.zlagoda.service.ProductService;
 import zlagoda.zlagoda.service.ReceiptService;
 import zlagoda.zlagoda.service.SaleService;
 import zlagoda.zlagoda.service.StoreProductService;
-import zlagoda.zlagoda.view.ReceiptView;
+import zlagoda.zlagoda.validator.entity.SaleViewValidator;
 import zlagoda.zlagoda.view.SaleView;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class PostCreateSaleCommand implements Command {
 
-    private final SaleService saleService;
-    private final StoreProductService storeProductService;
-    private final ProductService productService;
-    private final ReceiptService receiptService;
-
-    public PostCreateSaleCommand(SaleService saleService, StoreProductService storeProductService, ProductService productService, ReceiptService receiptService) {
-        this.saleService = saleService;
-        this.storeProductService = storeProductService;
-        this.productService = productService;
-        this.receiptService = receiptService;
-    }
+    private static final SaleService saleService = SaleService.getInstance();
+    private static final StoreProductService storeProductService = StoreProductService.getInstance();
+    private static final ProductService productService = ProductService.getInstance();
+    private static final ReceiptService receiptService = ReceiptService.getInstance();
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, ParseException {
@@ -52,12 +47,17 @@ public class PostCreateSaleCommand implements Command {
         }
 
         addRequestAttributes(req, saleView, errors);
-        return Page.ADD_RECEIPT;
+        return Page.CREATE_SALE;
     }
 
     private SaleView getUserInput(HttpServletRequest req) throws ParseException {
-        SaleView.SaleViewBuilder builder = SaleView.builder()
-                .productQuantity(Integer.valueOf(req.getParameter(Attribute.PRODUCT_QUANTITY)));
+        SaleView.SaleViewBuilder builder = SaleView.builder();
+        try {
+            builder.productQuantity(Integer.valueOf(req.getParameter(Attribute.PRODUCT_QUANTITY)));
+        }
+        catch (NumberFormatException e) {
+            builder.productQuantity(0);
+        }
         SaleEntityComplexKey saleEntityComplexKey = new SaleEntityComplexKey();
         if(!req.getParameter(Attribute.RECEIPT).equals("null")) {
             saleEntityComplexKey.setReceiptId(Integer.valueOf(req.getParameter(Attribute.RECEIPT)));
@@ -70,8 +70,7 @@ public class PostCreateSaleCommand implements Command {
     }
 
     private List<String> validateUserInput(SaleView saleView) {
-//        To do: validator
-        return new ArrayList<>();
+        return SaleViewValidator.getInstance().validate(saleView);
     }
 
     private void redirectToAllProductsPageWithSuccessMessage(HttpServletRequest request, HttpServletResponse response) throws IOException {
