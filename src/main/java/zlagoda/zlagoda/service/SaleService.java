@@ -160,7 +160,7 @@ public class SaleService {
                 .isPromotional(storeProductEntity.getIsPromotional())
                 .productId(storeProductEntity.getProductId());
 
-        if(!storeProductEntity.getIsPromotional()) {
+        if(!storeProductEntity.getIsPromotional() && storeProductEntity.getPromotionalId() != 0) {
             builder.promotionalId(storeProductEntity.getPromotionalId());
         }
 
