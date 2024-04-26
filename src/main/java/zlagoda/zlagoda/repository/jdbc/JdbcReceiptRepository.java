@@ -25,7 +25,7 @@ public class JdbcReceiptRepository implements ReceiptRepository {
             "(print_date, sum_total, vat, id_employee, card_number) " +
             "VALUES (?, ?, ?, ?, ?)";
     private static final String UPDATE = "UPDATE receipt SET " +
-            "print_date=?, sum_total=?, vat=?, id_employee=?, card_number=?" +
+            "print_date=?, sum_total=?, vat=?, id_employee=?, card_number=? " +
             "WHERE check_number=?";
     private static final String DELETE = "DELETE FROM receipt WHERE check_number=?";
     private static final String GET_BY_USER_AND_TIME_PERIOD = "SELECT * FROM receipt " +

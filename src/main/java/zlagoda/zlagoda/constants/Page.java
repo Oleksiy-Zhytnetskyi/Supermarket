@@ -27,5 +27,11 @@ public interface Page {
     String VIEW_STORE_PRODUCT = PREFIX + "viewStoreProduct" + SUFFIX;
     String ADD_STORE_PRODUCT = PREFIX + "addUpdateStoreProduct" + SUFFIX;
 
+    String ALL_RECEIPTS = PREFIX + "allReceipts" + SUFFIX;
+    String ADD_RECEIPT = PREFIX + "createReceipt" + SUFFIX;
+
+    String ALL_SALES = PREFIX + "allSales" + SUFFIX;
+    String CREATE_SALE = PREFIX + "createSale" + SUFFIX;
+
     String PAGE_NOT_FOUND = PREFIX + ERROR_PREFIX + "pageNotFound" + SUFFIX;
 }

@@ -23,8 +23,8 @@ public class JdbcSaleRepository implements SaleRepository {
     private static final String GET_ALL = "SELECT * FROM sale";
     private static final String GET_BY_ID = "SELECT * FROM sale WHERE upc=? AND check_number=?";
     private static final String CREATE = "INSERT INTO sale " +
-            "(product_number, selling_price) " +
-            "VALUES (?, ?)";
+            "(product_number, selling_price, upc, check_number) " +
+            "VALUES (?, ?, ?, ?)";
     private static final String UPDATE = "UPDATE sale SET " +
             "product_number=?, selling_price=? " +
             "WHERE upc=? AND check_number=?";
@@ -84,12 +84,10 @@ public class JdbcSaleRepository implements SaleRepository {
     @Override
     public void create(SaleEntity sale) {
         try (PreparedStatement query = connection.prepareStatement(CREATE, Statement.RETURN_GENERATED_KEYS)) {
-            setAllFields(query, sale);
+            final int counterIndex = setAllFields(query, sale);
+            query.setInt(counterIndex + 1, sale.getPk().getUPC());
+            query.setInt(counterIndex + 2, sale.getPk().getReceiptId());
             query.executeUpdate();
-            ResultSet keys = query.getGeneratedKeys();
-            if (keys.next()) {
-                sale.setPk(new SaleEntityComplexKey(keys.getInt(1), keys.getInt(2)));
-            }
         } catch (SQLException e) {
             LOGGER.error("JdbcSaleRepository create SQL exception", e);
             throw new ServerException(e);

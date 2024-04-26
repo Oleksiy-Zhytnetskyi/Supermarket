@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS receipt(
     check_number INTEGER AUTO_INCREMENT PRIMARY KEY,
     id_employee  INTEGER NOT NULL,
     card_number  INTEGER,
-    print_date   DATETIME NOT NULL,
+    print_date   DATE NOT NULL,
     sum_total    DECIMAL(13, 4) NOT NULL,
     vat          DECIMAL(13, 4) NOT NULL,
     FOREIGN KEY(id_employee) REFERENCES employee(id_employee)
