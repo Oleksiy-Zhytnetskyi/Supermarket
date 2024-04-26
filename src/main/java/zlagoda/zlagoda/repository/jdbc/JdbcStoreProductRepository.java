@@ -17,6 +17,10 @@ public class JdbcStoreProductRepository implements StoreProductRepository {
     private static final Logger LOGGER = LogManager.getLogger(JdbcStoreProductRepository.class);
 
     private static final String GET_ALL = "SELECT * FROM store_product ORDER BY products_number";
+    private static final String GET_ALL_SORTED_BY_NAME = "SELECT * " +
+            "FROM store_product sp " +
+            "INNER JOIN product p ON sp.id_product = p.id_product " +
+            "ORDER BY p.product_name";
     private static final String GET_BY_ID = "SELECT * FROM store_product WHERE upc=?";
     private static final String CREATE = "INSERT INTO store_product " +
             "(upc_prom, id_product, selling_price, products_number, promotional_product) " +
@@ -58,6 +62,20 @@ public class JdbcStoreProductRepository implements StoreProductRepository {
             }
         } catch (SQLException e) {
             LOGGER.error("JdbcStoreProductRepository getAll SQL exception", e);
+            throw new ServerException(e);
+        }
+        return storeProducts;
+    }
+
+    @Override
+    public List<StoreProductEntity> getAllSortedByName() {
+        List<StoreProductEntity> storeProducts = new ArrayList<>();
+        try (Statement query = connection.createStatement(); ResultSet resultSet = query.executeQuery(GET_ALL_SORTED_BY_NAME)) {
+            while (resultSet.next()) {
+                storeProducts.add(extractStoreProductFromResultSet(resultSet));
+            }
+        } catch (SQLException e) {
+            LOGGER.error("JdbcStoreProductRepository getAllSortedByName SQL exception", e);
             throw new ServerException(e);
         }
         return storeProducts;

@@ -11,6 +11,7 @@ import zlagoda.zlagoda.controller.utils.HttpWrapper;
 import zlagoda.zlagoda.controller.utils.RedirectionManager;
 import zlagoda.zlagoda.controller.utils.SessionManager;
 import zlagoda.zlagoda.entity.UserEntity;
+import zlagoda.zlagoda.entity.enums.UserRole;
 import zlagoda.zlagoda.locale.Message;
 
 import java.io.IOException;
@@ -21,12 +22,32 @@ public class UrlUnauthorizedAccessFilter implements Filter {
 
 	private static final String ALLOWED_PATH = "/controller/login";
 
+	private static final ArrayList<String> MANAGER_BANNED_PATHS = new ArrayList<>(Arrays.asList(
+			"/createReceipt",
+			"/createSale"
+	));
+
+	private static final ArrayList<String> CASHIER_BANNED_PATHS = new ArrayList<>(Arrays.asList(
+			"/allUsers",
+			"/createUser",
+			"/createProduct",
+			"/createStoreProduct",
+			"/createCategory",
+			"/createCustomerCard",
+			"/updateUser",
+			"/updateProduct",
+			"/updateStoreProduct",
+			"/updateCategory",
+			"/updateReceipt",
+			"/updateSale",
+			"/delete"
+	));
+
 	private final static Logger LOGGER = Logger.getLogger(UrlUnauthorizedAccessFilter.class);
 	private static final String UNAUTHORIZED_ACCESS = "Unauthorized access to the resource: ";
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-
 	}
 
 	@Override
@@ -38,7 +59,7 @@ public class UrlUnauthorizedAccessFilter implements Filter {
 
 		String path = ((HttpServletRequest) servletRequest).getRequestURI();
 
-		if (!path.contains(ALLOWED_PATH) && (!isUserRegistered(user) /*|| !isUserAuthorizedForResource(httpRequest.getRequestURI(), user)*/)) {
+		if (!path.contains(ALLOWED_PATH) && (!isUserAuthorizedForResource(httpRequest.getRequestURI(), user) || !isUserRegistered(user))) {
 			logInfoAboutUnauthorizedAccess(httpRequest.getRequestURI());
 			HttpWrapper httpWrapper = new HttpWrapper(httpRequest, httpResponse);
 			Map<String, String> urlParams = new HashMap<>();
@@ -52,25 +73,34 @@ public class UrlUnauthorizedAccessFilter implements Filter {
 
 	@Override
 	public void destroy() {
-
 	}
 
 	private boolean isUserRegistered(UserEntity user) {
 		return user != null;
 	}
 
-//	private boolean isUserAuthorizedForResource(String servletPath, UserEntity user) {
-//		return (isManagerPage(servletPath) && user.getRole().equals(UserRole.MANAGER))
-//				|| (isCashierPage(servletPath) && user.getRole().equals(UserRole.CASHIER));
-//	}
+	private boolean isUserAuthorizedForResource(String servletPath, UserEntity user) {
+		return (isManagerAllowedPage(servletPath) && user.getRole().equals(UserRole.MANAGER))
+				|| (isCashierAllowedPage(servletPath) && user.getRole().equals(UserRole.CASHIER));
+	}
 
-//	private boolean isManagerPage(String requestURI) {
-//		return requestURI.contains(UserRole.MANAGER.name());
-//	}
-//
-//	private boolean isCashierPage(String requestURI) {
-//		return requestURI.contains(UserRole.CASHIER.name());
-//	}
+	private boolean isCashierAllowedPage(String servletPath) {
+		for (final String path : CASHIER_BANNED_PATHS) {
+			if (servletPath.contains(path)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private boolean isManagerAllowedPage(String servletPath) {
+		for (final String path : MANAGER_BANNED_PATHS) {
+			if (servletPath.contains(path)) {
+				return false;
+			}
+		}
+		return true;
+	}
 
 	private void logInfoAboutUnauthorizedAccess(String uri) {
 		LOGGER.info(UNAUTHORIZED_ACCESS + uri);

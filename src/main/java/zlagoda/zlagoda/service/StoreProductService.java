@@ -3,8 +3,10 @@ package zlagoda.zlagoda.service;
 import lombok.AllArgsConstructor;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import zlagoda.zlagoda.entity.ProductEntity;
 import zlagoda.zlagoda.entity.StoreProductEntity;
 import zlagoda.zlagoda.repository.BaseRepositoryFactory;
+import zlagoda.zlagoda.repository.ProductRepository;
 import zlagoda.zlagoda.repository.StoreProductRepository;
 import zlagoda.zlagoda.view.StoreProductView;
 
@@ -17,6 +19,7 @@ public class StoreProductService {
     private static final Logger LOGGER = LogManager.getLogger(StoreProductService.class);
 
     private static final String GET_ALL_STORE_PRODUCTS = "Get all store products";
+    private static final String GET_ALL_STORE_PRODUCTS_SORTED_BY_NAME = "Get all store products sorted by name";
     private static final String GET_STORE_PRODUCT_BY_ID = "Get store product by id: %d";
     private static final String CREATE_STORE_PRODUCT = "Create store product: %s";
     private static final String UPDATE_STORE_PRODUCT = "Update store product: %s";
@@ -36,6 +39,13 @@ public class StoreProductService {
         LOGGER.info(GET_ALL_STORE_PRODUCTS);
         try (StoreProductRepository repository = repositoryFactory.createStoreProductRepository()) {
             return repository.getAll();
+        }
+    }
+
+    public List<StoreProductEntity> getAllStoreProductsSortedByName() {
+        LOGGER.info(GET_ALL_STORE_PRODUCTS_SORTED_BY_NAME);
+        try (StoreProductRepository repository = repositoryFactory.createStoreProductRepository()) {
+            return repository.getAllSortedByName();
         }
     }
 

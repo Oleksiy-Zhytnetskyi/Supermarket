@@ -30,7 +30,7 @@ public class GetSortStoreProductsCommand implements Command {
         String type = req.getParameter(Attribute.STORE_PRODUCTS_TYPE);
 
         if(sortBy.equals("byName")) {
-            storeProductService.getAllStoreProducts().stream()
+            storeProductService.getAllStoreProductsSortedByName().stream()
                     .forEach(
                             productEntity -> {
                                 ProductEntity product = null;
@@ -55,7 +55,30 @@ public class GetSortStoreProductsCommand implements Command {
                             }
                     );
         } else {
+            storeProductService.getAllStoreProducts().stream()
+                    .forEach(
+                            productEntity -> {
+                                ProductEntity product = null;
+                                for(int i = 0; i < products.size(); i++) {
+                                    if(products.get(i).getId() == productEntity.getProductId()) {
+                                        product = products.get(i);
+                                        break;
+                                    }
+                                }
 
+                                if(product.getName().toLowerCase().contains(name.toLowerCase())) {
+                                    if (type.equals("non-promotional")) {
+                                        if(!productEntity.getIsPromotional())
+                                            storeProducts.add(productEntity);
+                                    } else if (type.equals("promotional")) {
+                                        if(productEntity.getIsPromotional())
+                                            storeProducts.add(productEntity);
+                                    } else {
+                                        storeProducts.add(productEntity);
+                                    }
+                                }
+                            }
+                    );
         }
 
         req.setAttribute("storeProducts", storeProducts);

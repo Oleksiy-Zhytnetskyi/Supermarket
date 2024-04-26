@@ -24,8 +24,8 @@
                 >
 
                 <select id="sortStoreProductsBy" name="sortStoreProductsBy" class="w-4/5 mr-6 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option <c:if test="${empty requestScope.storeProductsSortBy}">selected</c:if> value="byName">By name</option>
-                    <option <c:if test="${requestScope.pstoreProductsSortBy eq 'by number'}">selected</c:if> value="byNumber">By number</option>
+                    <option <c:if test="${requestScope.sortStoreProductsBy eq 'byNumber'}">selected</c:if> value="byNumber">By number</option>
+                    <option <c:if test="${requestScope.sortStoreProductsBy eq 'byName'}">selected</c:if> value="byName">By name</option>
                 </select>
 
                 <select id="storeProductsType" name="storeProductsType" class="w-4/5 mr-6 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">

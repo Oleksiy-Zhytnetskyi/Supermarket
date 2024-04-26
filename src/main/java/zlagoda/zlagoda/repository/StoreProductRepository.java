@@ -9,4 +9,5 @@ import java.util.Optional;
 public interface StoreProductRepository extends BaseRepository<StoreProductEntity, Integer> {
     List<StoreProductEntity> getDiscountedProducts();
     List<StoreProductEntity> getNonDiscountedProducts();
+    List<StoreProductEntity> getAllSortedByName();
 }
