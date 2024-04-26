@@ -50,6 +50,7 @@ public interface Attribute {
     String CARDS_PERCENT = "customersCardPercent";
 
     String STORE_PRODUCTS = "storeProducts";
+    String STORE_PRODUCT = "storeProduct";
     String STORE_PRODUCT_ID = "storeProductId";
     String STORE_PRODUCT_VIEW = "storeProductView";
     String SALE_STORE_PRODUCTS = "saleStoreProducts";

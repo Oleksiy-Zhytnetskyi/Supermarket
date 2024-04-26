@@ -47,9 +47,9 @@
                         </div>
 
                         <div class="sm:col-span-6">
-                            <label for="saleStoreProductId" class="block text-xl font-medium leading-6 text-gray-900">Product</label>
+                            <label for="storeProduct" class="block text-xl font-medium leading-6 text-gray-900">Product</label>
                             <div class="mt-2">
-                                <select id="saleStoreProductId" name="saleStoreProductId" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <select id="storeProduct" name="storeProduct" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                     <option <c:if test="${empty requestScope.storeProductView.getPromotionalId()}">selected</c:if> value="null">Choose a sale store product</option>
 
                                     <c:forEach items="${requestScope.storeProducts}" var="saleStoreProduct" varStatus="status">
@@ -73,13 +73,6 @@
 
                         <div class="sm:col-span-3">
                             <label for="endDate" class="block text-xl font-medium leading-6 text-gray-900">End date</label>
-                            <div class="mt-2">
-                                <input type="date" name="endDate" id="endDate" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6">
-                            </div>
-                        </div>
-
-                        <div class="sm:col-span-3">
-                            <label for="endDate" class="block text-xl font-medium leading-6 text-gray-900">Result</label>
                             <div class="mt-2">
                                 <input type="date" name="endDate" id="endDate" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6">
                             </div>
