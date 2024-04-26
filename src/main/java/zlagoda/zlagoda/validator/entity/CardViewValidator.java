@@ -11,7 +11,7 @@ import java.util.List;
 
 public class CardViewValidator implements Validator<CardView> {
 
-    private final AbstractFieldValidatorHandler fieldValidator = FieldValidatorsChainGenerator.getFieldValidatorChain();
+    private static final AbstractFieldValidatorHandler fieldValidator = FieldValidatorsChainGenerator.getFieldValidatorChain();
 
     private static class Holder {
         static final CardViewValidator INSTANCE = new CardViewValidator();

@@ -16,9 +16,9 @@ import java.util.Objects;
 
 public class StoreProductViewValidator implements Validator<StoreProductView> {
 
-    private final AbstractFieldValidatorHandler fieldValidator = FieldValidatorsChainGenerator.getFieldValidatorChain();
-    private final StoreProductService storeProductService = StoreProductService.getInstance();
-    private final ProductService productService = ProductService.getInstance();
+    private static final AbstractFieldValidatorHandler fieldValidator = FieldValidatorsChainGenerator.getFieldValidatorChain();
+    private static final StoreProductService storeProductService = StoreProductService.getInstance();
+    private static final ProductService productService = ProductService.getInstance();
 
     private static class Holder {
         static final StoreProductViewValidator INSTANCE = new StoreProductViewValidator();

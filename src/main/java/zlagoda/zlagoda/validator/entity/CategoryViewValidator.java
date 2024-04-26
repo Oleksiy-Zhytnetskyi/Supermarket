@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 public class CategoryViewValidator implements Validator<CategoryView> {
 
-    private final AbstractFieldValidatorHandler fieldValidator = FieldValidatorsChainGenerator.getFieldValidatorChain();
+    private static final AbstractFieldValidatorHandler fieldValidator = FieldValidatorsChainGenerator.getFieldValidatorChain();
 
     private static class Holder {
         static final CategoryViewValidator INSTANCE = new CategoryViewValidator();

@@ -30,6 +30,7 @@ public interface Message {
     String PERCENT_NULL_ERROR = "supermarket.error.percentNullError";
     String PRODUCT_NULL_ERROR = "supermarket.error.productNullError";
     String PRICE_NULL_ERROR = "supermarket.error.priceNullError";
+    String RECEIPT_NULL_ERROR = "supermarket.error.receiptNullError";
 
     String NAME_INVALID_ERROR = "supermarket.error.nameInvalidError";
     String SURNAME_INVALID_ERROR = "supermarket.error.surnameInvalidError";
