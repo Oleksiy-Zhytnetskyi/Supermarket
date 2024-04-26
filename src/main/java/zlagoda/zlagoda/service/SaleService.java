@@ -5,12 +5,13 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import zlagoda.zlagoda.entity.ReceiptEntity;
 import zlagoda.zlagoda.entity.SaleEntity;
+import zlagoda.zlagoda.entity.StoreProductEntity;
 import zlagoda.zlagoda.entity.keys.SaleEntityComplexKey;
 import zlagoda.zlagoda.repository.BaseRepositoryFactory;
-import zlagoda.zlagoda.repository.ReceiptRepository;
 import zlagoda.zlagoda.repository.SaleRepository;
 import zlagoda.zlagoda.view.ReceiptView;
 import zlagoda.zlagoda.view.SaleView;
+import zlagoda.zlagoda.view.StoreProductView;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -18,6 +19,9 @@ import java.util.Optional;
 
 @AllArgsConstructor
 public class SaleService {
+
+    private static final ReceiptService receiptService = ReceiptService.getInstance();
+    private static final StoreProductService storeProductService = StoreProductService.getInstance();
 
     private static final Logger LOGGER = LogManager.getLogger(SaleService.class);
 
@@ -53,13 +57,10 @@ public class SaleService {
 
     public void createSale(SaleView saleView) {
         LOGGER.info(String.format(CREATE_SALE, saleView.getPk()));
-        SaleEntity sale = buildSaleFromView(saleView);
-        try (SaleRepository repository = repositoryFactory.createSaleRepository()) {
-            repository.create(sale);
-        }
+        executeCreateSale(saleView);
     }
 
-    public void updateReceipt(SaleView saleView) {
+    public void updateSale(SaleView saleView) {
         LOGGER.info(String.format(UPDATE_SALE, saleView.getPk()));
         SaleEntity sale = buildSaleFromView(saleView);
         try (SaleRepository repository = repositoryFactory.createSaleRepository()) {
@@ -69,9 +70,7 @@ public class SaleService {
 
     public void deleteSale(SaleEntityComplexKey id) {
         LOGGER.info(String.format(DELETE_SALE, id));
-        try (SaleRepository repository = repositoryFactory.createSaleRepository()) {
-            repository.delete(id);
-        }
+        executeDeleteSale(id);
     }
 
     public Integer getSoldProductQuantityByProductAndTimePeriod(int productId, LocalDate timeStart, LocalDate timeStop) {
@@ -87,5 +86,106 @@ public class SaleService {
                 .productQuantity(view.getProductQuantity())
                 .sellingPrice(view.getSellingPrice())
                 .build();
+    }
+
+    private void executeCreateSale(SaleView saleView) {
+        Optional<SaleEntity> saleEntity = getSaleById(saleView.getPk());
+        if(!saleEntity.isPresent()) {
+            calculateSellingPrice(saleView, null);
+            updateCreateReceipt(saleView, null);
+            updateCreateStoreProduct(saleView, null);
+            SaleEntity sale = buildSaleFromView(saleView);
+            try (SaleRepository repository = repositoryFactory.createSaleRepository()) {
+                repository.create(sale);
+            }
+        } else {
+            SaleEntity entity = saleEntity.get();
+            calculateSellingPrice(saleView, entity);
+            updateCreateReceipt(saleView, entity);
+            updateCreateStoreProduct(saleView, entity);
+            SaleEntity sale = buildSaleFromView(saleView);
+            try (SaleRepository repository = repositoryFactory.createSaleRepository()) {
+                repository.update(sale);
+            }
+        }
+    }
+
+    private void calculateSellingPrice(SaleView saleView, SaleEntity saleEntity) {
+        StoreProductEntity storeProductEntity = storeProductService.getStoreProductById(saleView.getPk().getUPC()).get();
+        saleView.setSellingPrice(storeProductEntity.getSellingPrice() * saleView.getProductQuantity());
+        if(saleEntity != null) {
+            saleView.setSellingPrice(saleEntity.getSellingPrice() + saleView.getSellingPrice());
+            saleView.setProductQuantity(saleView.getProductQuantity() + saleEntity.getProductQuantity());
+        }
+    }
+
+    private void updateCreateReceipt(SaleView saleView, SaleEntity saleEntity) {
+        ReceiptEntity receiptEntity = receiptService.getReceiptById(saleView.getPk().getReceiptId()).get();
+        if(saleEntity == null) {
+            receiptEntity.setSumTotal(receiptEntity.getSumTotal() + saleView.getSellingPrice());
+            receiptEntity.setVat(receiptEntity.getVat() + (saleView.getSellingPrice() / 10));
+        } else {
+            receiptEntity.setSumTotal((receiptEntity.getSumTotal() - saleEntity.getSellingPrice()) + saleView.getSellingPrice());
+            receiptEntity.setVat((receiptEntity.getVat() - (saleEntity.getSellingPrice() / 10)) + (saleView.getSellingPrice() / 10));
+        }
+        receiptService.updateReceipt(buildReceiptView(receiptEntity));
+    }
+
+    private void updateCreateStoreProduct(SaleView saleView, SaleEntity saleEntity) {
+        StoreProductEntity storeProductEntity = storeProductService.getStoreProductById(saleView.getPk().getUPC()).get();
+        if(saleEntity == null) {
+            storeProductEntity.setProductQuantity(storeProductEntity.getProductQuantity() - saleView.getProductQuantity());
+        } else {
+            storeProductEntity.setProductQuantity((storeProductEntity.getProductQuantity() + saleEntity.getProductQuantity()) - saleView.getProductQuantity());
+        }
+        storeProductService.updateStoreProduct(buildStoreProductView(storeProductEntity));
+    }
+
+    private ReceiptView buildReceiptView(ReceiptEntity receiptEntity) {
+        return ReceiptView.builder()
+                .id(receiptEntity.getId())
+                .printDate(receiptEntity.getPrintDate())
+                .sumTotal(receiptEntity.getSumTotal())
+                .vat(receiptEntity.getVat())
+                .userId(receiptEntity.getUserId())
+                .cardId(receiptEntity.getCardId())
+                .build();
+    }
+
+    private StoreProductView buildStoreProductView(StoreProductEntity storeProductEntity) {
+        StoreProductView.StoreProductViewBuilder builder = StoreProductView.builder()
+                .id(storeProductEntity.getId())
+                .sellingPrice(storeProductEntity.getSellingPrice())
+                .productQuantity(storeProductEntity.getProductQuantity())
+                .isPromotional(storeProductEntity.getIsPromotional())
+                .productId(storeProductEntity.getProductId());
+
+        if(!storeProductEntity.getIsPromotional()) {
+            builder.promotionalId(storeProductEntity.getPromotionalId());
+        }
+
+        return builder.build();
+    }
+
+    private void executeDeleteSale(SaleEntityComplexKey id) {
+        SaleEntity saleEntity = getSaleById(id).get();
+        updateDeleteReceipt(saleEntity);
+        updateDeleteStoreProduct(saleEntity);
+        try (SaleRepository repository = repositoryFactory.createSaleRepository()) {
+            repository.delete(id);
+        }
+    }
+
+    private void updateDeleteReceipt(SaleEntity saleEntity) {
+        ReceiptEntity receiptEntity = receiptService.getReceiptById(saleEntity.getPk().getReceiptId()).get();
+        receiptEntity.setSumTotal(receiptEntity.getSumTotal() - saleEntity.getSellingPrice());
+        receiptEntity.setVat(receiptEntity.getVat() - (saleEntity.getSellingPrice() / 10));
+        receiptService.updateReceipt(buildReceiptView(receiptEntity));
+    }
+
+    private void updateDeleteStoreProduct(SaleEntity saleEntity) {
+        StoreProductEntity storeProductEntity = storeProductService.getStoreProductById(saleEntity.getPk().getUPC()).get();
+        storeProductEntity.setProductQuantity(storeProductEntity.getProductQuantity() + saleEntity.getProductQuantity());
+        storeProductService.updateStoreProduct(buildStoreProductView(storeProductEntity));
     }
 }
