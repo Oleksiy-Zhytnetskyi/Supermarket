@@ -33,5 +33,7 @@ public interface Page {
     String ALL_SALES = PREFIX + "allSales" + SUFFIX;
     String CREATE_SALE = PREFIX + "createSale" + SUFFIX;
 
+    String ALL_STATISTICS = PREFIX + "statistic" + SUFFIX;
+
     String PAGE_NOT_FOUND = PREFIX + "pageNotFound" + SUFFIX;
 }
