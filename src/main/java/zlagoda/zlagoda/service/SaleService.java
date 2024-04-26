@@ -30,8 +30,10 @@ public class SaleService {
     private static final String CREATE_SALE = "Create receipt: %s";
     private static final String UPDATE_SALE = "Update receipt: %s";
     private static final String DELETE_SALE = "Delete receipt: %s";
-    private static final String GET_SOLD_PRODUCT_QUANTITY_BY_PRODUCT_AND_TIME_PERIOD = "Get sold product " +
-            "quantity by productId: %d and time period (timeStart: %s, timeEnd: %s)";
+    private static final String GET_SALES_BY_PRODUCT_AND_TIME_PERIOD = "Get sales by productId: %d " +
+            "and time period (timeStart: %s, timeEnd: %s)";
+    private static final String GET_SALES_BY_TIME_PERIOD = "Get sales by time period " +
+            "(timeStart: %s, timeEnd: %s)";
 
     private final BaseRepositoryFactory repositoryFactory;
 
@@ -73,10 +75,17 @@ public class SaleService {
         executeDeleteSale(id);
     }
 
-    public Integer getSoldProductQuantityByProductAndTimePeriod(int productId, LocalDate timeStart, LocalDate timeStop) {
-        LOGGER.info(String.format(GET_SOLD_PRODUCT_QUANTITY_BY_PRODUCT_AND_TIME_PERIOD, productId, timeStop, timeStop));
+    public List<SaleEntity> getSalesByProductAndTimePeriod(int productId, LocalDate timeStart, LocalDate timeStop) {
+        LOGGER.info(String.format(GET_SALES_BY_PRODUCT_AND_TIME_PERIOD, productId, timeStop, timeStop));
         try (SaleRepository repository = repositoryFactory.createSaleRepository()) {
-            return repository.getSoldProductQuantityByProductAndTimePeriod(productId, timeStart, timeStop);
+            return repository.getSalesByProductAndTimePeriod(productId, timeStart, timeStop);
+        }
+    }
+
+    public List<SaleEntity> getSalesByTimePeriod(LocalDate timeStart, LocalDate timeStop) {
+        LOGGER.info(String.format(GET_SALES_BY_TIME_PERIOD, timeStop, timeStop));
+        try (SaleRepository repository = repositoryFactory.createSaleRepository()) {
+            return repository.getSalesByTimePeriod(timeStart, timeStop);
         }
     }
 
