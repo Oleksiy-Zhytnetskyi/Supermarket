@@ -21,16 +21,13 @@ public class GetAllStatisticsCommand implements Command {
 
     private static final UserService userService = UserService.getInstance();
     private static final ProductService productService = ProductService.getInstance();
-    private static final StoreProductService storeProductService = StoreProductService.getInstance();
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<UserEntity> cashiers = userService.searchUsersByRole(UserRole.CASHIER);
         List<ProductEntity> products = productService.getAllProducts();
-        List<StoreProductEntity> storeProducts = storeProductService.getAllStoreProducts();
         req.setAttribute(Attribute.USERS, cashiers);
         req.setAttribute(Attribute.PRODUCTS, products);
-        req.setAttribute(Attribute.STORE_PRODUCTS, storeProducts);
         return Page.ALL_STATISTICS;
     }
 }

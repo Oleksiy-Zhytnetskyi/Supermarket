@@ -38,6 +38,7 @@ public interface Attribute {
 
     String PRODUCT_VIEW = "productView";
     String PRODUCTS = "products";
+    String PRODUCT = "product";
     String CHARACTERISTICS = "characteristics";
     String PRODUCTS_CATEGORY = "productsCategory";
     String PRODUCTS_NAME = "productsName";

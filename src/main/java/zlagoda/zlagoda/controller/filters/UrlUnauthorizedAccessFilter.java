@@ -40,7 +40,8 @@ public class UrlUnauthorizedAccessFilter implements Filter {
 			"/updateCategory",
 			"/updateReceipt",
 			"/updateSale",
-			"/delete"
+			"/delete",
+			"/statistic"
 	));
 
 	private final static Logger LOGGER = Logger.getLogger(UrlUnauthorizedAccessFilter.class);
@@ -59,7 +60,7 @@ public class UrlUnauthorizedAccessFilter implements Filter {
 
 		String path = ((HttpServletRequest) servletRequest).getRequestURI();
 
-		if (!path.contains(ALLOWED_PATH) && (!isUserAuthorizedForResource(httpRequest.getRequestURI(), user) || !isUserRegistered(user))) {
+		if (!path.contains(ALLOWED_PATH) && (!isUserRegistered(user) || !isUserAuthorizedForResource(httpRequest.getRequestURI(), user))) {
 			logInfoAboutUnauthorizedAccess(httpRequest.getRequestURI());
 			HttpWrapper httpWrapper = new HttpWrapper(httpRequest, httpResponse);
 			Map<String, String> urlParams = new HashMap<>();

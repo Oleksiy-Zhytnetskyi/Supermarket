@@ -20,7 +20,7 @@
                 <div>
                     <span class="font-medium">Caution</span>
                     <ul class="mt-1.5 list-disc list-inside">
-                        <li><fmt:message key="${error}" bundle="${rb}"/></li>
+                        <li><fmt:message key="${param.error}" bundle="${rb}"/></li>
                     </ul>
                 </div>
             </div>
