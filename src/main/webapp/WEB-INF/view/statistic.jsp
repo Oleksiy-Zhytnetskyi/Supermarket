@@ -34,30 +34,26 @@
 
                     <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-6">
-                            <label for="user" class="block text-xl font-medium leading-6 text-gray-900">First name</label>
+                            <label for="user" class="block text-xl font-medium leading-6 text-gray-900">Cashier</label>
                             <div class="mt-2">
                                 <select id="user" name="user" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                     <option selected value="null">Choose a cashier</option>
 
                                     <c:forEach items="${requestScope.users}" var="user" varStatus="status">
-                                        <option value="${user.getId()}">Name:${user.getName()} Surname:${user.getSurname()} Email:${user.getEmail()}}</option>
+                                        <option value="${user.getId()}">Name:${user.getName()} Surname:${user.getSurname()} Email:${user.getEmail()}</option>
                                     </c:forEach>
                                 </select>
                             </div>
                         </div>
 
-                        <div class="sm:col-span-3">
-                            <label for="saleStoreProductId" class="block text-xl font-medium leading-6 text-gray-900">Product</label>
+                        <div class="sm:col-span-6">
+                            <label for="product" class="block text-xl font-medium leading-6 text-gray-900">Product</label>
                             <div class="mt-2">
-                                <select id="saleStoreProductId" name="saleStoreProductId" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <select id="product" name="product" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                     <option <c:if test="${empty requestScope.storeProductView.getPromotionalId()}">selected</c:if> value="null">Choose a sale store product</option>
 
-                                    <c:forEach items="${requestScope.saleStoreProducts}" var="saleStoreProduct" varStatus="status">
-                                        <option <c:if test="${requestScope.storeProductView.getPromotionalId() eq saleStoreProduct.getId()}">selected</c:if> value="${saleStoreProduct.getId()}">
-                                            <c:forEach items="${requestScope.products}" var="product" varStatus="status">
-                                                <c:if test="${saleStoreProduct.getProductId() eq product.getId()}">${product.getName()} Price:${saleStoreProduct.getSellingPrice()} Quantity:${saleStoreProduct.getProductQuantity()}</c:if>
-                                            </c:forEach>
-                                        </option>
+                                    <c:forEach items="${requestScope.products}" var="product" varStatus="status">
+                                        <option  value="${product.getId()}">${product.getName()}</option>
                                     </c:forEach>
                                 </select>
                             </div>
@@ -78,12 +74,14 @@
                             </div>
                         </div>
 
-                        <div class="sm:col-span-3">
-                            <label for="endDate" class="block text-xl font-medium leading-6 text-gray-900">Result</label>
-                            <div class="mt-2">
-                                <input type="date" name="endDate" id="endDate" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6">
+                        <c:if test="${not empty requestScope.totalSum}">
+                            <div class="sm:col-span-6">
+                                <label for="endDate" class="block text-xl font-medium leading-6 text-gray-900">Result</label>
+                                <div class="mt-2">
+                                    <label class="block text-xl font-medium leading-6 text-gray-900">Total sum: ${requestScope.totalSum}  Total quantity: ${requestScope.totalQuantity}</label>
+                                </div>
                             </div>
-                        </div>
+                        </c:if>
 
                     </div>
                 </div>
