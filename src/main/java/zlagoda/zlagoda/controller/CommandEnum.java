@@ -13,7 +13,10 @@ import zlagoda.zlagoda.controller.command.receipt.DeleteReceiptCommand;
 import zlagoda.zlagoda.controller.command.receipt.GetAllReceiptsCommand;
 import zlagoda.zlagoda.controller.command.receipt.GetCreateReceiptCommand;
 import zlagoda.zlagoda.controller.command.receipt.PostCreateReceiptCommand;
+import zlagoda.zlagoda.controller.command.sale.DeleteSaleCommand;
 import zlagoda.zlagoda.controller.command.sale.GetAllSalesCommand;
+import zlagoda.zlagoda.controller.command.sale.GetCreateSaleCommand;
+import zlagoda.zlagoda.controller.command.sale.PostCreateSaleCommand;
 import zlagoda.zlagoda.controller.command.store.product.*;
 import zlagoda.zlagoda.controller.command.user.*;
 import zlagoda.zlagoda.service.*;
@@ -312,6 +315,24 @@ public enum CommandEnum {
         {
             this.key = "GET:allSales";
             this.command = new GetAllSalesCommand(SaleService.getInstance(), ReceiptService.getInstance(), StoreProductService.getInstance(), ProductService.getInstance());
+        }
+    },
+    GET_CREATE_SALE {
+        {
+            this.key = "GET:createSale";
+            this.command = new GetCreateSaleCommand(SaleService.getInstance(), StoreProductService.getInstance(), ProductService.getInstance(), ReceiptService.getInstance());
+        }
+    },
+    POST_CREATE_SALE {
+        {
+            this.key = "POST:createSale";
+            this.command = new PostCreateSaleCommand(SaleService.getInstance(), StoreProductService.getInstance(), ProductService.getInstance(), ReceiptService.getInstance());
+        }
+    },
+    DELETE_SALE {
+        {
+            this.key = "GET:deleteSale";
+            this.command = new DeleteSaleCommand(SaleService.getInstance());
         }
     };
 

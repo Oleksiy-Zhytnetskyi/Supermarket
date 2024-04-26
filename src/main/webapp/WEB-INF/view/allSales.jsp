@@ -67,7 +67,7 @@
                         ${sale.getSellingPrice()}
                 </td>
                 <td class="flex justify-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white text-center dark:bg-gray-700">
-                    <a href="${pageContext.request.contextPath}/controller/deleteSale?id=${sale.getPk()}" class="w-1/3 m-1.5">
+                    <a href="${pageContext.request.contextPath}/controller/deleteSale?receipt=${sale.getPk().getReceiptId()}&storeProductId=${sale.getPk().getUPC()}" class="w-1/3 m-1.5">
                         <button type="button" class="w-full relative rounded-lg bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" id="delete-button" aria-expanded="false" aria-haspopup="true">
                             <span>Delete</span>
                         </button>

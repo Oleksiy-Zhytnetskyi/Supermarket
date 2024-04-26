@@ -10,4 +10,5 @@ public interface ServletPath {
     String ALL_CARDS = "/allCustomerCards";
     String ALL_STORE_PRODUCTS = "/allStoreProducts";
     String ALL_RECEIPTS = "/allReceipts";
+    String ALL_SALES = "/allSales";
 }

@@ -31,6 +31,7 @@ public interface Page {
     String ADD_RECEIPT = PREFIX + "createReceipt" + SUFFIX;
 
     String ALL_SALES = PREFIX + "allSales" + SUFFIX;
+    String CREATE_SALE = PREFIX + "createSale" + SUFFIX;
 
     String PAGE_NOT_FOUND = PREFIX + ERROR_PREFIX + "pageNotFound" + SUFFIX;
 }

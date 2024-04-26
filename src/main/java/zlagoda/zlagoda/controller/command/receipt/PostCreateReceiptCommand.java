@@ -10,16 +10,11 @@ import zlagoda.zlagoda.controller.command.Command;
 import zlagoda.zlagoda.controller.utils.HttpWrapper;
 import zlagoda.zlagoda.controller.utils.RedirectionManager;
 import zlagoda.zlagoda.entity.CardEntity;
-import zlagoda.zlagoda.entity.CategoryEntity;
 import zlagoda.zlagoda.entity.ReceiptEntity;
 import zlagoda.zlagoda.entity.UserEntity;
 import zlagoda.zlagoda.locale.Message;
 import zlagoda.zlagoda.service.CardService;
-import zlagoda.zlagoda.service.CategoryService;
-import zlagoda.zlagoda.service.ProductService;
 import zlagoda.zlagoda.service.ReceiptService;
-import zlagoda.zlagoda.validator.entity.ProductViewValidator;
-import zlagoda.zlagoda.view.ProductView;
 import zlagoda.zlagoda.view.ReceiptView;
 
 import java.io.IOException;
