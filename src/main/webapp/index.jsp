@@ -27,11 +27,4 @@
         </c:if>
     </div>
 
-    <div class="row-fluid">
-        <h2>
-<%--            <fmt:message key="restaurant.greeting" bundle="${rb}" />--%>
-        </h2>
-    </div>
-
 </div>
-<%--<%@include file="WEB-INF/views/footer.jsp"%>--%>
