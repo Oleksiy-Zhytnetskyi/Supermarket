@@ -7,13 +7,10 @@ import zlagoda.zlagoda.constants.Attribute;
 import zlagoda.zlagoda.constants.Page;
 import zlagoda.zlagoda.controller.command.Command;
 import zlagoda.zlagoda.entity.UserEntity;
-import zlagoda.zlagoda.service.UserService;
 
 import java.io.IOException;
 
 public class GetMyProfileCommand implements Command {
-
-    private final UserService userService = UserService.getInstance();
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -14,7 +14,7 @@ import java.util.List;
 
 public class GetAllUsersCommand implements Command {
 
-    private final UserService userService = UserService.getInstance();
+    private static final UserService userService = UserService.getInstance();
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

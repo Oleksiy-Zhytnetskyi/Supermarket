@@ -18,12 +18,15 @@ import zlagoda.zlagoda.view.StoreProductView;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class PostUpdateStoreProductCommand implements Command {
 
-    private final StoreProductService storeProductService = StoreProductService.getInstance();
-    private final ProductService productService = ProductService.getInstance();
+    private static final StoreProductService storeProductService = StoreProductService.getInstance();
+    private static final ProductService productService = ProductService.getInstance();
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, ParseException {

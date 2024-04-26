@@ -17,8 +17,8 @@ import java.util.List;
 
 public class GetCreateStoreProductCommand implements Command {
 
-    private final StoreProductService storeProductService = StoreProductService.getInstance();
-    private final ProductService productService = ProductService.getInstance();
+    private static final StoreProductService storeProductService = StoreProductService.getInstance();
+    private static final ProductService productService = ProductService.getInstance();
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
