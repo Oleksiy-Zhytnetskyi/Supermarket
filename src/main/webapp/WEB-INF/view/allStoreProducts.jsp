@@ -11,11 +11,13 @@
 
     <div class="mb-2 grid grid-cols-6 gap-x-6 gap-y-1 sm:grid-cols-6">
         <div class="sm:col-span-1 py-1.5">
-            <a href="${pageContext.request.contextPath}/controller/createStoreProduct" class=" m-1.5">
-                <button type="button" class="w-full h-full relative rounded-lg bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" aria-expanded="false" aria-haspopup="true">
-                    <span class="text-white">Create Product</span>
-                </button>
-            </a>
+            <c:if test="${user.getRole().toString() eq 'MANAGER'}">
+                <a href="${pageContext.request.contextPath}/controller/createStoreProduct" class=" m-1.5">
+                    <button type="button" class="w-full h-full relative rounded-lg bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" aria-expanded="false" aria-haspopup="true">
+                        <span class="text-white">Create Product</span>
+                    </button>
+                </a>
+            </c:if>
         </div>
         <div class="sm:col-span-5">
             <form action="./sortStoreProducts" method="GET" class="flex flex-nowrap justify-center items-center mr-8 ml-8 h-full">
@@ -69,9 +71,9 @@
                         <c:if test="${storeProduct.getProductId() eq product.getId()}">${product.getName()}</c:if>
                     </c:forEach>
                 </td>
-                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white text-center dark:bg-gray-700">${storeProduct.getSellingPrice()}</td>
+                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white text-center dark:bg-gray-600">${storeProduct.getSellingPrice()}</td>
                 <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white text-center dark:bg-gray-700">${storeProduct.getProductQuantity()}</td>
-                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white text-center dark:bg-gray-700">${storeProduct.getIsPromotional()}</td>
+                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white text-center dark:bg-gray-600">${storeProduct.getIsPromotional()}</td>
 
                 <td class="flex justify-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white text-center dark:bg-gray-700">
                     <a href="${pageContext.request.contextPath}/controller/viewStoreProduct?id=${storeProduct.getId()}" class="w-1/3 m-1.5">
@@ -79,16 +81,19 @@
                             <span>View</span>
                         </button>
                     </a>
-                    <a href="${pageContext.request.contextPath}/controller/updateStoreProduct?id=${storeProduct.getId()}" class="w-1/3 m-1.5">
-                        <button type="button" class="w-full relative rounded-lg bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" id="update-button" aria-expanded="false" aria-haspopup="true">
-                            <span>Edit</span>
-                        </button>
-                    </a>
-                    <a href="${pageContext.request.contextPath}/controller/deleteStoreProduct?id=${storeProduct.getId()}" class="w-1/3 m-1.5">
-                        <button type="button" class="w-full relative rounded-lg bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" id="delete-button" aria-expanded="false" aria-haspopup="true">
-                            <span>Delete</span>
-                        </button>
-                    </a>
+
+                    <c:if test="${user.getRole().toString() eq 'MANAGER'}">
+                        <a href="${pageContext.request.contextPath}/controller/updateStoreProduct?id=${storeProduct.getId()}" class="w-1/3 m-1.5">
+                            <button type="button" class="w-full relative rounded-lg bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" id="update-button" aria-expanded="false" aria-haspopup="true">
+                                <span>Edit</span>
+                            </button>
+                        </a>
+                        <a href="${pageContext.request.contextPath}/controller/deleteStoreProduct?id=${storeProduct.getId()}" class="w-1/3 m-1.5">
+                            <button type="button" class="w-full relative rounded-lg bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" id="delete-button" aria-expanded="false" aria-haspopup="true">
+                                <span>Delete</span>
+                            </button>
+                        </a>
+                    </c:if>
                 </td>
             </tr>
         </c:forEach>
