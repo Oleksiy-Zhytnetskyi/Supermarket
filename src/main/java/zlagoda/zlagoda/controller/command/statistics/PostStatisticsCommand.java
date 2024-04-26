@@ -11,10 +11,10 @@ import java.text.ParseException;
 
 public class PostStatisticsCommand implements Command {
 
-    // ...
-
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, ParseException {
+        // Your code here...
+
         return Page.CALCULATE_STATISTICS;
     }
 }
