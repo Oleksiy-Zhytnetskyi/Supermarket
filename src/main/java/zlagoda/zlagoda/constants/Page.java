@@ -3,7 +3,6 @@ package zlagoda.zlagoda.constants;
 public interface Page {
 
     String PREFIX = "/WEB-INF/view/";
-    String ERROR_PREFIX = "errors";
     String SUFFIX = ".jsp";
 
     String HOME_VIEW = "/index" + SUFFIX;
@@ -34,5 +33,5 @@ public interface Page {
     String ALL_SALES = PREFIX + "allSales" + SUFFIX;
     String CREATE_SALE = PREFIX + "createSale" + SUFFIX;
 
-    String PAGE_NOT_FOUND = PREFIX + ERROR_PREFIX + "pageNotFound" + SUFFIX;
+    String PAGE_NOT_FOUND = PREFIX + "pageNotFound" + SUFFIX;
 }

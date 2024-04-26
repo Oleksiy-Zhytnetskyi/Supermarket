@@ -11,11 +11,13 @@
 
     <div class="mb-2 grid grid-cols-6 gap-x-6 gap-y-1 sm:grid-cols-6">
         <div class="sm:col-span-1 py-1.5">
-            <a href="${pageContext.request.contextPath}/controller/createProduct" class=" m-1.5">
-                <button type="button" class="w-full h-full relative rounded-lg bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" aria-expanded="false" aria-haspopup="true">
-                    <span class="text-white">Create Product</span>
-                </button>
-            </a>
+            <c:if test="${user.getRole().toString() eq 'MANAGER'}">
+                <a href="${pageContext.request.contextPath}/controller/createProduct" class=" m-1.5">
+                    <button type="button" class="w-full h-full relative rounded-lg bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" aria-expanded="false" aria-haspopup="true">
+                        <span class="text-white">Create Product</span>
+                    </button>
+                </a>
+            </c:if>
         </div>
         <div class="sm:col-span-5">
             <form action="./sortProducts" method="GET" class="flex flex-nowrap justify-center items-center mr-8 ml-8 h-full">
@@ -60,7 +62,7 @@
             <tr class="border-b border-gray-200 dark:border-gray-900">
                 <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white text-center dark:bg-gray-600">${status.index + 1}</td>
                 <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white text-center dark:bg-gray-700">${product.getName()}</td>
-                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white text-center dark:bg-gray-700">
+                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white text-center dark:bg-gray-600">
                     <c:forEach items="${requestScope.categories}" var="category" varStatus="status">
                         <c:if test="${product.getCategoryId() eq category.getId()}">${category.getName()}</c:if>
                     </c:forEach>
@@ -72,16 +74,19 @@
                             <span>View</span>
                         </button>
                     </a>
-                    <a href="${pageContext.request.contextPath}/controller/updateProduct?id=${product.getId()}" class="w-1/3 m-1.5">
-                        <button type="button" class="w-full relative rounded-lg bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" id="update-button" aria-expanded="false" aria-haspopup="true">
-                            <span>Edit</span>
-                        </button>
-                    </a>
-                    <a href="${pageContext.request.contextPath}/controller/deleteProduct?id=${product.getId()}" class="w-1/3 m-1.5">
-                        <button type="button" class="w-full relative rounded-lg bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" id="delete-button" aria-expanded="false" aria-haspopup="true">
-                            <span>Delete</span>
-                        </button>
-                    </a>
+
+                    <c:if test="${user.getRole().toString() eq 'MANAGER'}">
+                        <a href="${pageContext.request.contextPath}/controller/updateProduct?id=${product.getId()}" class="w-1/3 m-1.5">
+                            <button type="button" class="w-full relative rounded-lg bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" id="update-button" aria-expanded="false" aria-haspopup="true">
+                                <span>Edit</span>
+                            </button>
+                        </a>
+                        <a href="${pageContext.request.contextPath}/controller/deleteProduct?id=${product.getId()}" class="w-1/3 m-1.5">
+                            <button type="button" class="w-full relative rounded-lg bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" id="delete-button" aria-expanded="false" aria-haspopup="true">
+                                <span>Delete</span>
+                            </button>
+                        </a>
+                    </c:if>
                 </td>
             </tr>
         </c:forEach>

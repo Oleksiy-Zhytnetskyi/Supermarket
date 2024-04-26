@@ -64,8 +64,8 @@
                 <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white text-center dark:bg-gray-600">${customerCard.getCustomerSurname()}</td>
                 <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white text-center dark:bg-gray-700">${customerCard.getCustomerPatronymic()}</td>
                 <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white text-center dark:bg-gray-600">${customerCard.getPhoneNumber()}</td>
-                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white text-center dark:bg-gray-600">${customerCard.getPercent()}</td>
-                <td class="flex justify-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white text-center dark:bg-gray-700">
+                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white text-center dark:bg-gray-700">${customerCard.getPercent()}</td>
+                <td class="flex justify-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white text-center dark:bg-gray-600">
                     <a href="${pageContext.request.contextPath}/controller/viewCustomerCard?id=${customerCard.getId()}" class="w-1/3 m-1.5">
                         <button type="button" class="w-full relative rounded-lg bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" id="view-button" aria-expanded="false" aria-haspopup="true">
                             <span>View</span>
@@ -76,11 +76,13 @@
                             <span>Edit</span>
                         </button>
                     </a>
-                    <a href="${pageContext.request.contextPath}/controller/deleteCustomerCard?id=${customerCard.getId()}" class="w-1/3 m-1.5">
-                        <button type="button" class="w-full relative rounded-lg bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" id="delete-button" aria-expanded="false" aria-haspopup="true">
-                            <span>Delete</span>
-                        </button>
-                    </a>
+                    <c:if test="${user.getRole().toString() eq 'MANAGER'}">
+                        <a href="${pageContext.request.contextPath}/controller/deleteCustomerCard?id=${customerCard.getId()}" class="w-1/3 m-1.5">
+                            <button type="button" class="w-full relative rounded-lg bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" id="delete-button" aria-expanded="false" aria-haspopup="true">
+                                <span>Delete</span>
+                            </button>
+                        </a>
+                    </c:if>
                 </td>
             </tr>
         </c:forEach>
