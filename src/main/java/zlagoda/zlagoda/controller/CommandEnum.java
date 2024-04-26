@@ -15,6 +15,8 @@ import zlagoda.zlagoda.controller.command.sale.DeleteSaleCommand;
 import zlagoda.zlagoda.controller.command.sale.GetAllSalesCommand;
 import zlagoda.zlagoda.controller.command.sale.GetCreateSaleCommand;
 import zlagoda.zlagoda.controller.command.sale.PostCreateSaleCommand;
+import zlagoda.zlagoda.controller.command.statistics.GetAllStatisticsCommand;
+import zlagoda.zlagoda.controller.command.statistics.PostStatisticsCommand;
 import zlagoda.zlagoda.controller.command.store.product.*;
 import zlagoda.zlagoda.controller.command.user.*;
 import zlagoda.zlagoda.service.*;
@@ -338,6 +340,18 @@ public enum CommandEnum {
         {
             this.key = "GET:viewReceipt";
             this.command = new GetViewReceiptCommand();
+        }
+    },
+    GET_ALL_STATISTICS {
+        {
+            this.key = "GET:statistics";
+            this.command = new GetAllStatisticsCommand();
+        }
+    },
+    POST_STATISTICS {
+        {
+            this.key = "POST:calculateStatistics";
+            this.command = new PostStatisticsCommand();
         }
     };
 
