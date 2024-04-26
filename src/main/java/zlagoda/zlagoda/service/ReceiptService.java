@@ -10,12 +10,14 @@ import zlagoda.zlagoda.view.ReceiptView;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @AllArgsConstructor
 public class ReceiptService {
 
     private static final Logger LOGGER = LogManager.getLogger(ReceiptService.class);
+    private static final SaleService saleService = SaleService.getInstance();
 
     private static final String GET_ALL_RECEIPTS = "Get all receipts";
     private static final String GET_RECEIPT_BY_ID = "Get receipt by id: %d";
@@ -71,6 +73,13 @@ public class ReceiptService {
 
     public void deleteReceipt(Integer id) {
         LOGGER.info(String.format(DELETE_RECEIPT, id));
+        saleService.getAllSales().stream().forEach(
+                entity -> {
+                    if (Objects.equals(entity.getPk().getReceiptId(), id)) {
+                        saleService.deleteSale(entity.getPk());
+                    }
+                }
+        );
         try (ReceiptRepository repository = repositoryFactory.createReceiptRepository()) {
             repository.delete(id);
         }
