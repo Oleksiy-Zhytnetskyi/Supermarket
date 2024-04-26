@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Setter;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import zlagoda.zlagoda.entity.ReceiptEntity;
 import zlagoda.zlagoda.entity.SaleEntity;
 import zlagoda.zlagoda.entity.keys.SaleEntityComplexKey;
 import zlagoda.zlagoda.exception.ServerException;
@@ -29,11 +30,15 @@ public class JdbcSaleRepository implements SaleRepository {
             "product_number=?, selling_price=? " +
             "WHERE upc=? AND check_number=?";
     private static final String DELETE = "DELETE FROM sale WHERE upc=? AND check_number=?";
-    private static final String GET_SOLD_PRODUCT_QUANTITY_BY_PRODUCT_AND_TIME_PERIOD = "SELECT SUM(s.product_number) " +
-            "FROM sale s " +
+
+    private static final String GET_SALES_BY_PRODUCT_AND_TIME_PERIOD = "SELECT * FROM sale s " +
             "INNER JOIN receipt r ON s.check_number = r.check_number " +
             "INNER JOIN store_product sp ON s.upc = sp.upc " +
             "WHERE sp.id_product=? AND r.print_date BETWEEN ? AND ?";
+
+    private static final String GET_SALES_BY_TIME_PERIOD = "SELECT * FROM sale s " +
+            "INNER JOIN receipt r ON s.check_number = r.check_number " +
+            "WHERE r.print_date BETWEEN ? AND ?";
 
     private static final String ID_UPC = "upc";
     private static final String ID_RECEIPT_ID = "check_number";
@@ -132,21 +137,38 @@ public class JdbcSaleRepository implements SaleRepository {
     }
 
     @Override
-    public Integer getSoldProductQuantityByProductAndTimePeriod(int productId, LocalDate timeStart, LocalDate timeEnd) {
-        int result = 0;
-        try (PreparedStatement query = connection.prepareStatement(GET_SOLD_PRODUCT_QUANTITY_BY_PRODUCT_AND_TIME_PERIOD)) {
+    public List<SaleEntity> getSalesByProductAndTimePeriod(int productId, LocalDate timeStart, LocalDate timeEnd) {
+        List<SaleEntity> sales = new ArrayList<>();
+        try (PreparedStatement query = connection.prepareStatement(GET_SALES_BY_PRODUCT_AND_TIME_PERIOD)) {
             query.setInt(1, productId);
             query.setDate(2, Date.valueOf(timeStart));
             query.setDate(3, Date.valueOf(timeEnd));
             ResultSet rs = query.executeQuery();
             while (rs.next()) {
-                result = rs.getInt(1);
+                sales.add(extractSaleFromResultSet(rs));
             }
         } catch (SQLException e) {
-            LOGGER.error("JdbcSaleRepository.getSoldProductQuantityByProductAndTimePeriod SQL exception: ", e);
+            LOGGER.error("JdbcSaleRepository.getSalesByProductAndTimePeriod SQL exception: ", e);
             throw new ServerException(e);
         }
-        return result;
+        return sales;
+    }
+
+    @Override
+    public List<SaleEntity> getSalesByTimePeriod(LocalDate timeStart, LocalDate timeEnd) {
+        List<SaleEntity> sales = new ArrayList<>();
+        try (PreparedStatement query = connection.prepareStatement(GET_SALES_BY_TIME_PERIOD)) {
+            query.setDate(1, Date.valueOf(timeStart));
+            query.setDate(2, Date.valueOf(timeEnd));
+            ResultSet rs = query.executeQuery();
+            while (rs.next()) {
+                sales.add(extractSaleFromResultSet(rs));
+            }
+        } catch (SQLException e) {
+            LOGGER.error("JdbcSaleRepository.getSalesByTimePeriod SQL exception: ", e);
+            throw new ServerException(e);
+        }
+        return sales;
     }
 
     protected static SaleEntity extractSaleFromResultSet(ResultSet resultSet) throws SQLException {
