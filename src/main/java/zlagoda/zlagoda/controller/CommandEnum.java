@@ -10,16 +10,14 @@ import zlagoda.zlagoda.controller.command.category.*;
 import zlagoda.zlagoda.controller.command.customer.card.*;
 import zlagoda.zlagoda.controller.command.i18n.ChangeLocaleCommand;
 import zlagoda.zlagoda.controller.command.product.*;
-import zlagoda.zlagoda.controller.command.receipt.DeleteReceiptCommand;
-import zlagoda.zlagoda.controller.command.receipt.GetAllReceiptsCommand;
-import zlagoda.zlagoda.controller.command.receipt.GetCreateReceiptCommand;
-import zlagoda.zlagoda.controller.command.receipt.PostCreateReceiptCommand;
+import zlagoda.zlagoda.controller.command.receipt.*;
 import zlagoda.zlagoda.controller.command.sale.DeleteSaleCommand;
 import zlagoda.zlagoda.controller.command.sale.GetAllSalesCommand;
 import zlagoda.zlagoda.controller.command.sale.GetCreateSaleCommand;
 import zlagoda.zlagoda.controller.command.sale.PostCreateSaleCommand;
 import zlagoda.zlagoda.controller.command.store.product.*;
 import zlagoda.zlagoda.controller.command.user.*;
+import zlagoda.zlagoda.service.*;
 
 @Getter
 public enum CommandEnum {
@@ -334,6 +332,12 @@ public enum CommandEnum {
         {
             this.key = "GET:deleteSale";
             this.command = new DeleteSaleCommand();
+        }
+    },
+    VIEW_RECEIPT {
+        {
+            this.key = "GET:viewReceipt";
+            this.command = new GetViewReceiptCommand();
         }
     };
 
