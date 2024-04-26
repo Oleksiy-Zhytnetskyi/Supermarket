@@ -52,7 +52,9 @@ public interface Message {
     String PRICE_INVALID_ERROR = "supermarket.error.priceInvalidError";
     String IS_PROMOTIONAL_INVALID_ERROR = "supermarket.error.isPromotionalInvalidError";
 
+    // Special
     String EMAIL_TAKEN_ERROR = "supermarket.error.emailTakenError";
+    String PRODUCT_QUANTITY_UNAVAILABLE_ERROR = "supermarket.error.quantityUnavailableError";
 
     String SUCCESS_CATEGORY_ADDITION = "supermarket.success.categorySuccessfullyAdded";
     String SUCCESS_CATEGORY_UPDATE = "supermarket.success.categorySuccessfullyUpdated";

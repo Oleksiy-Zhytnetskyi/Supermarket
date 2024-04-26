@@ -90,7 +90,7 @@ public class SaleService {
 
     private void executeCreateSale(SaleView saleView) {
         Optional<SaleEntity> saleEntity = getSaleById(saleView.getPk());
-        if(!saleEntity.isPresent()) {
+        if (saleEntity.isEmpty()) {
             calculateSellingPrice(saleView, null);
             updateCreateReceipt(saleView, null);
             updateCreateStoreProduct(saleView, null);
@@ -103,10 +103,7 @@ public class SaleService {
             calculateSellingPrice(saleView, entity);
             updateCreateReceipt(saleView, entity);
             updateCreateStoreProduct(saleView, entity);
-            SaleEntity sale = buildSaleFromView(saleView);
-            try (SaleRepository repository = repositoryFactory.createSaleRepository()) {
-                repository.update(sale);
-            }
+            updateSale(saleView);
         }
     }
 
@@ -142,14 +139,15 @@ public class SaleService {
     }
 
     private ReceiptView buildReceiptView(ReceiptEntity receiptEntity) {
-        return ReceiptView.builder()
+        ReceiptView.ReceiptViewBuilder builder = ReceiptView.builder()
                 .id(receiptEntity.getId())
                 .printDate(receiptEntity.getPrintDate())
                 .sumTotal(receiptEntity.getSumTotal())
                 .vat(receiptEntity.getVat())
                 .userId(receiptEntity.getUserId())
-                .cardId(receiptEntity.getCardId())
-                .build();
+                .cardId(receiptEntity.getCardId());
+
+        return builder.build();
     }
 
     private StoreProductView buildStoreProductView(StoreProductEntity storeProductEntity) {
@@ -160,9 +158,10 @@ public class SaleService {
                 .isPromotional(storeProductEntity.getIsPromotional())
                 .productId(storeProductEntity.getProductId());
 
-        if(!storeProductEntity.getIsPromotional()) {
+        if (storeProductEntity.getPromotionalId() != 0) {
             builder.promotionalId(storeProductEntity.getPromotionalId());
         }
+        else builder.promotionalId(null);
 
         return builder.build();
     }

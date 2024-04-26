@@ -18,6 +18,7 @@ import zlagoda.zlagoda.service.ProductService;
 import zlagoda.zlagoda.service.ReceiptService;
 import zlagoda.zlagoda.service.SaleService;
 import zlagoda.zlagoda.service.StoreProductService;
+import zlagoda.zlagoda.validator.entity.SaleViewValidator;
 import zlagoda.zlagoda.view.SaleView;
 
 import java.io.IOException;
@@ -46,12 +47,17 @@ public class PostCreateSaleCommand implements Command {
         }
 
         addRequestAttributes(req, saleView, errors);
-        return Page.ADD_RECEIPT;
+        return Page.CREATE_SALE;
     }
 
     private SaleView getUserInput(HttpServletRequest req) throws ParseException {
-        SaleView.SaleViewBuilder builder = SaleView.builder()
-                .productQuantity(Integer.valueOf(req.getParameter(Attribute.PRODUCT_QUANTITY)));
+        SaleView.SaleViewBuilder builder = SaleView.builder();
+        try {
+            builder.productQuantity(Integer.valueOf(req.getParameter(Attribute.PRODUCT_QUANTITY)));
+        }
+        catch (NumberFormatException e) {
+            builder.productQuantity(0);
+        }
         SaleEntityComplexKey saleEntityComplexKey = new SaleEntityComplexKey();
         if(!req.getParameter(Attribute.RECEIPT).equals("null")) {
             saleEntityComplexKey.setReceiptId(Integer.valueOf(req.getParameter(Attribute.RECEIPT)));
@@ -64,8 +70,7 @@ public class PostCreateSaleCommand implements Command {
     }
 
     private List<String> validateUserInput(SaleView saleView) {
-//        To do: validator
-        return new ArrayList<>();
+        return SaleViewValidator.getInstance().validate(saleView);
     }
 
     private void redirectToAllProductsPageWithSuccessMessage(HttpServletRequest request, HttpServletResponse response) throws IOException {
