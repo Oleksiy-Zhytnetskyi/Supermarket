@@ -50,6 +50,7 @@
                         <a href="${pageContext.request.contextPath}/controller/allReceipts" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-xl font-medium">Receipts</a>
                         <a href="${pageContext.request.contextPath}/controller/allSales" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-xl font-medium">Sales</a>
                         <a href="${pageContext.request.contextPath}/controller/allCustomerCards" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-xl font-medium">Client card</a>
+                        <a href="${pageContext.request.contextPath}/controller/statistics" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-xl font-medium">Client card</a>
                     </div>
                 </div>
             </div>
