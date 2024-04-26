@@ -10,7 +10,6 @@ import zlagoda.zlagoda.controller.utils.HttpWrapper;
 import zlagoda.zlagoda.controller.utils.RedirectionManager;
 import zlagoda.zlagoda.entity.keys.SaleEntityComplexKey;
 import zlagoda.zlagoda.locale.Message;
-import zlagoda.zlagoda.service.ReceiptService;
 import zlagoda.zlagoda.service.SaleService;
 
 import java.io.IOException;
@@ -19,11 +18,7 @@ import java.util.Map;
 
 public class DeleteSaleCommand implements Command {
 
-    private final SaleService saleService;
-
-    public DeleteSaleCommand(SaleService saleService) {
-        this.saleService = saleService;
-    }
+    private static final SaleService saleService = SaleService.getInstance();
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -6,26 +6,24 @@ import jakarta.servlet.http.HttpServletResponse;
 import zlagoda.zlagoda.constants.Attribute;
 import zlagoda.zlagoda.constants.Page;
 import zlagoda.zlagoda.controller.command.Command;
-import zlagoda.zlagoda.entity.*;
-import zlagoda.zlagoda.service.*;
+import zlagoda.zlagoda.entity.ProductEntity;
+import zlagoda.zlagoda.entity.ReceiptEntity;
+import zlagoda.zlagoda.entity.SaleEntity;
+import zlagoda.zlagoda.entity.StoreProductEntity;
+import zlagoda.zlagoda.service.ProductService;
+import zlagoda.zlagoda.service.ReceiptService;
+import zlagoda.zlagoda.service.SaleService;
+import zlagoda.zlagoda.service.StoreProductService;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class GetAllSalesCommand implements Command {
 
-    private final SaleService saleService;
-    private final ReceiptService receiptService;
-    private final StoreProductService storeProductService;
-    private final ProductService productService;
-
-    public GetAllSalesCommand(SaleService saleService, ReceiptService receiptService, StoreProductService storeProductService, ProductService productService) {
-        this.saleService = saleService;
-        this.receiptService = receiptService;
-        this.storeProductService = storeProductService;
-        this.productService = productService;
-    }
+    private static final SaleService saleService = SaleService.getInstance();
+    private static final ReceiptService receiptService = ReceiptService.getInstance();
+    private static final StoreProductService storeProductService = StoreProductService.getInstance();
+    private static final ProductService productService = ProductService.getInstance();
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

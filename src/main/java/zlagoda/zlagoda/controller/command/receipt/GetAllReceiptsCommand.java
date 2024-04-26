@@ -18,15 +18,9 @@ import java.util.List;
 
 public class GetAllReceiptsCommand implements Command {
 
-    private final ReceiptService receiptService;
-    private final UserService userService;
-    private final CardService cardService;
-
-    public GetAllReceiptsCommand(ReceiptService receiptService, UserService userService, CardService cardService) {
-        this.receiptService = receiptService;
-        this.userService = userService;
-        this.cardService = cardService;
-    }
+    private static final ReceiptService receiptService = ReceiptService.getInstance();
+    private static final UserService userService = UserService.getInstance();
+    private static final CardService cardService = CardService.getInstance();
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

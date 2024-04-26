@@ -291,49 +291,49 @@ public enum CommandEnum {
     GET_ALL_RECEIPTS {
         {
             this.key = "GET:allReceipts";
-            this.command = new GetAllReceiptsCommand(ReceiptService.getInstance(), UserService.getInstance(), CardService.getInstance());
+            this.command = new GetAllReceiptsCommand();
         }
     },
     GET_CREATE_RECEIPT {
         {
             this.key = "GET:createReceipt";
-            this.command = new GetCreateReceiptCommand(ReceiptService.getInstance(), CardService.getInstance());
+            this.command = new GetCreateReceiptCommand();
         }
     },
     POST_CREATE_RECEIPT {
         {
             this.key = "POST:createReceipt";
-            this.command = new PostCreateReceiptCommand(ReceiptService.getInstance(), CardService.getInstance());
+            this.command = new PostCreateReceiptCommand();
         }
     },
     DELETE_RECEIPT {
         {
             this.key = "GET:deleteReceipt";
-            this.command = new DeleteReceiptCommand(ReceiptService.getInstance());
+            this.command = new DeleteReceiptCommand();
         }
     },
     GET_ALL_SALES {
         {
             this.key = "GET:allSales";
-            this.command = new GetAllSalesCommand(SaleService.getInstance(), ReceiptService.getInstance(), StoreProductService.getInstance(), ProductService.getInstance());
+            this.command = new GetAllSalesCommand();
         }
     },
     GET_CREATE_SALE {
         {
             this.key = "GET:createSale";
-            this.command = new GetCreateSaleCommand(SaleService.getInstance(), StoreProductService.getInstance(), ProductService.getInstance(), ReceiptService.getInstance());
+            this.command = new GetCreateSaleCommand();
         }
     },
     POST_CREATE_SALE {
         {
             this.key = "POST:createSale";
-            this.command = new PostCreateSaleCommand(SaleService.getInstance(), StoreProductService.getInstance(), ProductService.getInstance(), ReceiptService.getInstance());
+            this.command = new PostCreateSaleCommand();
         }
     },
     DELETE_SALE {
         {
             this.key = "GET:deleteSale";
-            this.command = new DeleteSaleCommand(SaleService.getInstance());
+            this.command = new DeleteSaleCommand();
         }
     };
 
