@@ -32,6 +32,7 @@ public class ReceiptService {
             "userId: %d and time period (timeStart: %s, timeEnd: %s)";
     private static final String GET_RECEIPTS_TOTAL_VALUE_BY_TIME_PERIOD = "Get sum total of receipts by " +
             "time period (timeStart: %s, timeEnd: %s)";
+    private static final String SORT_RECEIPTS = "Sort Receipts by time period (timeStart: %s, timeEnd: %s)";
 
     private final BaseRepositoryFactory repositoryFactory;
 
@@ -45,6 +46,13 @@ public class ReceiptService {
         LOGGER.info(GET_ALL_RECEIPTS);
         try (ReceiptRepository repository = repositoryFactory.createReceiptRepository()) {
             return repository.getAll();
+        }
+    }
+
+    public List<ReceiptEntity> getSortedReceipts(LocalDate timeStart, LocalDate timeStop) {
+        LOGGER.info(String.format(SORT_RECEIPTS, timeStop, timeStop));
+        try (ReceiptRepository repository = repositoryFactory.createReceiptRepository()) {
+            return repository.getSortedReceipts(timeStart, timeStop);
         }
     }
 

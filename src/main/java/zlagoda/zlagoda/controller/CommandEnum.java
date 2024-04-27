@@ -353,6 +353,18 @@ public enum CommandEnum {
             this.key = "POST:calculateStatistics";
             this.command = new PostStatisticsCommand();
         }
+    },
+    SORT_RECEIPT {
+        {
+            this.key = "GET:sortReceipts";
+            this.command = new GetSortedReceiptCommand();
+        }
+    },
+    GET_SORTED_CASHIER {
+        {
+            this.key = "GET:sortCashier";
+            this.command = new GetSortedCashierCommand();
+        }
     };
 
     String key;

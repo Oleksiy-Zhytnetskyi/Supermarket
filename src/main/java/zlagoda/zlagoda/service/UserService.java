@@ -43,6 +43,13 @@ public class UserService {
         }
     }
 
+    public List<UserEntity> getSortedCashier() {
+        LOGGER.info(GET_ALL_USERS);
+        try (UserRepository repository = repositoryFactory.createUserRepository()) {
+            return repository.getCashierSorted();
+        }
+    }
+
     public Optional<UserEntity> getUserById(Integer userId) {
         LOGGER.info(String.format(GET_USER_BY_ID, userId));
         try (UserRepository repository = repositoryFactory.createUserRepository()) {

@@ -25,6 +25,13 @@
                 </a>
             </c:if>
         </div>
+        <div class="sm:col-span-1 py-1.5">
+            <a href="${pageContext.request.contextPath}/controller/sortReceipts" class=" m-1.5">
+                <button type="button" class="w-full h-full relative rounded-lg bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" aria-expanded="false" aria-haspopup="true">
+                    <span class="text-white">Sort</span>
+                </button>
+            </a>
+        </div>
     </div>
 
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">

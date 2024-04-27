@@ -29,6 +29,7 @@ public interface Page {
     String ALL_RECEIPTS = PREFIX + "allReceipts" + SUFFIX;
     String ADD_RECEIPT = PREFIX + "createReceipt" + SUFFIX;
     String VIEW_RECEIPT = PREFIX + "viewReceipt" + SUFFIX;
+    String SORTED_RECEIPTS = PREFIX + "sortedReceipts" + SUFFIX;
 
     String ALL_SALES = PREFIX + "allSales" + SUFFIX;
     String CREATE_SALE = PREFIX + "createSale" + SUFFIX;

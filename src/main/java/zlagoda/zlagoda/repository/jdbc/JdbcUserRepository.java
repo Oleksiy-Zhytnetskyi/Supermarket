@@ -34,6 +34,16 @@ public class JdbcUserRepository implements UserRepository {
     private static final String GET_BY_EMAIL = "SELECT * FROM employee WHERE email=?";
     private static final String GET_BY_ROLE = "SELECT * FROM employee WHERE empl_role=?";
     private static final String GET_BY_SURNAME = "SELECT * FROM employee WHERE empl_surname=?";
+    private static final String GET_CASHIER_SORTED = "SELECT * " +
+            "FROM employee " +
+            "WHERE empl_role = 'CASHIER' AND NOT EXISTS ( " +
+                "SELECT * " +
+                "FROM receipt JOIN sale ON receipt.check_number = sale.check_number " +
+                "WHERE receipt.id_employee = employee.id_employee AND NOT EXISTS (" +
+                    "SELECT * FROM store_product " +
+                    "WHERE store_product.upc = sale.upc AND store_product.selling_price < 30000" +
+                    ")" +
+            ")";
 
     private static final String ID = "id_employee";
     private static final String SURNAME = "empl_surname";
@@ -63,6 +73,20 @@ public class JdbcUserRepository implements UserRepository {
     public List<UserEntity> getAll() {
         List<UserEntity> users = new ArrayList<>();
         try (Statement query = connection.createStatement(); ResultSet resultSet = query.executeQuery(GET_ALL)) {
+            while (resultSet.next()) {
+                users.add(extractUserFromResultSet(resultSet));
+            }
+        } catch (SQLException e) {
+            LOGGER.error("JdbcUserRepository getAll SQL exception", e);
+            throw new ServerException(e);
+        }
+        return users;
+    }
+
+    @Override
+    public List<UserEntity> getCashierSorted() {
+        List<UserEntity> users = new ArrayList<>();
+        try (Statement query = connection.createStatement(); ResultSet resultSet = query.executeQuery(GET_CASHIER_SORTED)) {
             while (resultSet.next()) {
                 users.add(extractUserFromResultSet(resultSet));
             }

@@ -11,4 +11,5 @@ public interface UserRepository extends BaseRepository<UserEntity, Integer> {
     Optional<UserEntity> getUserByEmail(String email);
     List<UserEntity> searchUsersByRole(UserRole role);
     List<UserEntity> searchUsersBySurname(String surname);
+    public List<UserEntity> getCashierSorted();
 }

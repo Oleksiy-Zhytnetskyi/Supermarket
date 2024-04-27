@@ -36,6 +36,11 @@ public class JdbcReceiptRepository implements ReceiptRepository {
             "WHERE id_employee=? AND print_date>=? AND print_date<=?";
     private static final String GET_SUM_TOTAL_BY_TIME_PERIOD = "SELECT SUM(sum_total) FROM receipt " +
             "WHERE print_date>=? AND print_date<=?";
+    private static final String GET_SORTED_RECEIPTS = "SELECT c.check_number, c.print_date, c.id_employee, c.card_number, SUM(s.product_number * s.selling_price) AS sum_total, SUM(s.product_number * s.selling_price * 0.1) AS vat " +
+            "FROM receipt AS c JOIN sale AS s ON c.check_number = s.check_number " +
+            "WHERE c.print_date BETWEEN ? AND ? " +
+            "GROUP BY c.check_number, c.print_date " +
+            "ORDER BY c.print_date DESC";
 
     private static final String ID = "check_number";
     private static final String PRINT_DATE = "print_date";
@@ -68,6 +73,23 @@ public class JdbcReceiptRepository implements ReceiptRepository {
     }
 
     @Override
+    public List<ReceiptEntity> getSortedReceipts(LocalDate timeStart, LocalDate timeEnd) {
+        List<ReceiptEntity> receipts = new ArrayList<>();
+        try (PreparedStatement query = connection.prepareStatement(GET_SORTED_RECEIPTS)) {
+            query.setDate(1, Date.valueOf(timeStart));
+            query.setDate(2, Date.valueOf(timeEnd));
+            ResultSet rs = query.executeQuery();
+            while (rs.next()) {
+                receipts.add(extractReceiptFromResultSet(rs));
+            }
+        } catch (SQLException e) {
+            LOGGER.error("JdbcReceiptRepository getAll SQL exception", e);
+            throw new ServerException(e);
+        }
+        return receipts;
+    }
+
+    @Override
     public Optional<ReceiptEntity> getById(Integer id) {
         Optional<ReceiptEntity> receipt = Optional.empty();
         try (PreparedStatement query = connection.prepareStatement(GET_BY_ID)) {
@@ -76,7 +98,6 @@ public class JdbcReceiptRepository implements ReceiptRepository {
             while (resultSet.next()) {
                 receipt = Optional.of(extractReceiptFromResultSet(resultSet));
             }
-
         } catch (SQLException e) {
             LOGGER.error("JdbcReceiptRepository getById SQL exception: " + id, e);
             throw new ServerException(e);

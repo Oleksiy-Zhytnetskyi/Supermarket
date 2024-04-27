@@ -3,6 +3,7 @@ package zlagoda.zlagoda.service;
 import lombok.AllArgsConstructor;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import zlagoda.zlagoda.entity.CardEntity;
 import zlagoda.zlagoda.entity.ReceiptEntity;
 import zlagoda.zlagoda.entity.SaleEntity;
 import zlagoda.zlagoda.entity.StoreProductEntity;
@@ -22,6 +23,7 @@ public class SaleService {
 
     private static final ReceiptService receiptService = ReceiptService.getInstance();
     private static final StoreProductService storeProductService = StoreProductService.getInstance();
+    private static final CardService cardService = CardService.getInstance();
 
     private static final Logger LOGGER = LogManager.getLogger(SaleService.class);
 
@@ -99,8 +101,14 @@ public class SaleService {
 
     private void executeCreateSale(SaleView saleView) {
         Optional<SaleEntity> saleEntity = getSaleById(saleView.getPk());
+        ReceiptEntity receiptEntity = receiptService.getReceiptById(saleView.getPk().getReceiptId()).get();
+        Optional<CardEntity> cardEntity = cardService.getCardById(receiptEntity.getCardId());
         if (saleEntity.isEmpty()) {
-            calculateSellingPrice(saleView, null);
+            if(cardEntity.isPresent()) {
+                calculateSellingPrice(saleView, null, cardEntity.get());
+            } else {
+                calculateSellingPrice(saleView, null, null);
+            }
             updateCreateReceipt(saleView, null);
             updateCreateStoreProduct(saleView, null);
             SaleEntity sale = buildSaleFromView(saleView);
@@ -109,16 +117,24 @@ public class SaleService {
             }
         } else {
             SaleEntity entity = saleEntity.get();
-            calculateSellingPrice(saleView, entity);
+            if(cardEntity.isPresent()) {
+                calculateSellingPrice(saleView, entity, cardEntity.get());
+            } else {
+                calculateSellingPrice(saleView, entity, null);
+            }
             updateCreateReceipt(saleView, entity);
             updateCreateStoreProduct(saleView, entity);
             updateSale(saleView);
         }
     }
 
-    private void calculateSellingPrice(SaleView saleView, SaleEntity saleEntity) {
+    private void calculateSellingPrice(SaleView saleView, SaleEntity saleEntity, CardEntity cardEntity) {
         StoreProductEntity storeProductEntity = storeProductService.getStoreProductById(saleView.getPk().getUPC()).get();
-        saleView.setSellingPrice(storeProductEntity.getSellingPrice() * saleView.getProductQuantity());
+        if(cardEntity != null) {
+            saleView.setSellingPrice((storeProductEntity.getSellingPrice() * saleView.getProductQuantity()) - ((storeProductEntity.getSellingPrice() * saleView.getProductQuantity() / 100 * cardEntity.getPercent())));
+        } else {
+            saleView.setSellingPrice(storeProductEntity.getSellingPrice() * saleView.getProductQuantity());
+        }
         if(saleEntity != null) {
             saleView.setSellingPrice(saleEntity.getSellingPrice() + saleView.getSellingPrice());
             saleView.setProductQuantity(saleView.getProductQuantity() + saleEntity.getProductQuantity());

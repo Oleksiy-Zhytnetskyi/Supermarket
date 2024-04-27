@@ -10,4 +10,5 @@ public interface ReceiptRepository extends BaseRepository<ReceiptEntity, Integer
     List<ReceiptEntity> searchReceiptsByTimePeriod(LocalDate timeStart, LocalDate timeEnd);
     Double getReceiptsTotalValueByUserAndTimePeriod(int userId, LocalDate timeStart, LocalDate timeEnd);
     Double getReceiptsTotalValueByTimePeriod(LocalDate timeStart, LocalDate timeEnd);
+    public List<ReceiptEntity> getSortedReceipts(LocalDate timeStart, LocalDate timeEnd);
 }
