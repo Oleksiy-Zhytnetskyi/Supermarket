@@ -36,11 +36,11 @@ public class JdbcReceiptRepository implements ReceiptRepository {
             "WHERE id_employee=? AND print_date>=? AND print_date<=?";
     private static final String GET_SUM_TOTAL_BY_TIME_PERIOD = "SELECT SUM(sum_total) FROM receipt " +
             "WHERE print_date>=? AND print_date<=?";
-    private static final String GET_SORTED_RECEIPTS = "SELECT c.check_number, c.print_date, c.id_employee, c.card_number, SUM(s.product_number * s.selling_price) AS sum_total, SUM(s.product_number * s.selling_price * 0.2) AS vat " +
-            "FROM receipt AS c JOIN sale AS s ON c.check_number = s.check_number " +
-            "WHERE c.print_date BETWEEN ? AND ? " +
-            "GROUP BY c.check_number, c.print_date " +
-            "ORDER BY c.print_date DESC";
+    private static final String GET_SORTED_RECEIPTS = "SELECT receipt.check_number, receipt.print_date, receipt.id_employee, receipt.card_number, SUM(sale.selling_price) AS sum_total, SUM(sale.selling_price * 0.2) AS vat " +
+            "FROM receipt JOIN sale ON receipt.check_number = sale.check_number " +
+            "WHERE receipt.print_date BETWEEN ? AND ? " +
+            "GROUP BY receipt.check_number, receipt.print_date " +
+            "ORDER BY receipt.print_date DESC";
 
     private static final String ID = "check_number";
     private static final String PRINT_DATE = "print_date";
