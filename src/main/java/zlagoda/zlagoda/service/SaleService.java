@@ -145,10 +145,10 @@ public class SaleService {
         ReceiptEntity receiptEntity = receiptService.getReceiptById(saleView.getPk().getReceiptId()).get();
         if(saleEntity == null) {
             receiptEntity.setSumTotal(receiptEntity.getSumTotal() + saleView.getSellingPrice());
-            receiptEntity.setVat(receiptEntity.getVat() + (saleView.getSellingPrice() / 10));
+            receiptEntity.setVat(receiptEntity.getVat() + (saleView.getSellingPrice() * 0.2));
         } else {
             receiptEntity.setSumTotal((receiptEntity.getSumTotal() - saleEntity.getSellingPrice()) + saleView.getSellingPrice());
-            receiptEntity.setVat((receiptEntity.getVat() - (saleEntity.getSellingPrice() / 10)) + (saleView.getSellingPrice() / 10));
+            receiptEntity.setVat((receiptEntity.getVat() - (saleEntity.getSellingPrice() * 0.2)) + (saleView.getSellingPrice() *0.2));
         }
         receiptService.updateReceipt(buildReceiptView(receiptEntity));
     }

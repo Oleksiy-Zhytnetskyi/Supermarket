@@ -41,7 +41,7 @@ public class JdbcUserRepository implements UserRepository {
                 "FROM receipt JOIN sale ON receipt.check_number = sale.check_number " +
                 "WHERE receipt.id_employee = employee.id_employee AND NOT EXISTS (" +
                     "SELECT * FROM store_product " +
-                    "WHERE store_product.upc = sale.upc AND store_product.selling_price < 30000" +
+                    "WHERE store_product.upc = sale.upc AND store_product.selling_price > 30000" +
                     ")" +
             ")";
 

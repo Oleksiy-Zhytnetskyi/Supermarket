@@ -41,7 +41,8 @@ public class UrlUnauthorizedAccessFilter implements Filter {
 			"/updateReceipt",
 			"/updateSale",
 			"/delete",
-			"/statistic"
+			"/statistic",
+			"/sortCashier"
 	));
 
 	private final static Logger LOGGER = Logger.getLogger(UrlUnauthorizedAccessFilter.class);
